@@ -1,0 +1,41 @@
+{
+  "name": "@cahil/snowfall",
+  "version": "0.0.1",
+  "description": "A react component that creates a snowfall effect",
+  "main": "./lib/Snowfall.js",
+  "scripts": {
+    "build": "babel ./src --out-dir lib --extensions \".ts,.tsx\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cahilfoley/snowfall.git"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "snowfall",
+    "@cahil"
+  ],
+  "author": "Cahil Foley",
+  "license": "MIT",
+  "homepage": "https://github.com/cahilfoley/snowfall#readme",
+  "bugs": {
+    "url": "https://github.com/cahilfoley/snowfall/issues"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.11",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "tslint": "^5.11.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.2.1"
+  }
+}
