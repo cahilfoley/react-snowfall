@@ -1,0 +1,13 @@
+{
+  "main.css": "/snowfall/static/css/main.3fd26628.chunk.css",
+  "main.js": "/snowfall/static/js/main.7b328817.chunk.js",
+  "main.js.map": "/snowfall/static/js/main.7b328817.chunk.js.map",
+  "static/js/1.24dd9a0d.chunk.js": "/snowfall/static/js/1.24dd9a0d.chunk.js",
+  "static/js/1.24dd9a0d.chunk.js.map": "/snowfall/static/js/1.24dd9a0d.chunk.js.map",
+  "runtime~main.js": "/snowfall/static/js/runtime~main.84293e28.js",
+  "runtime~main.js.map": "/snowfall/static/js/runtime~main.84293e28.js.map",
+  "static/css/main.3fd26628.chunk.css.map": "/snowfall/static/css/main.3fd26628.chunk.css.map",
+  "index.html": "/snowfall/index.html",
+  "precache-manifest.f500acbe28768be9ebc0d36459ddd47a.js": "/snowfall/precache-manifest.f500acbe28768be9ebc0d36459ddd47a.js",
+  "service-worker.js": "/snowfall/service-worker.js"
+}
