@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "7b328817ae223df91040",
-    "url": "/snowfall/static/css/main.3fd26628.chunk.css"
+    "revision": "2e99cbc968b725245be0",
+    "url": "/snowfall/static/css/main.2ec828b5.chunk.css"
   },
   {
-    "revision": "7b328817ae223df91040",
-    "url": "/snowfall/static/js/main.7b328817.chunk.js"
+    "revision": "2e99cbc968b725245be0",
+    "url": "/snowfall/static/js/main.2e99cbc9.chunk.js"
   },
   {
     "revision": "24dd9a0d659739a78f28",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/snowfall/static/js/runtime~main.84293e28.js"
   },
   {
-    "revision": "355aae644936e7922a4f24efd1cbb61d",
+    "revision": "0764fa3f681e72ab95ed88672be1165f",
     "url": "/snowfall/index.html"
   }
 ];

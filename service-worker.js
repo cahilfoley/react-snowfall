@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/snowfall/precache-manifest.f500acbe28768be9ebc0d36459ddd47a.js"
+  "/snowfall/precache-manifest.7336ae60f349574bf3b5f1c38bae7298.js"
 );
 
 workbox.clientsClaim();

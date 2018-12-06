@@ -1,13 +1,13 @@
 {
-  "main.css": "/snowfall/static/css/main.3fd26628.chunk.css",
-  "main.js": "/snowfall/static/js/main.7b328817.chunk.js",
-  "main.js.map": "/snowfall/static/js/main.7b328817.chunk.js.map",
+  "main.css": "/snowfall/static/css/main.2ec828b5.chunk.css",
+  "main.js": "/snowfall/static/js/main.2e99cbc9.chunk.js",
+  "main.js.map": "/snowfall/static/js/main.2e99cbc9.chunk.js.map",
   "static/js/1.24dd9a0d.chunk.js": "/snowfall/static/js/1.24dd9a0d.chunk.js",
   "static/js/1.24dd9a0d.chunk.js.map": "/snowfall/static/js/1.24dd9a0d.chunk.js.map",
   "runtime~main.js": "/snowfall/static/js/runtime~main.84293e28.js",
   "runtime~main.js.map": "/snowfall/static/js/runtime~main.84293e28.js.map",
-  "static/css/main.3fd26628.chunk.css.map": "/snowfall/static/css/main.3fd26628.chunk.css.map",
+  "static/css/main.2ec828b5.chunk.css.map": "/snowfall/static/css/main.2ec828b5.chunk.css.map",
   "index.html": "/snowfall/index.html",
-  "precache-manifest.f500acbe28768be9ebc0d36459ddd47a.js": "/snowfall/precache-manifest.f500acbe28768be9ebc0d36459ddd47a.js",
+  "precache-manifest.7336ae60f349574bf3b5f1c38bae7298.js": "/snowfall/precache-manifest.7336ae60f349574bf3b5f1c38bae7298.js",
   "service-worker.js": "/snowfall/service-worker.js"
 }
