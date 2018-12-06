@@ -4,7 +4,8 @@
 
 A react component that creates a snowfall effect
 
-[Live Demo](https://cahilfoley.github.io/snowfall/)
+- [Live Example](https://cahilfoley.github.io/snowfall/)
+- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/snowfall/tree/demo)
 
 ## Installation
 
