@@ -17,7 +17,7 @@ const requestAnimationFrame =
 
 export default class Snowfall extends React.Component<Props, State> {
   canvasRef: React.RefObject<HTMLCanvasElement>
-  snowflakes: Snowflake[] = []
+  snowflakes: Array<Snowflake> = []
   snowflakeCount: number
   snowflakeConfig: SnowflakeConfig
 
@@ -70,13 +70,21 @@ export default class Snowfall extends React.Component<Props, State> {
   }
 
   draw = () => {
-    const ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D
-    ctx.clearRect(0, 0, this.canvas.offsetWidth, this.canvas.offsetHeight)
-    this.snowflakes.forEach(snowflake => snowflake.draw())
+    const canvas = this.canvas
+    if (canvas) {
+      const ctx = canvas.getContext('2d')
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
+        this.snowflakes.forEach(snowflake => snowflake.draw(canvas))
+      }
+    }
   }
 
   update = () => {
-    this.snowflakes.forEach(snowflake => snowflake.update())
+    const canvas = this.canvas
+    if (canvas) {
+      this.snowflakes.forEach(snowflake => snowflake.update(canvas))
+    }
   }
 
   loop = () => {

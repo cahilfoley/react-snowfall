@@ -33,15 +33,9 @@ interface SnowflakeParams {
 
 class Snowflake {
   config: SnowflakeProps
-  canvas: HTMLCanvasElement
-  ctx: CanvasRenderingContext2D
-
   params: SnowflakeParams
 
   constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig) {
-    this.canvas = canvas
-    this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-
     // Merging input config with default config
     this.config = {
       ...defaultConfig,
@@ -52,8 +46,8 @@ class Snowflake {
     const { color, radius, wind, speed } = this.config
     this.params = {
       color,
-      x: random(0, this.canvas.offsetWidth),
-      y: random(-this.canvas.offsetHeight, 0),
+      x: random(0, canvas.offsetWidth),
+      y: random(-canvas.offsetHeight, 0),
       radius: random(...radius),
       speed: random(...speed),
       wind: random(...wind),
@@ -61,25 +55,22 @@ class Snowflake {
     }
   }
 
-  updateData = () => {
-    this.params.x = random(0, this.canvas.offsetWidth)
-    this.params.y = random(-this.canvas.offsetHeight, 0)
+  updateData = (canvas: HTMLCanvasElement) => {
+    this.params.x = random(0, canvas.offsetWidth)
+    this.params.y = random(-canvas.offsetHeight, 0)
   }
 
   resized = () => (this.params.isResized = true)
 
-  draw = () => {
-    this.ctx.beginPath()
-    this.ctx.arc(
-      this.params.x,
-      this.params.y,
-      this.params.radius,
-      0,
-      2 * Math.PI
-    )
-    this.ctx.fillStyle = this.params.color
-    this.ctx.fill()
-    this.ctx.closePath()
+  draw = (canvas: HTMLCanvasElement) => {
+    const ctx = canvas.getContext('2d')
+    if (ctx) {
+      ctx.beginPath()
+      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
+      ctx.fillStyle = this.params.color
+      ctx.fill()
+      ctx.closePath()
+    }
   }
 
   translate = () => {
@@ -87,23 +78,23 @@ class Snowflake {
     this.params.x += this.params.wind
   }
 
-  onDown = () => {
-    if (this.params.y < this.canvas.offsetHeight) {
+  onDown = (canvas: HTMLCanvasElement) => {
+    if (this.params.y < canvas.offsetHeight) {
       return
     }
 
     if (this.params.isResized) {
-      this.updateData()
+      this.updateData(canvas)
       this.params.isResized = false
     } else {
       this.params.y = 0
-      this.params.x = random(0, this.canvas.offsetWidth)
+      this.params.x = random(0, canvas.offsetWidth)
     }
   }
 
-  update = () => {
+  update = (canvas: HTMLCanvasElement) => {
     this.translate()
-    this.onDown()
+    this.onDown(canvas)
   }
 }
 

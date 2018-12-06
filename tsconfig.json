@@ -4,14 +4,12 @@
     "target": "esnext",
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
+    // Generate type declarations
+    "declaration": true,
     // Compile to commonjs modules
     "module": "commonjs",
-    // Don't emit; allow Babel to transform files.
-    "noEmit": true,
     // Enable strictest settings like strictNullChecks & noImplicitAny.
     "strict": true,
-    // Disallow features that require cross-file information for emit.
-    "isolatedModules": true,
     // Preserve react JSX
     "jsx": "react",
     // Import non-ES modules as default imports.
