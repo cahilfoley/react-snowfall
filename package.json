@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git+https://github.com/cahilfoley/snowfall.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "react",
     "component",
