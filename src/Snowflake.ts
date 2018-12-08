@@ -1,10 +1,11 @@
-import { random } from './utils'
+import { random, lerp } from './utils'
 
 export interface SnowflakeConfig {
   color?: string
   radius?: [number, number]
   speed?: [number, number]
   wind?: [number, number]
+  changeFrequency?: number
 }
 
 interface SnowflakeProps {
@@ -12,13 +13,15 @@ interface SnowflakeProps {
   radius: [number, number]
   speed: [number, number]
   wind: [number, number]
+  changeFrequency: number
 }
 
 const defaultConfig: SnowflakeProps = {
   color: '#dee4fd',
   radius: [0.5, 3.0],
   speed: [1, 3],
-  wind: [-0.5, 3.0]
+  wind: [-0.5, 2],
+  changeFrequency: 250
 }
 
 interface SnowflakeParams {
@@ -29,11 +32,14 @@ interface SnowflakeParams {
   speed: number
   wind: number
   isResized: boolean
+  nextSpeed: number
+  nextWind: number
 }
 
 class Snowflake {
   config: SnowflakeProps
   params: SnowflakeParams
+  framesSinceLastUpdate: number
 
   constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig) {
     // Merging input config with default config
@@ -51,8 +57,12 @@ class Snowflake {
       radius: random(...radius),
       speed: random(...speed),
       wind: random(...wind),
-      isResized: false
+      isResized: false,
+      nextSpeed: random(...wind),
+      nextWind: random(...speed)
     }
+
+    this.framesSinceLastUpdate = 0
   }
 
   updateData = (canvas: HTMLCanvasElement) => {
@@ -76,25 +86,39 @@ class Snowflake {
   translate = () => {
     this.params.y += this.params.speed
     this.params.x += this.params.wind
+
+    this.params.speed = lerp(this.params.speed, this.params.nextSpeed, 0.005)
+    this.params.wind = lerp(this.params.wind, this.params.nextWind, 0.005)
+
+    if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
+      this.updateTargetParams()
+      this.framesSinceLastUpdate = 0
+    }
   }
 
-  onDown = (canvas: HTMLCanvasElement) => {
-    if (this.params.y < canvas.offsetHeight) {
-      return
+  updateTargetParams = () => {
+    this.params.nextSpeed = random(...this.config.speed)
+    this.params.nextWind = random(...this.config.wind)
+  }
+
+  handleOffScreen = (canvas: HTMLCanvasElement) => {
+    if (this.params.x > canvas.offsetWidth) {
+      this.params.x = 0
+    }
+
+    if (this.params.y > canvas.offsetHeight) {
+      this.params.y = 0
     }
 
     if (this.params.isResized) {
       this.updateData(canvas)
       this.params.isResized = false
-    } else {
-      this.params.y = 0
-      this.params.x = random(0, canvas.offsetWidth)
     }
   }
 
   update = (canvas: HTMLCanvasElement) => {
     this.translate()
-    this.onDown(canvas)
+    this.handleOffScreen(canvas)
   }
 }
 

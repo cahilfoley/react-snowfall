@@ -7,3 +7,7 @@ export function random(min: number, max: number): number {
     return Math.floor(randomNumber)
   }
 }
+
+export function lerp(start: number, end: number, normal: number) {
+  return (1 - normal) * start + normal * end
+}

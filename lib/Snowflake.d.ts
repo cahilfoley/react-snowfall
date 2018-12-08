@@ -3,12 +3,14 @@ export interface SnowflakeConfig {
     radius?: [number, number];
     speed?: [number, number];
     wind?: [number, number];
+    changeFrequency?: number;
 }
 interface SnowflakeProps {
     color: string;
     radius: [number, number];
     speed: [number, number];
     wind: [number, number];
+    changeFrequency: number;
 }
 interface SnowflakeParams {
     color: string;
@@ -18,16 +20,20 @@ interface SnowflakeParams {
     speed: number;
     wind: number;
     isResized: boolean;
+    nextSpeed: number;
+    nextWind: number;
 }
 declare class Snowflake {
     config: SnowflakeProps;
     params: SnowflakeParams;
+    framesSinceLastUpdate: number;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
     updateData: (canvas: HTMLCanvasElement) => void;
     resized: () => boolean;
     draw: (canvas: HTMLCanvasElement) => void;
     translate: () => void;
-    onDown: (canvas: HTMLCanvasElement) => void;
+    updateTargetParams: () => void;
+    handleOffScreen: (canvas: HTMLCanvasElement) => void;
     update: (canvas: HTMLCanvasElement) => void;
 }
 export default Snowflake;
