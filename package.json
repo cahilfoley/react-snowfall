@@ -5,7 +5,8 @@
   "main": "./lib/Snowfall.js",
   "scripts": {
     "generate-types": "tsc --emitDeclarationOnly --declarationDir ./lib",
-    "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\""
+    "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\"",
+    "watch": "npm run build -- --watch"
   },
   "repository": {
     "type": "git",
