@@ -2,6 +2,8 @@
 
 # Snowfall
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
 A react component that creates a snowfall effect
 
 - [Live Example](https://cahilfoley.github.io/snowfall/)
