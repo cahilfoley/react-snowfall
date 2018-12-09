@@ -1,15 +1,15 @@
 self.__precacheManifest = [
   {
-    "revision": "7cc9853adbcfa43dbca5",
+    "revision": "b6ed162fb23bcf266ff9",
     "url": "/snowfall/static/css/main.cd054f21.chunk.css"
   },
   {
-    "revision": "7cc9853adbcfa43dbca5",
-    "url": "/snowfall/static/js/main.7cc9853a.chunk.js"
+    "revision": "b6ed162fb23bcf266ff9",
+    "url": "/snowfall/static/js/main.b6ed162f.chunk.js"
   },
   {
-    "revision": "cd6f11bdbdba4c100126",
-    "url": "/snowfall/static/js/1.cd6f11bd.chunk.js"
+    "revision": "b3f280b22a3a34b323db",
+    "url": "/snowfall/static/js/1.b3f280b2.chunk.js"
   },
   {
     "revision": "84293e2861d9d2bb0718",
@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/snowfall/static/media/128.6020c8a7.jpg"
   },
   {
-    "revision": "6359a2e10ff71d8694c09aec18116bf8",
+    "revision": "8eb67fd5a628d2a4e66f684b762faab7",
     "url": "/snowfall/index.html"
   }
 ];
