@@ -1,14 +1,19 @@
 {
   "name": "@cahil/snowfall-demo",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "private": true,
   "homepage": "https://cahilfoley.github.io/snowfall",
   "dependencies": {
-    "@cahil/snowfall": "^0.1.2",
+    "@cahil/snowfall": "^0.1.3",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.11",
     "gh-pages": "^2.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "typescript": "^3.2.2"
   },
   "scripts": {
     "predeploy": "npm run build",
