@@ -21,7 +21,7 @@ const defaultConfig: SnowflakeProps = {
   radius: [0.5, 3.0],
   speed: [1, 3],
   wind: [-0.5, 2],
-  changeFrequency: 250
+  changeFrequency: 200
 }
 
 interface SnowflakeParams {
@@ -36,6 +36,9 @@ interface SnowflakeParams {
   nextWind: number
 }
 
+/**
+ * An individual snowflake that will update it's location every call to `draw`
+ */
 class Snowflake {
   config: SnowflakeProps
   params: SnowflakeParams
@@ -65,11 +68,6 @@ class Snowflake {
     this.framesSinceLastUpdate = 0
   }
 
-  updateData = (canvas: HTMLCanvasElement) => {
-    this.params.x = random(0, canvas.offsetWidth)
-    this.params.y = random(-canvas.offsetHeight, 0)
-  }
-
   resized = () => (this.params.isResized = true)
 
   draw = (canvas: HTMLCanvasElement) => {
@@ -87,8 +85,8 @@ class Snowflake {
     this.params.y += this.params.speed
     this.params.x += this.params.wind
 
-    this.params.speed = lerp(this.params.speed, this.params.nextSpeed, 0.005)
-    this.params.wind = lerp(this.params.wind, this.params.nextWind, 0.005)
+    this.params.speed = lerp(this.params.speed, this.params.nextSpeed, 0.01)
+    this.params.wind = lerp(this.params.wind, this.params.nextWind, 0.01)
 
     if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
       this.updateTargetParams()
@@ -108,11 +106,6 @@ class Snowflake {
 
     if (this.params.y > canvas.offsetHeight) {
       this.params.y = 0
-    }
-
-    if (this.params.isResized) {
-      this.updateData(canvas)
-      this.params.isResized = false
     }
   }
 

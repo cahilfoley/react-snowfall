@@ -56,13 +56,10 @@ export default class Snowfall extends React.Component<Props, State> {
   }
 
   resize = () => {
-    this.setState(
-      {
-        height: document.body.clientHeight,
-        width: document.body.clientWidth
-      },
-      () => this.snowflakes.forEach(snowflake => snowflake.resized())
-    )
+    this.setState({
+      height: document.body.clientHeight,
+      width: document.body.clientWidth
+    })
   }
 
   get canvas() {

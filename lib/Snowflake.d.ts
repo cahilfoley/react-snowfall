@@ -23,12 +23,14 @@ interface SnowflakeParams {
     nextSpeed: number;
     nextWind: number;
 }
+/**
+ * An individual snowflake that will update it's location every call to `draw`
+ */
 declare class Snowflake {
     config: SnowflakeProps;
     params: SnowflakeParams;
     framesSinceLastUpdate: number;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
-    updateData: (canvas: HTMLCanvasElement) => void;
     resized: () => boolean;
     draw: (canvas: HTMLCanvasElement) => void;
     translate: () => void;
