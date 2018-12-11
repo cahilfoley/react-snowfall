@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="app">
         <GithubLink url={githubURL} />
-        <Snowfall snowflakeCount={250} />
+        <Snowfall snowflakeCount={200} />
         <h1>snowfall</h1>
         <a href={githubURL}>@cahil/snowfall</a>
       </div>

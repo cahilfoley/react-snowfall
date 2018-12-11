@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://cahilfoley.github.io/snowfall",
   "dependencies": {
-    "@cahil/snowfall": "^0.1.3",
+    "@cahil/snowfall": "^0.2.0",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.12",
     "@types/react": "^16.7.13",
