@@ -81,9 +81,9 @@ class Snowflake {
     }
   }
 
-  translate = () => {
-    this.params.y += this.params.speed
-    this.params.x += this.params.wind
+  translate = (framesPassed: number = 1) => {
+    this.params.y += this.params.speed * framesPassed
+    this.params.x += this.params.wind * framesPassed
 
     this.params.speed = lerp(this.params.speed, this.params.nextSpeed, 0.01)
     this.params.wind = lerp(this.params.wind, this.params.nextWind, 0.01)
@@ -109,8 +109,8 @@ class Snowflake {
     }
   }
 
-  update = (canvas: HTMLCanvasElement) => {
-    this.translate()
+  update = (canvas: HTMLCanvasElement, framesPassed?: number) => {
+    this.translate(framesPassed)
     this.handleOffScreen(canvas)
   }
 }

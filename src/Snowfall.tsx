@@ -15,11 +15,15 @@ export interface State {
 const requestAnimationFrame =
   window.requestAnimationFrame || window.webkitRequestAnimationFrame
 
+// Target of 60 frames per second
+const targetFrameTime = 1000 / 60
+
 export default class Snowfall extends React.Component<Props, State> {
   canvasRef: React.RefObject<HTMLCanvasElement>
   snowflakes: Array<Snowflake> = []
   snowflakeCount: number
   snowflakeConfig: SnowflakeConfig
+  lastUpdate: number
 
   state = {
     width: document.body.clientWidth,
@@ -30,6 +34,7 @@ export default class Snowfall extends React.Component<Props, State> {
     super(props)
     this.snowflakeCount = props.snowflakeCount || 150
     this.snowflakeConfig = {}
+    this.lastUpdate = Date.now()
     if (props.color) {
       this.snowflakeConfig.color = props.color
     }
@@ -77,17 +82,27 @@ export default class Snowfall extends React.Component<Props, State> {
     }
   }
 
-  update = () => {
+  update = (framesPassed: number = 1) => {
     const canvas = this.canvas
     if (canvas) {
-      this.snowflakes.forEach(snowflake => snowflake.update(canvas))
+      this.snowflakes.forEach(snowflake =>
+        snowflake.update(canvas, framesPassed)
+      )
     }
   }
 
   loop = () => {
     if (this) {
+      // Update based on time passed so that a slow frame rate won't slow down the snowflake
+      const now = Date.now()
+      const msPassed = Date.now() - this.lastUpdate
+      this.lastUpdate = now
+
+      // Frames that would have passed if running at 60 fps
+      const framesPassed = msPassed / targetFrameTime
+
+      this.update(framesPassed)
       this.draw()
-      this.update()
       requestAnimationFrame(this.loop)
     }
   }

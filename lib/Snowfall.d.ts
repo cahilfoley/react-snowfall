@@ -14,6 +14,7 @@ export default class Snowfall extends React.Component<Props, State> {
     snowflakes: Array<Snowflake>;
     snowflakeCount: number;
     snowflakeConfig: SnowflakeConfig;
+    lastUpdate: number;
     state: {
         width: number;
         height: number;
@@ -24,7 +25,7 @@ export default class Snowfall extends React.Component<Props, State> {
     resize: () => void;
     readonly canvas: HTMLCanvasElement;
     draw: () => void;
-    update: () => void;
+    update: (framesPassed?: number) => void;
     loop: () => void;
     render(): JSX.Element;
 }
