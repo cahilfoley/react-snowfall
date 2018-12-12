@@ -32,10 +32,9 @@ declare class Snowflake {
     framesSinceLastUpdate: number;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
     resized: () => boolean;
-    draw: (canvas: HTMLCanvasElement) => void;
-    translate: (framesPassed?: number) => void;
+    draw: (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D | undefined) => void;
+    translate: (canvas: HTMLCanvasElement, framesPassed?: number) => void;
     updateTargetParams: () => void;
-    handleOffScreen: (canvas: HTMLCanvasElement) => void;
     update: (canvas: HTMLCanvasElement, framesPassed?: number | undefined) => void;
 }
 export default Snowflake;

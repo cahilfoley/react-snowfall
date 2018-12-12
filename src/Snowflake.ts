@@ -70,8 +70,8 @@ class Snowflake {
 
   resized = () => (this.params.isResized = true)
 
-  draw = (canvas: HTMLCanvasElement) => {
-    const ctx = canvas.getContext('2d')
+  draw = (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D) => {
+    const ctx = inputCtx || canvas.getContext('2d')
     if (ctx) {
       ctx.beginPath()
       ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
@@ -81,12 +81,16 @@ class Snowflake {
     }
   }
 
-  translate = (framesPassed: number = 1) => {
-    this.params.y += this.params.speed * framesPassed
-    this.params.x += this.params.wind * framesPassed
+  translate = (canvas: HTMLCanvasElement, framesPassed: number = 1) => {
+    const { x, y, wind, speed, nextWind, nextSpeed } = this.params
 
-    this.params.speed = lerp(this.params.speed, this.params.nextSpeed, 0.01)
-    this.params.wind = lerp(this.params.wind, this.params.nextWind, 0.01)
+    // Update current location, wrapping around if going off the canvas
+    this.params.x = (x + wind * framesPassed) % canvas.offsetWidth
+    this.params.y = (y + speed * framesPassed) % canvas.offsetHeight
+
+    // Update the wind and speed towards the desired values
+    this.params.speed = lerp(speed, nextSpeed, 0.01)
+    this.params.wind = lerp(wind, nextWind, 0.01)
 
     if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
       this.updateTargetParams()
@@ -99,19 +103,8 @@ class Snowflake {
     this.params.nextWind = random(...this.config.wind)
   }
 
-  handleOffScreen = (canvas: HTMLCanvasElement) => {
-    if (this.params.x > canvas.offsetWidth) {
-      this.params.x = 0
-    }
-
-    if (this.params.y > canvas.offsetHeight) {
-      this.params.y = 0
-    }
-  }
-
   update = (canvas: HTMLCanvasElement, framesPassed?: number) => {
-    this.translate(framesPassed)
-    this.handleOffScreen(canvas)
+    this.translate(canvas, framesPassed)
   }
 }
 

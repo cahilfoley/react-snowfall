@@ -77,7 +77,7 @@ export default class Snowfall extends React.Component<Props, State> {
       const ctx = canvas.getContext('2d')
       if (ctx) {
         ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-        this.snowflakes.forEach(snowflake => snowflake.draw(canvas))
+        this.snowflakes.forEach(snowflake => snowflake.draw(canvas, ctx))
       }
     }
   }
