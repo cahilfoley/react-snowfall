@@ -2,25 +2,26 @@
 
 # Snowfall
 
+[![npm](https://img.shields.io/npm/v/react-snowfall.svg)](https://github.com/cahilfoley/react-snowfall)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 A react component that creates a snowfall effect
 
-- [Live Example](https://cahilfoley.github.io/snowfall/)
-- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/snowfall/tree/demo)
+- [Live Example](https://cahilfoley.github.io/react-snowfall/)
+- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/react-snowfall/tree/demo)
 
 ## Installation
 
 With npm
 
 ```
-npm i @cahil/snowfall
+npm i react-snowfall
 ```
 
 Or with yarn
 
 ```
-yarn add @cahil/snowfall
+yarn add react-snowfall
 ```
 
 ## Usage
@@ -30,7 +31,7 @@ Basic usage requires no properties and will take match the size of the parent el
 ```jsx
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Snowfall from '@cahil/snowfall'
+import Snowfall from 'react-snowfall'
 
 ReactDOM.render(
   <div style={{ height: 400, width: 400, background: '#282c34' }}>
