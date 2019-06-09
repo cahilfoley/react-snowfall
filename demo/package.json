@@ -1,8 +1,8 @@
 {
-  "name": "@cahil/snowfall-demo",
-  "version": "0.1.3",
+  "name": "@cahil/snowfall",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://cahilfoley.github.io/snowfall",
+  "homepage": "https://github.com/cahilfoley/snowfall",
   "dependencies": {
     "@cahil/snowfall": "latest",
     "@types/jest": "^24.0.13",
