@@ -15,7 +15,7 @@ body {
 .app {
   position: relative;
   background-color: #282c34;
-  background-image: url(./128.jpg);
+  background-image: url(./assets/128.jpg);
   background-size: cover;
   background-position: center center;
   min-height: 100vh;
@@ -33,11 +33,12 @@ body {
 
 h1 {
   font-weight: 600;
-  font-size: 6rem;
+  font-size: 5rem;
   margin: 16px;
 }
 
 a {
-  color: rgba(33, 150, 243, 0.87);
+  color: inherit;
+  text-decoration: none;
   font-size: 2rem;
 }
