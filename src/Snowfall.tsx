@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { targetFrameTime } from './config'
-import { useComponentSize, useSnowflakes, useSnowfallStyle, useRefMounted } from './hooks'
+import { useComponentSize, useSnowfallStyle, useSnowflakes } from './hooks'
 
 export interface SnowfallProps {
   color?: string
@@ -13,56 +13,54 @@ const Snowfall = ({ color = '#dee4fd', snowflakeCount = 150, style }: SnowfallPr
 
   const canvasRef = useRef<HTMLCanvasElement>()
   const canvasSize = useComponentSize(canvasRef)
-  const mounted = useRefMounted()
+  const animationFrame = useRef(0)
 
   const lastUpdate = useRef(Date.now())
-  const snowflakes = useSnowflakes(canvasRef, snowflakeCount, {
-    color,
-  })
+  const config = useMemo(() => ({ color }), [color])
+  const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
 
   const updateCanvasRef = (element: HTMLCanvasElement) => {
     canvasRef.current = element
   }
 
-  const draw = useCallback(() => {
-    const canvas = canvasRef.current
-    if (canvas) {
-      const ctx = canvas.getContext('2d')
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-        snowflakes.forEach(snowflake => snowflake.draw(canvas, ctx))
-      }
-    }
-  }, [snowflakes])
-
-  const update = useCallback(
+  const render = useCallback(
     (framesPassed: number = 1) => {
       const canvas = canvasRef.current
       if (canvas) {
+        // Update the positions of the snowflakes
         snowflakes.forEach(snowflake => snowflake.update(canvas, framesPassed))
+
+        // Render them if the canvas is available
+        const ctx = canvas.getContext('2d')
+        if (ctx) {
+          ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
+
+          snowflakes.forEach(snowflake => snowflake.draw(canvas, ctx))
+        }
       }
     },
     [snowflakes],
   )
 
   const loop = useCallback(() => {
-    if (mounted.current) {
-      // Update based on time passed so that a slow frame rate won't slow down the snowflake
-      const now = Date.now()
-      const msPassed = Date.now() - lastUpdate.current
-      lastUpdate.current = now
+    // Update based on time passed so that a slow frame rate won't slow down the snowflake
+    const now = Date.now()
+    const msPassed = Date.now() - lastUpdate.current
+    lastUpdate.current = now
 
-      // Frames that would have passed if running at 60 fps
-      const framesPassed = msPassed / targetFrameTime
+    // Frames that would have passed if running at 60 fps
+    const framesPassed = msPassed / targetFrameTime
 
-      update(framesPassed)
-      draw()
+    render(framesPassed)
 
-      requestAnimationFrame(loop)
-    }
-  }, [draw, mounted, update])
+    animationFrame.current = requestAnimationFrame(loop)
+  }, [render])
 
-  useEffect(() => loop(), [loop])
+  useEffect(() => {
+    console.log('useEffect')
+    loop()
+    return () => cancelAnimationFrame(animationFrame.current)
+  }, [loop])
 
   return <canvas ref={updateCanvasRef} height={canvasSize.height} width={canvasSize.width} style={mergedStyle} />
 }

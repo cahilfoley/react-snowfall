@@ -13,7 +13,6 @@ declare class Snowflake {
     private framesSinceLastUpdate;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
     private readonly fullConfig;
-    resized: () => boolean;
     draw: (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D | undefined) => void;
     private translate;
     private updateTargetParams;

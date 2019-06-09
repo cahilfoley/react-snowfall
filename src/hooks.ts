@@ -1,37 +1,40 @@
-import {
-  useCallback,
-  useLayoutEffect,
-  useEffect,
-  useState,
-  useRef,
-  MutableRefObject,
-  CSSProperties,
-  useMemo,
-} from 'react'
+import { useCallback, useLayoutEffect, useEffect, useState, MutableRefObject, CSSProperties, useMemo } from 'react'
 import Snowflake, { SnowflakeConfig } from './Snowflake'
 import { snowfallBaseStyle } from './config'
 import { getSize } from './utils'
 
+/**
+ * A utility function to create a collection of snowflakes
+ * @param canvasRef A ref to the canvas element
+ * @param amount The number of snowflakes
+ * @param config The configuration for each snowflake
+ */
 const createSnowflakes = (
-  canvas: React.MutableRefObject<HTMLCanvasElement | undefined>,
+  canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>,
   amount: number,
   config: SnowflakeConfig,
 ) => {
   const snowflakes: Snowflake[] = []
 
   for (let i = 0; i < amount; i++) {
-    snowflakes.push(new Snowflake(canvas.current as HTMLCanvasElement, config))
+    snowflakes.push(new Snowflake(canvasRef.current as HTMLCanvasElement, config))
   }
 
   return snowflakes
 }
 
+/**
+ * A utility hook to manage creating and updating a collection of snowflakes
+ * @param canvasRef A ref to the canvas element
+ * @param amount The number of snowflakes
+ * @param config The configuration for each snowflake
+ */
 export const useSnowflakes = (
   canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>,
   amount: number,
   config: SnowflakeConfig,
 ) => {
-  const [snowflakes, setSnowflakes] = useState(() => createSnowflakes(canvasRef, amount, config))
+  const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
 
   // Handle change of amount
   useEffect(() => {
@@ -63,6 +66,11 @@ export const useSnowflakes = (
   return snowflakes
 }
 
+/**
+ * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
+ * size. Falls back to listening for resize events on the window.
+ * @param ref A ref to the HTML element to be measured
+ */
 export const useComponentSize = (ref: MutableRefObject<HTMLElement | undefined>) => {
   const [size, setSize] = useState(getSize(ref.current))
 
@@ -93,6 +101,10 @@ export const useComponentSize = (ref: MutableRefObject<HTMLElement | undefined>)
   return size
 }
 
+/**
+ * Utility hook that merges any provided styles with the default styles
+ * @param overrides The style prop passed into the component
+ */
 export const useSnowfallStyle = (overrides?: CSSProperties) => {
   const styles = useMemo(
     () => ({
@@ -103,19 +115,4 @@ export const useSnowfallStyle = (overrides?: CSSProperties) => {
   )
 
   return styles
-}
-
-/** Lifecycle hook that tracks if component is mounted. Returns a ref, which has a boolean `.current` property */
-export const useRefMounted = () => {
-  const refMounted = useRef(false)
-
-  useEffect(() => {
-    refMounted.current = true
-
-    return () => {
-      refMounted.current = false
-    }
-  }, [])
-
-  return refMounted
 }

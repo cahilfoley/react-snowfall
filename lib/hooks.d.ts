@@ -1,10 +1,25 @@
 import { MutableRefObject, CSSProperties } from 'react';
 import Snowflake from './Snowflake';
+/**
+ * A utility hook to manage creating and updating a collection of snowflakes
+ * @param canvasRef A ref to the canvas element
+ * @param amount The number of snowflakes
+ * @param config The configuration for each snowflake
+ */
 export declare const useSnowflakes: (canvasRef: MutableRefObject<HTMLCanvasElement | undefined>, amount: number, config: Partial<import("./Snowflake").SnowflakeProps>) => Snowflake[];
+/**
+ * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
+ * size. Falls back to listening for resize events on the window.
+ * @param ref A ref to the HTML element to be measured
+ */
 export declare const useComponentSize: (ref: MutableRefObject<HTMLElement | undefined>) => {
     height: number;
     width: number;
 };
+/**
+ * Utility hook that merges any provided styles with the default styles
+ * @param overrides The style prop passed into the component
+ */
 export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) => {
     alignContent?: string | undefined;
     alignItems?: string | undefined;
@@ -753,5 +768,3 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     textAnchor?: "start" | "end" | "inherit" | "middle" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     vectorEffect?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "non-scaling-stroke" | undefined;
 };
-/** Lifecycle hook that tracks if component is mounted. Returns a ref, which has a boolean `.current` property */
-export declare const useRefMounted: () => MutableRefObject<boolean>;

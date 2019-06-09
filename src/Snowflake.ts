@@ -1,4 +1,4 @@
-import { random, lerp } from './utils'
+import { lerp, random } from './utils'
 
 export interface SnowflakeProps {
   color: string
@@ -25,7 +25,6 @@ interface SnowflakeParams {
   radius: number
   speed: number
   wind: number
-  isResized: boolean
   nextSpeed: number
   nextWind: number
 }
@@ -49,7 +48,6 @@ class Snowflake {
       radius: random(...radius),
       speed: random(...speed),
       wind: random(...wind),
-      isResized: false,
       nextSpeed: random(...wind),
       nextWind: random(...speed),
     }
@@ -64,16 +62,14 @@ class Snowflake {
     }
   }
 
-  public resized = () => (this.params.isResized = true)
-
   public draw = (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D) => {
     const ctx = inputCtx || canvas.getContext('2d')
     if (ctx) {
       ctx.beginPath()
       ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
       ctx.fillStyle = this.params.color
-      ctx.fill()
       ctx.closePath()
+      ctx.fill()
     }
   }
 
