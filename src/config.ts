@@ -1,0 +1,16 @@
+import { CSSProperties } from 'react'
+
+export const snowfallBaseStyle: CSSProperties = {
+  pointerEvents: 'none',
+  backgroundColor: 'transparent',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+}
+
+// Target of 60 frames per second
+export const targetFrameTime = 1000 / 60
+
+export const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame

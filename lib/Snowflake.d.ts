@@ -1,40 +1,22 @@
-export interface SnowflakeConfig {
-    color?: string;
-    radius?: [number, number];
-    speed?: [number, number];
-    wind?: [number, number];
-    changeFrequency?: number;
-}
-interface SnowflakeProps {
+export interface SnowflakeProps {
     color: string;
     radius: [number, number];
     speed: [number, number];
     wind: [number, number];
     changeFrequency: number;
 }
-interface SnowflakeParams {
-    color: string;
-    x: number;
-    y: number;
-    radius: number;
-    speed: number;
-    wind: number;
-    isResized: boolean;
-    nextSpeed: number;
-    nextWind: number;
-}
-/**
- * An individual snowflake that will update it's location every call to `draw`
- */
+export declare type SnowflakeConfig = Partial<SnowflakeProps>;
+/** An individual snowflake that will update it's location every call to `draw` */
 declare class Snowflake {
-    config: SnowflakeProps;
-    params: SnowflakeParams;
-    framesSinceLastUpdate: number;
+    config: SnowflakeConfig;
+    private params;
+    private framesSinceLastUpdate;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
+    private readonly fullConfig;
     resized: () => boolean;
     draw: (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D | undefined) => void;
-    translate: (canvas: HTMLCanvasElement, framesPassed?: number) => void;
-    updateTargetParams: () => void;
+    private translate;
+    private updateTargetParams;
     update: (canvas: HTMLCanvasElement, framesPassed?: number | undefined) => void;
 }
 export default Snowflake;
