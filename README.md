@@ -1,8 +1,9 @@
 ![Snowfall Demo](./assets/snowfall-demo.gif)
 
-# Snowfall
+# React Snowfall
 
 [![npm](https://img.shields.io/npm/v/react-snowfall.svg)](https://github.com/cahilfoley/react-snowfall)
+[![GitHub stars](https://img.shields.io/github/stars/cahilfoley/react-snowfall.svg)](https://github.com/cahilfoley/react-snowfall/stargazers)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 A react component that creates a snowfall effect

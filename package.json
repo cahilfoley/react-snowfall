@@ -1,5 +1,5 @@
 {
-  "name": "@cahil/snowfall",
+  "name": "react-snowfall",
   "version": "1.0.1",
   "description": "A react component that creates a snowfall effect",
   "main": "./lib/Snowfall.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cahilfoley/snowfall.git"
+    "url": "git+https://github.com/cahilfoley/react-snowfall.git"
   },
   "publishConfig": {
     "access": "public"
@@ -25,9 +25,9 @@
   ],
   "author": "Cahil Foley",
   "license": "MIT",
-  "homepage": "https://github.com/cahilfoley/snowfall#readme",
+  "homepage": "https://github.com/cahilfoley/react-snowfall#readme",
   "bugs": {
-    "url": "https://github.com/cahilfoley/snowfall/issues"
+    "url": "https://github.com/cahilfoley/react-snowfall/issues"
   },
   "peerDependencies": {
     "react": "^16.8",
