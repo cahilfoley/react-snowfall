@@ -6,14 +6,15 @@
     "moduleResolution": "node",
     // Generate type declarations
     "declaration": true,
-    // Compile to commonjs modules
-    "module": "commonjs",
+    // Compile to esnext modules
+    "module": "esnext",
     // Enable strictest settings like strictNullChecks & noImplicitAny.
     "strict": true,
     // Preserve react JSX
     "jsx": "react",
     // Import non-ES modules as default imports.
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["dom", "es2015"]
   },
   "include": ["src"]
 }
