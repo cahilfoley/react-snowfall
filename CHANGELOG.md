@@ -5,14 +5,6 @@ All notable changes to this project will be documented in this file. See [standa
 ## [1.0.0](https://github.com/cahilfoley/snowfall/compare/v1.0.0-alpha.1...v1.0.0) (2019-06-09)
 
 
-
-## [1.0.0-alpha.1](https://github.com/cahilfoley/snowfall/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2019-06-09)
-
-
-
-## [1.0.0-alpha.0](https://github.com/cahilfoley/snowfall/compare/v0.3.0...v1.0.0-alpha.0) (2019-06-09)
-
-
 ### refactor
 
 * convert library to use hooks ([0a45f70](https://github.com/cahilfoley/snowfall/commit/0a45f70))
