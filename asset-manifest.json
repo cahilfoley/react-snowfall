@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/cahilfoley/react-snowfall/static/css/main.530daabd.chunk.css",
-    "main.js": "/cahilfoley/react-snowfall/static/js/main.57134fba.chunk.js",
-    "main.js.map": "/cahilfoley/react-snowfall/static/js/main.57134fba.chunk.js.map",
-    "runtime~main.js": "/cahilfoley/react-snowfall/static/js/runtime~main.306e7509.js",
-    "runtime~main.js.map": "/cahilfoley/react-snowfall/static/js/runtime~main.306e7509.js.map",
-    "static/js/2.e9a03a5e.chunk.js": "/cahilfoley/react-snowfall/static/js/2.e9a03a5e.chunk.js",
-    "static/js/2.e9a03a5e.chunk.js.map": "/cahilfoley/react-snowfall/static/js/2.e9a03a5e.chunk.js.map",
-    "index.html": "/cahilfoley/react-snowfall/index.html",
-    "precache-manifest.c364d55c2af3f0537f2f9cb8133f7137.js": "/cahilfoley/react-snowfall/precache-manifest.c364d55c2af3f0537f2f9cb8133f7137.js",
-    "service-worker.js": "/cahilfoley/react-snowfall/service-worker.js",
-    "static/css/main.530daabd.chunk.css.map": "/cahilfoley/react-snowfall/static/css/main.530daabd.chunk.css.map",
-    "static/media/App.css": "/cahilfoley/react-snowfall/static/media/128.6020c8a7.jpg"
+    "main.css": "/react-snowfall/static/css/main.65e6fb6d.chunk.css",
+    "main.js": "/react-snowfall/static/js/main.1a81ba2e.chunk.js",
+    "main.js.map": "/react-snowfall/static/js/main.1a81ba2e.chunk.js.map",
+    "runtime~main.js": "/react-snowfall/static/js/runtime~main.0b889960.js",
+    "runtime~main.js.map": "/react-snowfall/static/js/runtime~main.0b889960.js.map",
+    "static/js/2.e9a03a5e.chunk.js": "/react-snowfall/static/js/2.e9a03a5e.chunk.js",
+    "static/js/2.e9a03a5e.chunk.js.map": "/react-snowfall/static/js/2.e9a03a5e.chunk.js.map",
+    "index.html": "/react-snowfall/index.html",
+    "precache-manifest.8ab9be7d1562316cc9bd6442fdea1ddd.js": "/react-snowfall/precache-manifest.8ab9be7d1562316cc9bd6442fdea1ddd.js",
+    "service-worker.js": "/react-snowfall/service-worker.js",
+    "static/css/main.65e6fb6d.chunk.css.map": "/react-snowfall/static/css/main.65e6fb6d.chunk.css.map",
+    "static/media/App.css": "/react-snowfall/static/media/128.6020c8a7.jpg"
   }
 }
