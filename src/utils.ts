@@ -23,3 +23,16 @@ export function random(min: number, max: number): number {
 export function lerp(start: number, end: number, normal: number) {
   return (1 - normal) * start + normal * end
 }
+
+/**
+ * Gets the height and width of the provided HTML element
+ * @param element The html element to measure
+ */
+export function getSize(element?: HTMLElement) {
+  if (!element) return { height: 0, width: 0 }
+
+  return {
+    height: element.offsetHeight,
+    width: element.offsetWidth,
+  }
+}

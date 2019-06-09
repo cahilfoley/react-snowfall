@@ -12,3 +12,11 @@ export declare function random(min: number, max: number): number;
  * @param normal The rate of change between 0 and 1 (0 = no change, 1 = instant)
  */
 export declare function lerp(start: number, end: number, normal: number): number;
+/**
+ * Gets the height and width of the provided HTML element
+ * @param element The html element to measure
+ */
+export declare function getSize(element?: HTMLElement): {
+    height: number;
+    width: number;
+};
