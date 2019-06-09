@@ -57,7 +57,6 @@ const Snowfall = ({ color = '#dee4fd', snowflakeCount = 150, style }: SnowfallPr
   }, [render])
 
   useEffect(() => {
-    console.log('useEffect')
     loop()
     return () => cancelAnimationFrame(animationFrame.current)
   }, [loop])
