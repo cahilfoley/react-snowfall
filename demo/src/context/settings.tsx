@@ -1,5 +1,5 @@
 import React, { createContext, useState, FC } from 'react'
-import { SnowfallProps } from '@cahil/snowfall'
+import { SnowfallProps } from 'react-snowfall'
 
 export interface SnowfallSettings extends SnowfallProps {
   setColor: (color: string) => void

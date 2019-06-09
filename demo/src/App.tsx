@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import Snowfall from '@cahil/snowfall'
+import Snowfall from 'react-snowfall'
 import GithubLink from './components/GithubLink/GithubLink'
 import Settings from './components/Settings'
 import { SettingsContext, StateProvider } from './context/settings'

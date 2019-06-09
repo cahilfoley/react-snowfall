@@ -1,10 +1,10 @@
 {
-  "name": "@cahil/snowfall-demo",
+  "name": "react-snowfall-demo",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://github.com/cahilfoley/snowfall",
+  "homepage": "https://github.com/cahilfoley/react-snowfall",
   "dependencies": {
-    "@cahil/snowfall": "latest",
+    "react-snowfall": "latest",
     "@material-ui/core": "^4.0.2",
     "@material-ui/lab": "^4.0.0-alpha.15",
     "@types/jest": "^24.0.13",
