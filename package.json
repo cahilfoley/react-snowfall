@@ -1,6 +1,6 @@
 {
   "name": "@cahil/snowfall",
-  "version": "0.3.0",
+  "version": "1.0.0-alpha.0",
   "description": "A react component that creates a snowfall effect",
   "main": "./lib/Snowfall.js",
   "scripts": {
