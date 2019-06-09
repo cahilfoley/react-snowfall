@@ -16,8 +16,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="0.3.0"></a>
-# [0.3.0](https://github.com/cahilfoley/snowfall/compare/v0.2.0...v0.3.0) (2018-12-12)
+### [0.3.0](https://github.com/cahilfoley/snowfall/compare/v0.2.0...v0.3.0) (2018-12-12)
 
 
 ### Features
@@ -26,8 +25,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="0.2.0"></a>
-# [0.2.0](https://github.com/cahilfoley/snowfall/compare/v0.1.3...v0.2.0) (2018-12-11)
+### [0.2.0](https://github.com/cahilfoley/snowfall/compare/v0.1.3...v0.2.0) (2018-12-11)
 
 
 ### Features
@@ -36,8 +34,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-<a name="0.1.3"></a>
-## 0.1.3 (2018-12-09)
+#### 0.1.3 (2018-12-09)
 
 
 ### Features
