@@ -1,4 +1,5 @@
 import * as React from 'react'
+import './GithubLink.css'
 
 export interface GithubLinkProps {
   url: string
@@ -6,21 +7,7 @@ export interface GithubLinkProps {
 
 const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
   <a href={url} className="github-corner" aria-label="View source on GitHub">
-    <svg
-      width="80"
-      height="80"
-      viewBox="0 0 250 250"
-      style={{
-        fill: '#64CEAA',
-        color: '#fff',
-        position: 'absolute',
-        top: 0,
-        border: 0,
-        right: 0,
-        zIndex: 5
-      }}
-      aria-hidden="true"
-    >
+    <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
       <path
         d={[
@@ -39,7 +26,7 @@ const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
           '125.5,87.3',
           'C122.9,97.6',
           '130.6,101.9',
-          '134.4,103.2'
+          '134.4,103.2',
         ].join(' ')}
         fill="currentColor"
         style={{ transformOrigin: '130px 106px' }}
@@ -92,7 +79,7 @@ const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
           'C139.8,137.7',
           '141.6,141.9',
           '141.8,141.8',
-          'Z'
+          'Z',
         ].join(' ')}
         fill="currentColor"
       />
