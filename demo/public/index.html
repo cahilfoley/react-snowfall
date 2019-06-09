@@ -4,13 +4,34 @@
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Work+Sans&display=swap" rel="stylesheet" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Snowfall Demo | %REACT_APP_PACKAGE_NAME%</title>
+    <style>
+      #github-star-button {
+        position: fixed;
+        top: 16px;
+        left: 16px;
+        z-index: 50;
+      }
+    </style>
   </head>
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="github-star-button">
+      <a
+        class="github-button"
+        href="https://github.com/cahilfoley/react-snowfall"
+        data-icon="octicon-star"
+        aria-label="Star cahilfoley/react-snowfall on GitHub"
+      >
+        Star
+      </a>
+    </div>
     <div id="root"></div>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-![Snowfall Demo](./assets/snowfall-demo.gif)
+![Snowfall Demo](./assets/snowfall-demo-banner.gif)
 
 # React Snowfall
 
