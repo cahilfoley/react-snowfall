@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/cahilfoley/snowfall/compare/v1.0.0...v1.0.1) (2019-06-09)
+
+
+### Bug Fixes
+
+* **color:** read color from snowflake config ([60676a9](https://github.com/cahilfoley/snowfall/commit/60676a9))
+
+
+### Build System
+
+* **map:** publish source maps with build ([74f9162](https://github.com/cahilfoley/snowfall/commit/74f9162))
+* publish src with npm package ([7c49bd2](https://github.com/cahilfoley/snowfall/commit/7c49bd2))
+
+
+
 ## [1.0.0](https://github.com/cahilfoley/snowfall/compare/v1.0.0-alpha.1...v1.0.0) (2019-06-09)
 
 
