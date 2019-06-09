@@ -1,16 +1,19 @@
 {
   "name": "@cahil/snowfall-demo",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://cahilfoley.github.io/snowfall",
+  "homepage": "https://github.com/cahilfoley/snowfall",
   "dependencies": {
     "@cahil/snowfall": "latest",
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/lab": "^4.0.0-alpha.15",
     "@types/jest": "^24.0.13",
     "@types/node": "^12.0.7",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "gh-pages": "^2.0.1",
     "react": "^16.8.6",
+    "react-color": "^2.17.3",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "typescript": "^3.5.1"
@@ -31,5 +34,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/react-color": "^3.0.1"
+  }
 }

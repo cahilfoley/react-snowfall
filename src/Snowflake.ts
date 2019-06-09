@@ -19,7 +19,6 @@ const defaultConfig: SnowflakeProps = {
 }
 
 interface SnowflakeParams {
-  color: string
   x: number
   y: number
   radius: number
@@ -40,9 +39,9 @@ class Snowflake {
     this.config = config
 
     // Setting initial parameters
-    const { color, radius, wind, speed } = this.fullConfig
+    const { radius, wind, speed } = this.fullConfig
+
     this.params = {
-      color,
       x: random(0, canvas.offsetWidth),
       y: random(-canvas.offsetHeight, 0),
       radius: random(...radius),
@@ -67,7 +66,7 @@ class Snowflake {
     if (ctx) {
       ctx.beginPath()
       ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
-      ctx.fillStyle = this.params.color
+      ctx.fillStyle = this.fullConfig.color
       ctx.closePath()
       ctx.fill()
     }

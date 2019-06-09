@@ -1,21 +1,38 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
 import Snowfall from '@cahil/snowfall'
-import GithubLink from './GithubLink'
+import GithubLink from './components/GithubLink/GithubLink'
+import Settings from './components/Settings'
+import { SettingsContext, StateProvider } from './context/settings'
 import './App.css'
 
 const githubURL = process.env.REACT_APP_GITHUB_URL as string
+const packageName = process.env.REACT_APP_PACKAGE_NAME as string
 
-class App extends Component {
-  render() {
-    return (
-      <div className="app">
-        <GithubLink url={githubURL} />
-        <Snowfall snowflakeCount={200} />
-        <h1>snowfall</h1>
-        <a href={githubURL}>@cahil/snowfall</a>
-      </div>
-    )
-  }
+const Demo = () => {
+  const settings = useContext(SettingsContext)
+
+  return <Snowfall color={settings.color} snowflakeCount={settings.snowflakeCount} />
 }
+
+const Title = () => {
+  const settings = useContext(SettingsContext)
+
+  return (
+    <a href={githubURL} style={{ color: settings.color }}>
+      <h1>{packageName}</h1>
+    </a>
+  )
+}
+
+const App = () => (
+  <StateProvider>
+    <div className="app">
+      <GithubLink url={githubURL} />
+      <Title />
+      <Demo />
+      <Settings />
+    </div>
+  </StateProvider>
+)
 
 export default App
