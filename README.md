@@ -8,8 +8,8 @@
 
 A react component that creates a snowfall effect
 
-- [Live Example](https://cahilfoley.github.io/react-snowfall/)
-- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/react-snowfall/tree/demo)
+- [Live Example](https://cahilfoley.github.io/react-snowfall)
+- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/react-snowfall/tree/master/demo)
 
 ## Installation
 
@@ -27,7 +27,7 @@ yarn add react-snowfall
 
 ## Usage
 
-Basic usage requires no properties and will take match the size of the parent element.
+Basic usage requires no properties - it will grow to fill the parent element.
 
 ```jsx
 import React from 'react'
