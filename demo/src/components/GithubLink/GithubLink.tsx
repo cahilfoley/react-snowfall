@@ -26,7 +26,7 @@ const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
           '125.5,87.3',
           'C122.9,97.6',
           '130.6,101.9',
-          '134.4,103.2',
+          '134.4,103.2'
         ].join(' ')}
         fill="currentColor"
         style={{ transformOrigin: '130px 106px' }}
@@ -79,7 +79,7 @@ const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
           'C139.8,137.7',
           '141.6,141.9',
           '141.8,141.8',
-          'Z',
+          'Z'
         ].join(' ')}
         fill="currentColor"
       />

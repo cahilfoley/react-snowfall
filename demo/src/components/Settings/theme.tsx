@@ -5,9 +5,9 @@ export const theme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: 'rgba(33, 150, 243, 0.87)',
-    },
-  },
+      main: 'rgba(33, 150, 243, 0.87)'
+    }
+  }
 })
 
 export const ThemeProvider: React.FC = ({ children }) => {
