@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-snowfall/precache-manifest.8ab9be7d1562316cc9bd6442fdea1ddd.js"
+  "/react-snowfall/precache-manifest.80afd434d79428bf6d4cf50fc981fc34.js"
 );
 
 self.addEventListener('message', (event) => {
