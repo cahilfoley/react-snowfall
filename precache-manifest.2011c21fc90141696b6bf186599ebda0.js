@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a04c26bdde0974832313b7b2e285b5f0",
+    "revision": "742413b81d71ee19862bbe100f26533c",
     "url": "/react-snowfall/index.html"
   },
   {
-    "revision": "fad2455c34af5089a287",
+    "revision": "bf5a835b80fa8cece3b7",
     "url": "/react-snowfall/static/css/main.4ccc7b66.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-snowfall/static/js/2.6b72a3b6.chunk.js"
   },
   {
-    "revision": "fad2455c34af5089a287",
-    "url": "/react-snowfall/static/js/main.7bd21a51.chunk.js"
+    "revision": "bf5a835b80fa8cece3b7",
+    "url": "/react-snowfall/static/js/main.9eb3b0a2.chunk.js"
   },
   {
     "revision": "8c321a8c6e721659e41f",
