@@ -44,7 +44,7 @@ const Settings = () => {
           step={1}
           onChange={(_, value) => settings.setSnowflakeCount(value as number)}
         />
-        <Typography gutterBottom>Snowflake speed - Min {settings?.speed?.[0]} Max {settings?.speed?.[1]}</Typography>
+        <Typography gutterBottom>Speed - Min {settings?.speed?.[0]} Max {settings?.speed?.[1]}</Typography>
         <Slider
           value={settings.speed}
           min={0}
@@ -52,7 +52,7 @@ const Settings = () => {
           step={0.5}
           onChange={(_, value) => settings.setSpeed(value as [number, number])}
         />
-        <Typography gutterBottom>Snowflake wind - Min {settings?.wind?.[0]} Max {settings?.wind?.[1]}</Typography>
+        <Typography gutterBottom>Wind - Min {settings?.wind?.[0]} Max {settings?.wind?.[1]}</Typography>
         <Slider
           value={settings.wind}
           min={-1}
@@ -60,7 +60,7 @@ const Settings = () => {
           step={0.5}
           onChange={(_, value) => settings.setWind(value as [number, number])}
         />
-        <Typography gutterBottom>Snowflake radius - Min {settings?.radius?.[0]} Max {settings?.radius?.[1]}</Typography>
+        <Typography gutterBottom>Radius - Min {settings?.radius?.[0]} Max {settings?.radius?.[1]}</Typography>
         <Slider
           value={settings.radius}
           min={0.5}
