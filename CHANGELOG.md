@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/cahilfoley/react-snowfall/compare/v1.0.2...v1.1.0) (2021-02-23)
+
+
+### Features
+
+* **SnowflakeConfig:** allow additional snowflake properties to be overridden via the Snowfall props ([5d7b3f5](https://github.com/cahilfoley/react-snowfall/commit/5d7b3f53bc64f7724c77afcaba2c1f224611bc0a))
+
 ### [1.0.2](https://github.com/cahilfoley/react-snowfall/compare/v1.0.1...v1.0.2) (2019-06-09)
 
 
