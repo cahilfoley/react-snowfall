@@ -13,7 +13,7 @@ const App = () => {
 
   return (
     <div className="app">
-      <Snowfall color={settings.color} snowflakeCount={settings.snowflakeCount} />
+      <Snowfall color={settings.color} snowflakeCount={settings.snowflakeCount} radius={settings.radius} speed={settings.speed} wind={settings.wind} />
       <a className="title" href={githubURL} style={{ color: settings.color }}>
         <img src="./android-chrome-512x512.png" alt="Snowflake Logo" />
         <h1>{packageName}</h1>

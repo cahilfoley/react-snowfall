@@ -44,6 +44,30 @@ const Settings = () => {
           step={1}
           onChange={(_, value) => settings.setSnowflakeCount(value as number)}
         />
+        <Typography gutterBottom>Snowflake speed - Min {settings?.speed?.[0]} Max {settings?.speed?.[1]}</Typography>
+        <Slider
+          value={settings.speed}
+          min={0}
+          max={10}
+          step={0.5}
+          onChange={(_, value) => settings.setSpeed(value as [number, number])}
+        />
+        <Typography gutterBottom>Snowflake wind - Min {settings?.wind?.[0]} Max {settings?.wind?.[1]}</Typography>
+        <Slider
+          value={settings.wind}
+          min={-1}
+          max={10}
+          step={0.5}
+          onChange={(_, value) => settings.setWind(value as [number, number])}
+        />
+        <Typography gutterBottom>Snowflake radius - Min {settings?.radius?.[0]} Max {settings?.radius?.[1]}</Typography>
+        <Slider
+          value={settings.radius}
+          min={0.5}
+          max={5}
+          step={0.5}
+          onChange={(_, value) => settings.setRadius(value as [number, number])}
+        />
         <Box my={2}>
           <Typography gutterBottom>Color - {settings.color}</Typography>
           <CirclePicker
