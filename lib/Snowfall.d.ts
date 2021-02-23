@@ -1,8 +1,16 @@
 import React from 'react';
-export interface SnowfallProps {
-    color?: string;
+import { SnowflakeProps } from './Snowflake';
+export interface SnowfallProps extends Partial<SnowflakeProps> {
+    /**
+     * The number of snowflakes to be rendered.
+     *
+     * The default value is 150.
+     */
     snowflakeCount?: number;
+    /**
+     * Any style properties that will be passed to the canvas element.
+     */
     style?: React.CSSProperties;
 }
-declare const Snowfall: ({ color, snowflakeCount, style }?: SnowfallProps) => JSX.Element;
+declare const Snowfall: ({ color, changeFrequency, radius, speed, wind, snowflakeCount, style, }?: SnowfallProps) => JSX.Element;
 export default Snowfall;

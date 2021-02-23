@@ -1,12 +1,12 @@
-import { MutableRefObject, CSSProperties } from 'react';
-import Snowflake from './Snowflake';
+import { DependencyList, EffectCallback, MutableRefObject, CSSProperties } from 'react';
+import Snowflake, { SnowflakeConfig } from './Snowflake';
 /**
  * A utility hook to manage creating and updating a collection of snowflakes
  * @param canvasRef A ref to the canvas element
  * @param amount The number of snowflakes
  * @param config The configuration for each snowflake
  */
-export declare const useSnowflakes: (canvasRef: MutableRefObject<HTMLCanvasElement | undefined>, amount: number, config: Partial<import("./Snowflake").SnowflakeProps>) => Snowflake[];
+export declare const useSnowflakes: (canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>, amount: number, config: SnowflakeConfig) => Snowflake[];
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
  * size. Falls back to listening for resize events on the window.
@@ -100,9 +100,9 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     breakAfter?: "all" | "auto" | "left" | "right" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "always" | "avoid" | "avoid-column" | "avoid-page" | "avoid-region" | "column" | "page" | "recto" | "region" | "verso" | undefined;
     breakBefore?: "all" | "auto" | "left" | "right" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "always" | "avoid" | "avoid-column" | "avoid-page" | "avoid-region" | "column" | "page" | "recto" | "region" | "verso" | undefined;
     breakInside?: "auto" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "avoid" | "avoid-column" | "avoid-page" | "avoid-region" | undefined;
-    captionSide?: "inherit" | "top" | "bottom" | "-moz-initial" | "initial" | "revert" | "unset" | "block-end" | "block-start" | "inline-end" | "inline-start" | undefined;
+    captionSide?: "inherit" | "bottom" | "top" | "-moz-initial" | "initial" | "revert" | "unset" | "block-end" | "block-start" | "inline-end" | "inline-start" | undefined;
     caretColor?: string | undefined;
-    clear?: "left" | "right" | "none" | "both" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "inline-end" | "inline-start" | undefined;
+    clear?: "left" | "right" | "both" | "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "inline-end" | "inline-start" | undefined;
     clipPath?: string | undefined;
     color?: string | undefined;
     colorAdjust?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "economy" | "exact" | undefined;
@@ -121,7 +121,7 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     cursor?: string | undefined;
     direction?: "ltr" | "rtl" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     display?: string | undefined;
-    emptyCells?: "show" | "hide" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
+    emptyCells?: "hide" | "show" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     filter?: string | undefined;
     flexBasis?: string | number | undefined;
     flexDirection?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "column" | "column-reverse" | "row" | "row-reverse" | undefined;
@@ -161,7 +161,7 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     height?: string | number | undefined;
     hyphens?: "auto" | "none" | "manual" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     imageOrientation?: string | undefined;
-    imageRendering?: "auto" | "inherit" | "pixelated" | "-moz-initial" | "initial" | "revert" | "unset" | "-moz-crisp-edges" | "-o-crisp-edges" | "-webkit-optimize-contrast" | "crisp-edges" | undefined;
+    imageRendering?: "auto" | "pixelated" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "-moz-crisp-edges" | "-o-crisp-edges" | "-webkit-optimize-contrast" | "crisp-edges" | undefined;
     imageResolution?: string | undefined;
     initialLetter?: string | number | undefined;
     inlineSize?: string | number | undefined;
@@ -266,11 +266,11 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     pointerEvents?: "all" | "auto" | "none" | "inherit" | "visible" | "-moz-initial" | "initial" | "revert" | "unset" | "fill" | "stroke" | "painted" | "visibleFill" | "visiblePainted" | "visibleStroke" | undefined;
     position?: "fixed" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "-webkit-sticky" | "absolute" | "relative" | "static" | "sticky" | undefined;
     quotes?: string | undefined;
-    resize?: "none" | "both" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "block" | "inline" | "horizontal" | "vertical" | undefined;
+    resize?: "both" | "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "block" | "inline" | "horizontal" | "vertical" | undefined;
     right?: string | number | undefined;
     rotate?: string | undefined;
     rowGap?: string | number | undefined;
-    rubyAlign?: "start" | "center" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "space-around" | "space-between" | undefined;
+    rubyAlign?: "center" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "space-around" | "space-between" | undefined;
     rubyMerge?: "auto" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "collapse" | "separate" | undefined;
     rubyPosition?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "inter-character" | "over" | "under" | undefined;
     scale?: string | number | undefined;
@@ -307,8 +307,8 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     shapeOutside?: string | undefined;
     tabSize?: string | number | undefined;
     tableLayout?: "fixed" | "auto" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
-    textAlign?: "left" | "right" | "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | "match-parent" | undefined;
-    textAlignLast?: "auto" | "left" | "right" | "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    textAlign?: "left" | "right" | "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | "match-parent" | undefined;
+    textAlignLast?: "auto" | "left" | "right" | "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     textCombineUpright?: string | undefined;
     textDecorationColor?: string | undefined;
     textDecorationLine?: string | undefined;
@@ -456,7 +456,7 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     MozWindowDragging?: "inherit" | "drag" | "-moz-initial" | "initial" | "revert" | "unset" | "no-drag" | undefined;
     msAccelerator?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "false" | "true" | undefined;
     msAlignSelf?: string | undefined;
-    msBlockProgression?: "inherit" | "rl" | "lr" | "-moz-initial" | "initial" | "revert" | "unset" | "bt" | "tb" | undefined;
+    msBlockProgression?: "inherit" | "lr" | "rl" | "-moz-initial" | "initial" | "revert" | "unset" | "bt" | "tb" | undefined;
     msContentZoomChaining?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "chained" | undefined;
     msContentZoomLimitMax?: string | undefined;
     msContentZoomLimitMin?: string | undefined;
@@ -509,7 +509,7 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     msTransformOrigin?: string | number | undefined;
     msUserSelect?: "none" | "inherit" | "text" | "-moz-initial" | "initial" | "revert" | "unset" | "element" | undefined;
     msWordBreak?: "normal" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "break-word" | "break-all" | "keep-all" | undefined;
-    msWrapFlow?: "auto" | "both" | "start" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "clear" | "maximum" | undefined;
+    msWrapFlow?: "auto" | "both" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "clear" | "maximum" | undefined;
     msWrapMargin?: string | number | undefined;
     msWrapThrough?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "wrap" | undefined;
     msWritingMode?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "horizontal-tb" | "sideways-lr" | "sideways-rl" | "vertical-lr" | "vertical-rl" | undefined;
@@ -641,14 +641,14 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     WebkitTextEmphasis?: string | undefined;
     WebkitTextStroke?: string | number | undefined;
     WebkitTransition?: string | undefined;
-    boxAlign?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
+    boxAlign?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
     boxDirection?: "normal" | "reverse" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     boxFlex?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     boxFlexGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     boxLines?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "multiple" | "single" | undefined;
     boxOrdinalGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     boxOrient?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "horizontal" | "vertical" | "block-axis" | "inline-axis" | undefined;
-    boxPack?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    boxPack?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     clip?: string | undefined;
     fontVariantAlternates?: string | undefined;
     gridColumnGap?: string | number | undefined;
@@ -668,14 +668,14 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     scrollSnapTypeX?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "mandatory" | "proximity" | undefined;
     scrollSnapTypeY?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "mandatory" | "proximity" | undefined;
     textCombineHorizontal?: string | undefined;
-    KhtmlBoxAlign?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
+    KhtmlBoxAlign?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
     KhtmlBoxDirection?: "normal" | "reverse" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     KhtmlBoxFlex?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     KhtmlBoxFlexGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     KhtmlBoxLines?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "multiple" | "single" | undefined;
     KhtmlBoxOrdinalGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     KhtmlBoxOrient?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "horizontal" | "vertical" | "block-axis" | "inline-axis" | undefined;
-    KhtmlBoxPack?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    KhtmlBoxPack?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     KhtmlLineBreak?: "auto" | "normal" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "strict" | "loose" | undefined;
     KhtmlOpacity?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     KhtmlUserSelect?: "all" | "auto" | "none" | "inherit" | "text" | "-moz-initial" | "initial" | "revert" | "unset" | "contain" | "-moz-none" | "element" | undefined;
@@ -689,12 +689,12 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     MozBorderRadiusBottomright?: string | number | undefined;
     MozBorderRadiusTopleft?: string | number | undefined;
     MozBorderRadiusTopright?: string | number | undefined;
-    MozBoxAlign?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
+    MozBoxAlign?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
     MozBoxDirection?: "normal" | "reverse" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     MozBoxFlex?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     MozBoxOrdinalGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     MozBoxOrient?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "horizontal" | "vertical" | "block-axis" | "inline-axis" | undefined;
-    MozBoxPack?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    MozBoxPack?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     MozBoxShadow?: string | undefined;
     MozOpacity?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     MozOutline?: string | number | undefined;
@@ -702,7 +702,7 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     MozOutlineRadius?: string | number | undefined;
     MozOutlineStyle?: string | undefined;
     MozOutlineWidth?: string | number | undefined;
-    MozTextAlignLast?: "auto" | "left" | "right" | "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    MozTextAlignLast?: "auto" | "left" | "right" | "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     MozTextBlink?: "blink" | "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     MozTextDecorationColor?: string | undefined;
     MozTextDecorationLine?: string | undefined;
@@ -727,25 +727,25 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     OTransitionDuration?: string | undefined;
     OTransitionProperty?: string | undefined;
     OTransitionTimingFunction?: string | undefined;
-    WebkitBoxAlign?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
+    WebkitBoxAlign?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "stretch" | "baseline" | undefined;
     WebkitBoxDirection?: "normal" | "reverse" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     WebkitBoxFlex?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     WebkitBoxFlexGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     WebkitBoxLines?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "multiple" | "single" | undefined;
     WebkitBoxOrdinalGroup?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     WebkitBoxOrient?: "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "horizontal" | "vertical" | "block-axis" | "inline-axis" | undefined;
-    WebkitBoxPack?: "start" | "center" | "end" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
+    WebkitBoxPack?: "center" | "end" | "start" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "justify" | undefined;
     WebkitScrollSnapPointsX?: string | undefined;
     WebkitScrollSnapPointsY?: string | undefined;
-    alignmentBaseline?: "auto" | "inherit" | "hanging" | "middle" | "alphabetic" | "ideographic" | "-moz-initial" | "initial" | "revert" | "unset" | "baseline" | "after-edge" | "before-edge" | "central" | "mathematical" | "text-after-edge" | "text-before-edge" | undefined;
+    alignmentBaseline?: "auto" | "inherit" | "alphabetic" | "hanging" | "ideographic" | "middle" | "-moz-initial" | "initial" | "revert" | "unset" | "baseline" | "after-edge" | "before-edge" | "central" | "mathematical" | "text-after-edge" | "text-before-edge" | undefined;
     baselineShift?: string | number | undefined;
-    clipRule?: "nonzero" | "evenodd" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
+    clipRule?: "evenodd" | "nonzero" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     colorInterpolation?: "auto" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "linearRGB" | "sRGB" | undefined;
     colorRendering?: "auto" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "optimizeSpeed" | "optimizeQuality" | undefined;
-    dominantBaseline?: "auto" | "inherit" | "hanging" | "middle" | "alphabetic" | "ideographic" | "-moz-initial" | "initial" | "revert" | "unset" | "central" | "mathematical" | "text-after-edge" | "text-before-edge" | "no-change" | "reset-size" | "use-script" | undefined;
+    dominantBaseline?: "auto" | "inherit" | "alphabetic" | "hanging" | "ideographic" | "middle" | "-moz-initial" | "initial" | "revert" | "unset" | "central" | "mathematical" | "text-after-edge" | "text-before-edge" | "no-change" | "reset-size" | "use-script" | undefined;
     fill?: string | undefined;
     fillOpacity?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
-    fillRule?: "nonzero" | "evenodd" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
+    fillRule?: "evenodd" | "nonzero" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     floodColor?: string | undefined;
     floodOpacity?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     glyphOrientationVertical?: string | number | undefined;
@@ -765,6 +765,26 @@ export declare const useSnowfallStyle: (overrides?: CSSProperties | undefined) =
     strokeMiterlimit?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     strokeOpacity?: number | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     strokeWidth?: string | number | undefined;
-    textAnchor?: "start" | "end" | "inherit" | "middle" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
+    textAnchor?: "end" | "start" | "inherit" | "middle" | "-moz-initial" | "initial" | "revert" | "unset" | undefined;
     vectorEffect?: "none" | "inherit" | "-moz-initial" | "initial" | "revert" | "unset" | "non-scaling-stroke" | undefined;
 };
+/**
+ * Same as `React.useEffect` but uses a deep comparison on the dependency array. This should only
+ * be used when working with non-primitive dependencies.
+ *
+ * @param effect Effect callback to run
+ * @param deps Effect dependencies
+ */
+export declare function useDeepCompareEffect(effect: EffectCallback, deps: DependencyList): void;
+/**
+ * Utility hook to stabilize a reference to a value, the returned value will always match the input value
+ * but (unlike an inline object) will maintain [SameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * equality until a change is made.
+ *
+ * @example
+ *
+ * const obj = useDeepMemo({ foo: 'bar', bar: 'baz' }) // <- inline object creation
+ * const prevValue = usePrevious(obj) // <- value from the previous render
+ * console.log(obj === prevValue) // <- always logs true until value changes
+ */
+export declare function useDeepMemo<T>(value: T): T;
