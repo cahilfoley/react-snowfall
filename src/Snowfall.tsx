@@ -1,14 +1,30 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { targetFrameTime } from './config'
-import { useComponentSize, useSnowfallStyle, useSnowflakes } from './hooks'
+import { useComponentSize, useSnowfallStyle, useSnowflakes, useDeepMemo } from './hooks'
+import { SnowflakeProps, defaultConfig } from './Snowflake'
 
-export interface SnowfallProps {
-  color?: string
+export interface SnowfallProps extends Partial<SnowflakeProps> {
+  /**
+   * The number of snowflakes to be rendered.
+   *
+   * The default value is 150.
+   */
   snowflakeCount?: number
+  /**
+   * Any style properties that will be passed to the canvas element.
+   */
   style?: React.CSSProperties
 }
 
-const Snowfall = ({ color = '#dee4fd', snowflakeCount = 150, style }: SnowfallProps = {}) => {
+const Snowfall = ({
+  color = defaultConfig.color,
+  changeFrequency = defaultConfig.changeFrequency,
+  radius = defaultConfig.radius,
+  speed = defaultConfig.speed,
+  wind = defaultConfig.wind,
+  snowflakeCount = 150,
+  style,
+}: SnowfallProps = {}) => {
   const mergedStyle = useSnowfallStyle(style)
 
   const canvasRef = useRef<HTMLCanvasElement>()
@@ -16,7 +32,7 @@ const Snowfall = ({ color = '#dee4fd', snowflakeCount = 150, style }: SnowfallPr
   const animationFrame = useRef(0)
 
   const lastUpdate = useRef(Date.now())
-  const config = useMemo(() => ({ color }), [color])
+  const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind })
   const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
 
   const updateCanvasRef = (element: HTMLCanvasElement) => {

@@ -1,4 +1,16 @@
-import { useCallback, useLayoutEffect, useEffect, useState, MutableRefObject, CSSProperties, useMemo } from 'react'
+import {
+  DependencyList,
+  EffectCallback,
+  useCallback,
+  useLayoutEffect,
+  useEffect,
+  useRef,
+  useState,
+  MutableRefObject,
+  CSSProperties,
+  useMemo,
+} from 'react'
+import isEqual from 'react-fast-compare'
 import Snowflake, { SnowflakeConfig } from './Snowflake'
 import { snowfallBaseStyle } from './config'
 import { getSize } from './utils'
@@ -115,4 +127,41 @@ export const useSnowfallStyle = (overrides?: CSSProperties) => {
   )
 
   return styles
+}
+
+/**
+ * Same as `React.useEffect` but uses a deep comparison on the dependency array. This should only
+ * be used when working with non-primitive dependencies.
+ *
+ * @param effect Effect callback to run
+ * @param deps Effect dependencies
+ */
+export function useDeepCompareEffect(effect: EffectCallback, deps: DependencyList) {
+  const ref = useRef<DependencyList>(deps)
+
+  // Only update the current dependencies if they are not deep equal
+  if (!isEqual(deps, ref.current)) {
+    ref.current = deps
+  }
+
+  useEffect(effect, ref.current)
+}
+
+/**
+ * Utility hook to stabilize a reference to a value, the returned value will always match the input value
+ * but (unlike an inline object) will maintain [SameValueZero](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * equality until a change is made.
+ *
+ * @example
+ *
+ * const obj = useDeepMemo({ foo: 'bar', bar: 'baz' }) // <- inline object creation
+ * const prevValue = usePrevious(obj) // <- value from the previous render
+ * console.log(obj === prevValue) // <- always logs true until value changes
+ */
+export function useDeepMemo<T>(value: T): T {
+  const [state, setState] = useState(value)
+
+  useDeepCompareEffect(() => setState(value), [value])
+
+  return state
 }
