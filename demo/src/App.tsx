@@ -3,6 +3,7 @@ import Snowfall from 'react-snowfall'
 import GithubLink from './components/GithubLink/GithubLink'
 import Settings from './components/Settings'
 import { SettingsContext } from './context/settings'
+import logo from './logo.png'
 import './App.css'
 
 const githubURL = process.env.REACT_APP_GITHUB_URL as string
@@ -13,9 +14,15 @@ const App = () => {
 
   return (
     <div className="app">
-      <Snowfall color={settings.color} snowflakeCount={settings.snowflakeCount} radius={settings.radius} speed={settings.speed} wind={settings.wind} />
+      <Snowfall
+        color={settings.color}
+        snowflakeCount={settings.snowflakeCount}
+        radius={settings.radius}
+        speed={settings.speed}
+        wind={settings.wind}
+      />
       <a className="title" href={githubURL} style={{ color: settings.color }}>
-        <img src="./android-chrome-512x512.png" alt="Snowflake Logo" />
+        <img src={logo} alt="Snowflake Logo" />
         <h1>{packageName}</h1>
       </a>
       <Settings />
