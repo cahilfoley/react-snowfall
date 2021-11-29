@@ -12,5 +12,3 @@ export const snowfallBaseStyle: CSSProperties = {
 
 // Target of 60 frames per second
 export const targetFrameTime = 1000 / 60
-
-export const requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame
