@@ -30,8 +30,8 @@
     "url": "https://github.com/cahilfoley/react-snowfall/issues"
   },
   "peerDependencies": {
-    "react": "^16.8",
-    "react-dom": "^16.8"
+    "react": "^16.8 || 17.x",
+    "react-dom": "^16.8 || 17.x"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
