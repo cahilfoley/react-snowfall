@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/cahilfoley/react-snowfall/compare/v1.1.0...v1.1.1) (2021-11-29)
+
+
+### Bug Fixes
+
+* **next:** remove unused config variable to prevent NextJS crashing on window being undefined ([e4cb1f2](https://github.com/cahilfoley/react-snowfall/commit/e4cb1f2c466c44bbe3cb286acca104c7df709e13))
+
 ## [1.1.0](https://github.com/cahilfoley/react-snowfall/compare/v1.0.2...v1.1.0) (2021-02-23)
 
 
