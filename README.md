@@ -2,7 +2,7 @@
 
 # React Snowfall
 
-[![npm](https://img.shields.io/npm/v/react-snowfall.svg)](https://github.com/cahilfoley/react-snowfall)
+[![npm](https://img.shields.io/npm/v/react-snowfall.svg)](https://www.npmjs.com/package/react-snowfall)
 [![GitHub stars](https://img.shields.io/github/stars/cahilfoley/react-snowfall.svg)](https://github.com/cahilfoley/react-snowfall/stargazers)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
@@ -38,7 +38,7 @@ ReactDOM.render(
   <div style={{ height: 400, width: 400, background: '#282c34' }}>
     <Snowfall />
   </div>,
-  document.querySelector('#app')
+  document.querySelector('#app'),
 )
 ```
 
