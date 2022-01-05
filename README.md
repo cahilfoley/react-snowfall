@@ -27,7 +27,7 @@ yarn add react-snowfall
 
 ## Usage
 
-Basic usage requires no properties - it will grow to fill the parent element.
+Basic usage requires no properties - it will grow to fill the nearest relative positioned parent element.
 
 ```jsx
 import React from 'react'
@@ -35,7 +35,7 @@ import ReactDOM from 'react-dom'
 import Snowfall from 'react-snowfall'
 
 ReactDOM.render(
-  <div style={{ height: 400, width: 400, background: '#282c34' }}>
+  <div style={{ height: 400, width: 400, background: '#282c34', position: 'relative' }}>
     <Snowfall />
   </div>,
   document.querySelector('#app'),
@@ -54,5 +54,30 @@ An optional `color`, `style`, and `snowflakeCount` property can be passed in to 
   style={{ background: '#fff' }}
   // Controls the number of snowflakes that are created (default 150)
   snowflakeCount={200}
+/>
+```
+
+## Positioning
+
+
+The snowfall container is absolute positioned and has the following default styles (see [the definition](https://github.com/cahilfoley/react-snowfall/blob/a8e865e82cac3221930773cdfd6b90eeb0b34247/src/config.ts#L4-L10)):
+
+```css
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+```
+
+If you want the component to cover the entire screen then you can change the position to `fixed` and using `vw`/`vh` units by passing in an overriding styles object:
+
+```jsx
+<Snowfall
+  style={{
+    position: 'fixed',
+    width: '100vw',
+    height: '100vh'
+  }}
 />
 ```
