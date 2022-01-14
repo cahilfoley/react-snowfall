@@ -1,22 +1,16 @@
 {
   "files": {
-    "main.css": "/react-snowfall/static/css/main.a43803a8.chunk.css",
-    "main.js": "/react-snowfall/static/js/main.4c5cdaeb.chunk.js",
-    "main.js.map": "/react-snowfall/static/js/main.4c5cdaeb.chunk.js.map",
-    "runtime-main.js": "/react-snowfall/static/js/runtime-main.10721958.js",
-    "runtime-main.js.map": "/react-snowfall/static/js/runtime-main.10721958.js.map",
-    "static/js/2.e4f02694.chunk.js": "/react-snowfall/static/js/2.e4f02694.chunk.js",
-    "static/js/2.e4f02694.chunk.js.map": "/react-snowfall/static/js/2.e4f02694.chunk.js.map",
+    "main.css": "/react-snowfall/static/css/main.c3500ad7.css",
+    "main.js": "/react-snowfall/static/js/main.47537167.js",
+    "static/media/128.jpg": "/react-snowfall/static/media/128.1ba4ca3e4b86f4a35ee4.jpg",
+    "service-worker.js": "/react-snowfall/service-worker.js",
+    "static/media/logo.png": "/react-snowfall/static/media/logo.ad915532acc9ed9d2fba.png",
     "index.html": "/react-snowfall/index.html",
-    "static/css/main.a43803a8.chunk.css.map": "/react-snowfall/static/css/main.a43803a8.chunk.css.map",
-    "static/js/2.e4f02694.chunk.js.LICENSE.txt": "/react-snowfall/static/js/2.e4f02694.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/react-snowfall/static/media/128.1ba4ca3e.jpg",
-    "static/media/logo.ad915532.png": "/react-snowfall/static/media/logo.ad915532.png"
+    "main.c3500ad7.css.map": "/react-snowfall/static/css/main.c3500ad7.css.map",
+    "main.47537167.js.map": "/react-snowfall/static/js/main.47537167.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.10721958.js",
-    "static/js/2.e4f02694.chunk.js",
-    "static/css/main.a43803a8.chunk.css",
-    "static/js/main.4c5cdaeb.chunk.js"
+    "static/css/main.c3500ad7.css",
+    "static/js/main.47537167.js"
   ]
 }
