@@ -1,3 +1,3 @@
-import { CSSProperties } from 'react';
-export declare const snowfallBaseStyle: CSSProperties;
+/// <reference types="react" />
+export declare const snowfallBaseStyle: React.CSSProperties;
 export declare const targetFrameTime: number;

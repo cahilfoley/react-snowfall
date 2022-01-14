@@ -28,7 +28,7 @@ export function lerp(start: number, end: number, normal: number) {
  * Gets the height and width of the provided HTML element
  * @param element The html element to measure
  */
-export function getSize(element?: HTMLElement) {
+export function getSize(element?: HTMLElement | null) {
   if (!element) return { height: 0, width: 0 }
 
   return {

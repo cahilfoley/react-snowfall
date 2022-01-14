@@ -1,6 +1,4 @@
-import { CSSProperties } from 'react'
-
-export const snowfallBaseStyle: CSSProperties = {
+export const snowfallBaseStyle: React.CSSProperties = {
   pointerEvents: 'none',
   backgroundColor: 'transparent',
   position: 'absolute',

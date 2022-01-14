@@ -1,15 +1,4 @@
-import {
-  DependencyList,
-  EffectCallback,
-  useCallback,
-  useLayoutEffect,
-  useEffect,
-  useRef,
-  useState,
-  MutableRefObject,
-  CSSProperties,
-  useMemo,
-} from 'react'
+import { useCallback, useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
 import Snowflake, { SnowflakeConfig } from './Snowflake'
 import { snowfallBaseStyle } from './config'
@@ -22,14 +11,16 @@ import { getSize } from './utils'
  * @param config The configuration for each snowflake
  */
 const createSnowflakes = (
-  canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>,
+  canvasRef: React.RefObject<HTMLCanvasElement>,
   amount: number,
   config: SnowflakeConfig,
-) => {
+): Snowflake[] => {
+  if (!canvasRef.current) return []
+
   const snowflakes: Snowflake[] = []
 
   for (let i = 0; i < amount; i++) {
-    snowflakes.push(new Snowflake(canvasRef.current as HTMLCanvasElement, config))
+    snowflakes.push(new Snowflake(canvasRef.current, config))
   }
 
   return snowflakes
@@ -42,7 +33,7 @@ const createSnowflakes = (
  * @param config The configuration for each snowflake
  */
 export const useSnowflakes = (
-  canvasRef: React.MutableRefObject<HTMLCanvasElement | undefined>,
+  canvasRef: React.RefObject<HTMLCanvasElement>,
   amount: number,
   config: SnowflakeConfig,
 ) => {
@@ -50,7 +41,7 @@ export const useSnowflakes = (
 
   // Handle change of amount
   useEffect(() => {
-    setSnowflakes(snowflakes => {
+    setSnowflakes((snowflakes) => {
       const sizeDifference = amount - snowflakes.length
 
       if (sizeDifference > 0) {
@@ -67,9 +58,9 @@ export const useSnowflakes = (
 
   // Handle change of config
   useEffect(() => {
-    setSnowflakes(snowflakes =>
-      snowflakes.map(snowflake => {
-        snowflake.config = config
+    setSnowflakes((snowflakes) =>
+      snowflakes.map((snowflake) => {
+        snowflake.updateConfig(config)
         return snowflake
       }),
     )
@@ -83,7 +74,7 @@ export const useSnowflakes = (
  * size. Falls back to listening for resize events on the window.
  * @param ref A ref to the HTML element to be measured
  */
-export const useComponentSize = (ref: MutableRefObject<HTMLElement | undefined>) => {
+export const useComponentSize = (ref: React.RefObject<HTMLElement>) => {
   const [size, setSize] = useState(getSize(ref.current))
 
   const resizeHandler = useCallback(() => {
@@ -117,7 +108,7 @@ export const useComponentSize = (ref: MutableRefObject<HTMLElement | undefined>)
  * Utility hook that merges any provided styles with the default styles
  * @param overrides The style prop passed into the component
  */
-export const useSnowfallStyle = (overrides?: CSSProperties) => {
+export const useSnowfallStyle = (overrides?: React.CSSProperties): React.CSSProperties => {
   const styles = useMemo(
     () => ({
       ...snowfallBaseStyle,
@@ -136,15 +127,16 @@ export const useSnowfallStyle = (overrides?: CSSProperties) => {
  * @param effect Effect callback to run
  * @param deps Effect dependencies
  */
-export function useDeepCompareEffect(effect: EffectCallback, deps: DependencyList) {
-  const ref = useRef<DependencyList>(deps)
+export function useDeepCompareEffect(effect: React.EffectCallback, deps: React.DependencyList) {
+  const ref = useRef<React.DependencyList>(deps)
 
   // Only update the current dependencies if they are not deep equal
   if (!isEqual(deps, ref.current)) {
     ref.current = deps
   }
 
-  useEffect(effect, ref.current)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useEffect(effect, ref.current)
 }
 
 /**

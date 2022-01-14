@@ -40,16 +40,18 @@ export interface SnowflakeProps {
 }
 export declare type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;
-/** An individual snowflake that will update it's location every call to `draw` */
+/**
+ * An individual snowflake that will update it's location every call to `update`
+ * and draw itself to the canvas every call to `draw`.
+ */
 declare class Snowflake {
-    config: SnowflakeConfig;
+    private config;
     private params;
     private framesSinceLastUpdate;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
-    private get fullConfig();
-    draw: (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D | undefined) => void;
-    private translate;
+    updateConfig(config: SnowflakeConfig): void;
     private updateTargetParams;
-    update: (canvas: HTMLCanvasElement, framesPassed?: number | undefined) => void;
+    update(canvas: HTMLCanvasElement, framesPassed?: number): void;
+    draw(ctx: CanvasRenderingContext2D): void;
 }
 export default Snowflake;
