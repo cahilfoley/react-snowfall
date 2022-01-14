@@ -1,8 +1,7 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import * as serviceWorker from './serviceWorker'
 import { StateProvider } from './context/settings'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 ReactDOM.render(
   <StateProvider>
@@ -11,4 +10,4 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-serviceWorker.register()
+serviceWorkerRegistration.register()

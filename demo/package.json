@@ -4,19 +4,21 @@
   "private": true,
   "homepage": "https://cahilfoley.github.io/react-snowfall",
   "dependencies": {
-    "@material-ui/core": "4.11.3",
-    "@material-ui/lab": "4.0.0-alpha.18",
-    "@types/jest": "26.0.20",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.2.8",
+    "@mui/styles": "^5.2.3",
+    "@types/jest": "^27.4.0",
     "@types/node": "14.14.31",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.1",
     "gh-pages": "3.1.0",
-    "react": "^17.0.1",
+    "react": "^17.0.2",
     "react-color": "2.19.3",
-    "react-dom": "17.0.1",
-    "react-scripts": "4.0.3",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^5.0.0",
     "react-snowfall": "^1.1.1",
-    "typescript": "4.1.5"
+    "typescript": "^4.5.4"
   },
   "scripts": {
     "predeploy": "npm run build",
