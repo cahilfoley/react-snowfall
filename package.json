@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "A react component that creates a snowfall effect",
   "main": "./lib/Snowfall.js",
+  "sideEffects": false,
   "scripts": {
     "generate-types": "tsc --emitDeclarationOnly --declarationDir ./lib",
     "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\" --ignore \"src/**/*.test.tsx\",\"src/**/*.test.ts\",\"src/__mocks__/**/*\" --source-maps",
