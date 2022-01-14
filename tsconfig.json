@@ -16,5 +16,6 @@
     "esModuleInterop": true,
     "lib": ["dom", "es2015"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "src/__mocks__/**/*"]
 }

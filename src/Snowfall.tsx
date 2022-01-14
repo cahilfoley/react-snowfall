@@ -24,10 +24,10 @@ const Snowfall = ({
   wind = defaultConfig.wind,
   snowflakeCount = 150,
   style,
-}: SnowfallProps = {}) => {
+}: SnowfallProps = {}): JSX.Element => {
   const mergedStyle = useSnowfallStyle(style)
 
-  const canvasRef = useRef<HTMLCanvasElement>()
+  const canvasRef = useRef<HTMLCanvasElement>(null)
   const canvasSize = useComponentSize(canvasRef)
   const animationFrame = useRef(0)
 
@@ -35,23 +35,19 @@ const Snowfall = ({
   const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind })
   const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
 
-  const updateCanvasRef = (element: HTMLCanvasElement) => {
-    canvasRef.current = element
-  }
-
   const render = useCallback(
-    (framesPassed: number = 1) => {
+    (framesPassed = 1) => {
       const canvas = canvasRef.current
       if (canvas) {
         // Update the positions of the snowflakes
-        snowflakes.forEach(snowflake => snowflake.update(canvas, framesPassed))
+        snowflakes.forEach((snowflake) => snowflake.update(canvas, framesPassed))
 
         // Render them if the canvas is available
         const ctx = canvas.getContext('2d')
         if (ctx) {
           ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
 
-          snowflakes.forEach(snowflake => snowflake.draw(canvas, ctx))
+          snowflakes.forEach((snowflake) => snowflake.draw(ctx))
         }
       }
     },
@@ -77,7 +73,15 @@ const Snowfall = ({
     return () => cancelAnimationFrame(animationFrame.current)
   }, [loop])
 
-  return <canvas ref={updateCanvasRef} height={canvasSize.height} width={canvasSize.width} style={mergedStyle} />
+  return (
+    <canvas
+      ref={canvasRef}
+      height={canvasSize.height}
+      width={canvasSize.width}
+      style={mergedStyle}
+      data-testid="SnowfallCanvas"
+    />
+  )
 }
 
 export default Snowfall

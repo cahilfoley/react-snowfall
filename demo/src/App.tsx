@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import Snowfall from 'react-snowfall'
 import GithubLink from './components/GithubLink/GithubLink'
 import Settings from './components/Settings'

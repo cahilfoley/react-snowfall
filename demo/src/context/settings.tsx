@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from 'react'
+import { createContext, useState, FC } from 'react'
 import { SnowfallProps } from 'react-snowfall'
 
 export interface SnowfallSettings extends SnowfallProps {
@@ -19,7 +19,20 @@ export const StateProvider: FC = ({ children }) => {
   const [wind, setWind] = useState<[number, number]>([-0.5, 2.0])
 
   return (
-    <SettingsContext.Provider value={{ color, setColor, snowflakeCount, setSnowflakeCount, radius, setRadius, wind, setWind, speed, setSpeed }}>
+    <SettingsContext.Provider
+      value={{
+        color,
+        setColor,
+        snowflakeCount,
+        setSnowflakeCount,
+        radius,
+        setRadius,
+        wind,
+        setWind,
+        speed,
+        setSpeed
+      }}
+    >
       {children}
     </SettingsContext.Provider>
   )

@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { CirclePicker } from 'react-color'
-import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import Slider from '@material-ui/lab/Slider'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import Slider from '@mui/material/Slider'
 import { SettingsContext, SnowfallSettings } from '../../context/settings'
 import { ThemeProvider } from './theme'
 
@@ -44,7 +44,9 @@ const Settings = () => {
           step={1}
           onChange={(_, value) => settings.setSnowflakeCount(value as number)}
         />
-        <Typography gutterBottom>Speed - Min {settings?.speed?.[0]} Max {settings?.speed?.[1]}</Typography>
+        <Typography gutterBottom>
+          Speed - Min {settings?.speed?.[0]} Max {settings?.speed?.[1]}
+        </Typography>
         <Slider
           value={settings.speed}
           min={0}
@@ -52,7 +54,9 @@ const Settings = () => {
           step={0.5}
           onChange={(_, value) => settings.setSpeed(value as [number, number])}
         />
-        <Typography gutterBottom>Wind - Min {settings?.wind?.[0]} Max {settings?.wind?.[1]}</Typography>
+        <Typography gutterBottom>
+          Wind - Min {settings?.wind?.[0]} Max {settings?.wind?.[1]}
+        </Typography>
         <Slider
           value={settings.wind}
           min={-1}
@@ -60,7 +64,9 @@ const Settings = () => {
           step={0.5}
           onChange={(_, value) => settings.setWind(value as [number, number])}
         />
-        <Typography gutterBottom>Radius - Min {settings?.radius?.[0]} Max {settings?.radius?.[1]}</Typography>
+        <Typography gutterBottom>
+          Radius - Min {settings?.radius?.[0]} Max {settings?.radius?.[1]}
+        </Typography>
         <Slider
           value={settings.radius}
           min={0.5}
@@ -74,7 +80,7 @@ const Settings = () => {
             colors={colors}
             width="100%"
             color={settings.color}
-            onChangeComplete={value => settings.setColor(value.hex)}
+            onChangeComplete={(value) => settings.setColor(value.hex)}
           />
         </Box>
       </Paper>

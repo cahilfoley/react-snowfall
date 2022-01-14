@@ -1,11 +1,10 @@
-import * as React from 'react'
 import './GithubLink.css'
 
 export interface GithubLinkProps {
   url: string
 }
 
-const GithubLink: React.SFC<GithubLinkProps> = ({ url }) => (
+const GithubLink: React.FC<GithubLinkProps> = ({ url }) => (
   <a href={url} className="github-corner" aria-label="View source on GitHub">
     <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />

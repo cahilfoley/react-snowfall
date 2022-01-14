@@ -6,36 +6,36 @@ export interface SnowflakeProps {
   /**
    * The minimum and maximum radius of the snowflake, will be
    * randomly selected within this range.
-   * 
+   *
    * The default value is `[0.5, 3.0]`.
    */
   radius: [minimumRadius: number, maximumRadius: number]
   /**
    * The minimum and maximum speed of the snowflake.
-   * 
+   *
    * The speed determines how quickly the snowflake moves
    * along the y axis (vertical speed).
-   * 
+   *
    * The values will be randomly selected within this range.
-   * 
+   *
    * The default value is `[1.0, 3.0]`.
    */
   speed: [minimumSpeed: number, maximumSpeed: number]
   /**
    * The minimum and maximum wind of the snowflake.
-   * 
+   *
    * The wind determines how quickly the snowflake moves
    * along the x axis (horizontal speed).
-   * 
+   *
    * The values will be randomly selected within this range.
-   * 
+   *
    * The default value is `[-0.5, 2.0]`.
    */
   wind: [minimumWind: number, maximumWind: number]
-  /** 
+  /**
    * The frequency in frames that the wind and speed values
    * will update.
-   * 
+   *
    * The default value is 200.
    */
   changeFrequency: number
@@ -61,18 +61,21 @@ interface SnowflakeParams {
   nextWind: number
 }
 
-/** An individual snowflake that will update it's location every call to `draw` */
+/**
+ * An individual snowflake that will update it's location every call to `update`
+ * and draw itself to the canvas every call to `draw`.
+ */
 class Snowflake {
-  public config: SnowflakeConfig
+  private config!: SnowflakeProps
   private params: SnowflakeParams
   private framesSinceLastUpdate: number
 
   public constructor(canvas: HTMLCanvasElement, config: SnowflakeConfig = {}) {
     // Set custom config
-    this.config = config
+    this.updateConfig(config)
 
     // Setting initial parameters
-    const { radius, wind, speed } = this.fullConfig
+    const { radius, wind, speed } = this.config
 
     this.params = {
       x: random(0, canvas.offsetWidth),
@@ -87,25 +90,16 @@ class Snowflake {
     this.framesSinceLastUpdate = 0
   }
 
-  private get fullConfig() {
-    return {
-      ...defaultConfig,
-      ...this.config,
-    }
+  public updateConfig(config: SnowflakeConfig): void {
+    this.config = { ...defaultConfig, ...config }
   }
 
-  public draw = (canvas: HTMLCanvasElement, inputCtx?: CanvasRenderingContext2D) => {
-    const ctx = inputCtx || canvas.getContext('2d')
-    if (ctx) {
-      ctx.beginPath()
-      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
-      ctx.fillStyle = this.fullConfig.color
-      ctx.closePath()
-      ctx.fill()
-    }
+  private updateTargetParams(): void {
+    this.params.nextSpeed = random(...this.config.speed)
+    this.params.nextWind = random(...this.config.wind)
   }
 
-  private translate = (canvas: HTMLCanvasElement, framesPassed: number = 1) => {
+  public update(canvas: HTMLCanvasElement, framesPassed = 1): void {
     const { x, y, wind, speed, nextWind, nextSpeed } = this.params
 
     // Update current location, wrapping around if going off the canvas
@@ -116,19 +110,18 @@ class Snowflake {
     this.params.speed = lerp(speed, nextSpeed, 0.01)
     this.params.wind = lerp(wind, nextWind, 0.01)
 
-    if (this.framesSinceLastUpdate++ > this.fullConfig.changeFrequency) {
+    if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
       this.updateTargetParams()
       this.framesSinceLastUpdate = 0
     }
   }
 
-  private updateTargetParams = () => {
-    this.params.nextSpeed = random(...this.fullConfig.speed)
-    this.params.nextWind = random(...this.fullConfig.wind)
-  }
-
-  public update = (canvas: HTMLCanvasElement, framesPassed?: number) => {
-    this.translate(canvas, framesPassed)
+  public draw(ctx: CanvasRenderingContext2D): void {
+    ctx.beginPath()
+    ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
+    ctx.fillStyle = this.config.color
+    ctx.closePath()
+    ctx.fill()
   }
 }
 
