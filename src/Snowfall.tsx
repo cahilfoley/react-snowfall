@@ -77,7 +77,15 @@ const Snowfall = ({
     return () => cancelAnimationFrame(animationFrame.current)
   }, [loop])
 
-  return <canvas ref={updateCanvasRef} height={canvasSize.height} width={canvasSize.width} style={mergedStyle} />
+  return (
+    <canvas
+      ref={canvasRef}
+      height={canvasSize.height}
+      width={canvasSize.width}
+      style={mergedStyle}
+      data-testid="SnowfallCanvas"
+    />
+  )
 }
 
 export default Snowfall
