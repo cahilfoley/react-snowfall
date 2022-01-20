@@ -7,7 +7,7 @@ export interface SnowflakeProps {
      *
      * The default value is `[0.5, 3.0]`.
      */
-    radius: [minimumRadius: number, maximumRadius: number];
+    radius: [number, number];
     /**
      * The minimum and maximum speed of the snowflake.
      *
@@ -18,7 +18,7 @@ export interface SnowflakeProps {
      *
      * The default value is `[1.0, 3.0]`.
      */
-    speed: [minimumSpeed: number, maximumSpeed: number];
+    speed: [number, number];
     /**
      * The minimum and maximum wind of the snowflake.
      *
@@ -29,7 +29,7 @@ export interface SnowflakeProps {
      *
      * The default value is `[-0.5, 2.0]`.
      */
-    wind: [minimumWind: number, maximumWind: number];
+    wind: [number, number];
     /**
      * The frequency in frames that the wind and speed values
      * will update.
