@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/cahilfoley/react-snowfall/compare/v1.1.1...v1.1.2) (2022-01-20)
+
+
+### Bug Fixes
+
+* **Types:** Remove labeled tuple elements ([30dbfa7](https://github.com/cahilfoley/react-snowfall/commit/30dbfa728df23d60775eb8645af5a93ff9b992e2)), closes [#33](https://github.com/cahilfoley/react-snowfall/issues/33)
+
 ### [1.1.1](https://github.com/cahilfoley/react-snowfall/compare/v1.1.0...v1.1.1) (2021-11-29)
 
 
