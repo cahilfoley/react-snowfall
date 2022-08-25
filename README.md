@@ -57,8 +57,36 @@ An optional `color`, `style`, and `snowflakeCount` property can be passed in to 
 />
 ```
 
-## Positioning
+## Using Images
 
+Instead of rendering colored circles you can instead pass in an array of image elements
+that will be randomly selected and used as the snowflake instead.
+
+> _NOTE_: If the images provided are not square they will be stretched into a 1:1 aspect ratio.
+
+```tsx
+const snowflake1 = document.createElement('img')
+snowflake1.src = '/assets/snowflake-1.png'
+const snowflake2 = document.createElement('img')
+snowflake2.src = '/assets/snowflake-2.jpg'
+
+const images = [snowflake1, snowflake2]
+
+const Demo = () => {
+  return (
+    <Snowfall
+      // Applied to the canvas element
+      style={{ background: '#fff' }}
+      // Controls the number of snowflakes that are created (default 150)
+      snowflakeCount={200}
+      // Pass in the images to be used
+      images={images}
+    >
+  )
+}
+```
+
+## Positioning
 
 The snowfall container is absolute positioned and has the following default styles (see [the definition](https://github.com/cahilfoley/react-snowfall/blob/a8e865e82cac3221930773cdfd6b90eeb0b34247/src/config.ts#L4-L10)):
 
@@ -77,7 +105,7 @@ If you want the component to cover the entire screen then you can change the pos
   style={{
     position: 'fixed',
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
   }}
 />
 ```

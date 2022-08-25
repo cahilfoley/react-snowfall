@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "module": "esnext",
+    "strict": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "lib": ["dom", "es2015"]
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.tsx", "src/**/*.test.ts", "src/__mocks__/**/*"]
+}
