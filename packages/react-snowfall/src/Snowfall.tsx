@@ -22,6 +22,7 @@ const Snowfall = ({
   radius = defaultConfig.radius,
   speed = defaultConfig.speed,
   wind = defaultConfig.wind,
+  rotationSpeed = defaultConfig.rotationSpeed,
   snowflakeCount = 150,
   images,
   style,
@@ -33,7 +34,7 @@ const Snowfall = ({
   const animationFrame = useRef(0)
 
   const lastUpdate = useRef(Date.now())
-  const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind, images })
+  const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind, rotationSpeed, images })
   const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
 
   const render = useCallback(
@@ -46,6 +47,7 @@ const Snowfall = ({
         // Render them if the canvas is available
         const ctx = canvas.getContext('2d')
         if (ctx) {
+          ctx.setTransform(1, 0, 0, 1, 0, 0)
           ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
 
           snowflakes.forEach((snowflake) => snowflake.draw(ctx))

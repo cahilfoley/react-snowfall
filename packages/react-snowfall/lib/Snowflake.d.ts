@@ -1,4 +1,3 @@
-export declare type SnowflakeImageInput = HTMLImageElement | SVGImageElement | HTMLVideoElement | HTMLCanvasElement | ImageBitmap;
 export interface SnowflakeProps {
     /** The color of the snowflake, can be any valid CSS color. */
     color: string;
@@ -42,7 +41,19 @@ export interface SnowflakeProps {
      * An array of images that will be rendered as the snowflakes instead
      * of the default circle shapes.
      */
-    images?: SnowflakeImageInput[];
+    images?: CanvasImageSource[];
+    /**
+     * The minimum and maximum rotation speed of the snowflake (in degrees of
+     * rotation per frame).
+     *
+     * The rotation speed determines how quickly the snowflake rotates when
+     * an image is being rendered.
+     *
+     * The values will be randomly selected within this range.
+     *
+     * The default value is `[-1.0, 1.0]`.
+     */
+    rotationSpeed: [number, number];
 }
 export declare type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;
@@ -51,13 +62,17 @@ export declare const defaultConfig: SnowflakeProps;
  * and draw itself to the canvas every call to `draw`.
  */
 declare class Snowflake {
+    static offscreenCanvases: WeakMap<CanvasImageSource, Record<number, HTMLCanvasElement>>;
     private config;
     private params;
     private framesSinceLastUpdate;
+    private image?;
     constructor(canvas: HTMLCanvasElement, config?: SnowflakeConfig);
+    private selectImage;
     updateConfig(config: SnowflakeConfig): void;
     private updateTargetParams;
     update(canvas: HTMLCanvasElement, framesPassed?: number): void;
+    private getImageOffscreenCanvas;
     draw(ctx: CanvasRenderingContext2D): void;
 }
 export default Snowflake;

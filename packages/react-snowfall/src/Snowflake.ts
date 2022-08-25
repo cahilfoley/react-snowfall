@@ -1,13 +1,6 @@
 import isEqual from 'react-fast-compare'
 import { lerp, random, randomElement } from './utils'
 
-export type SnowflakeImageInput =
-  | HTMLImageElement
-  | SVGImageElement
-  | HTMLVideoElement
-  | HTMLCanvasElement
-  | ImageBitmap
-
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
   color: string
@@ -51,7 +44,19 @@ export interface SnowflakeProps {
    * An array of images that will be rendered as the snowflakes instead
    * of the default circle shapes.
    */
-  images?: SnowflakeImageInput[]
+  images?: CanvasImageSource[]
+  /**
+   * The minimum and maximum rotation speed of the snowflake (in degrees of
+   * rotation per frame).
+   *
+   * The rotation speed determines how quickly the snowflake rotates when
+   * an image is being rendered.
+   *
+   * The values will be randomly selected within this range.
+   *
+   * The default value is `[-1.0, 1.0]`.
+   */
+  rotationSpeed: [number, number]
 }
 
 export type SnowflakeConfig = Partial<SnowflakeProps>
@@ -62,6 +67,7 @@ export const defaultConfig: SnowflakeProps = {
   speed: [1.0, 3.0],
   wind: [-0.5, 2.0],
   changeFrequency: 200,
+  rotationSpeed: [-1.0, 1.0],
 }
 
 interface SnowflakeParams {
@@ -69,11 +75,12 @@ interface SnowflakeParams {
   y: number
   radius: number
   rotation: number
+  rotationSpeed: number
   speed: number
   wind: number
   nextSpeed: number
   nextWind: number
-  nextRotation: number
+  nextRotationSpeed: number
 }
 
 /**
@@ -81,17 +88,19 @@ interface SnowflakeParams {
  * and draw itself to the canvas every call to `draw`.
  */
 class Snowflake {
+  static offscreenCanvases = new WeakMap<CanvasImageSource, Record<number, HTMLCanvasElement>>()
+
   private config!: SnowflakeProps
   private params: SnowflakeParams
   private framesSinceLastUpdate: number
-  private image?: SnowflakeImageInput
+  private image?: CanvasImageSource
 
   public constructor(canvas: HTMLCanvasElement, config: SnowflakeConfig = {}) {
     // Set custom config
     this.updateConfig(config)
 
     // Setting initial parameters
-    const { radius, wind, speed, images } = this.config
+    const { radius, wind, speed, rotationSpeed } = this.config
 
     this.params = {
       x: random(0, canvas.offsetWidth),
@@ -100,9 +109,10 @@ class Snowflake {
       radius: random(...radius),
       speed: random(...speed),
       wind: random(...wind),
+      rotationSpeed: random(...rotationSpeed),
       nextSpeed: random(...wind),
       nextWind: random(...speed),
-      nextRotation: random(0, 360),
+      nextRotationSpeed: random(...rotationSpeed),
     }
 
     this.framesSinceLastUpdate = 0
@@ -119,6 +129,7 @@ class Snowflake {
   public updateConfig(config: SnowflakeConfig): void {
     const previousConfig = this.config
     this.config = { ...defaultConfig, ...config }
+    this.config.changeFrequency = random(this.config.changeFrequency, this.config.changeFrequency * 1.5)
 
     // Update the radius if the config has changed, it won't gradually update on it's own
     if (this.params && !isEqual(this.config.radius, previousConfig?.radius)) {
@@ -133,20 +144,29 @@ class Snowflake {
   private updateTargetParams(): void {
     this.params.nextSpeed = random(...this.config.speed)
     this.params.nextWind = random(...this.config.wind)
-    this.params.nextRotation = random(0, 360)
+    if (this.image) {
+      this.params.nextRotationSpeed = random(...this.config.rotationSpeed)
+    }
   }
 
   public update(canvas: HTMLCanvasElement, framesPassed = 1): void {
-    const { x, y, rotation, nextRotation, wind, speed, nextWind, nextSpeed } = this.params
+    const { x, y, rotation, rotationSpeed, nextRotationSpeed, wind, speed, nextWind, nextSpeed, radius } = this.params
 
     // Update current location, wrapping around if going off the canvas
-    this.params.x = (x + wind * framesPassed) % canvas.offsetWidth
-    this.params.y = (y + speed * framesPassed) % canvas.offsetHeight
+    this.params.x = (x + wind * framesPassed) % (canvas.offsetWidth + radius * 2)
+    if (this.params.x > canvas.offsetWidth + radius) this.params.x = -radius
+    this.params.y = (y + speed * framesPassed) % (canvas.offsetHeight + radius * 2)
+    if (this.params.y > canvas.offsetHeight + radius) this.params.y = -radius
 
-    // Update the wind and speed towards the desired values
+    // Apply rotation
+    if (this.image) {
+      this.params.rotation = (rotation + rotationSpeed) % 360
+    }
+
+    // Update the wind, speed and rotation towards the desired values
     this.params.speed = lerp(speed, nextSpeed, 0.01)
     this.params.wind = lerp(wind, nextWind, 0.01)
-    this.params.rotation = lerp(rotation, nextRotation, 0.01)
+    this.params.rotationSpeed = lerp(rotationSpeed, nextRotationSpeed, 0.01)
 
     if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
       this.updateTargetParams()
@@ -154,28 +174,50 @@ class Snowflake {
     }
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
-    ctx.save()
-    ctx.translate(this.params.x, this.params.y)
+  private getImageOffscreenCanvas(image: CanvasImageSource, size: number): CanvasImageSource {
+    if (image instanceof HTMLImageElement && image.loading) return image
+    let sizes = Snowflake.offscreenCanvases.get(image)
 
+    if (!sizes) {
+      sizes = {}
+      Snowflake.offscreenCanvases.set(image, sizes)
+    }
+
+    if (!(size in sizes)) {
+      const canvas = document.createElement('canvas')
+      canvas.width = size
+      canvas.height = size
+      canvas.getContext('2d')?.drawImage(image, 0, 0, size, size)
+      sizes[size] = canvas
+    }
+
+    return sizes[size] ?? image
+  }
+
+  public draw(ctx: CanvasRenderingContext2D): void {
     if (this.image) {
+      // ctx.save()
+      // ctx.translate(this.params.x, this.params.y)
+      ctx.setTransform(1, 0, 0, 1, this.params.x, this.params.y)
+
+      const radius = Math.ceil(this.params.radius)
       ctx.rotate((this.params.rotation * Math.PI) / 180)
       ctx.drawImage(
-        this.image,
-        -this.params.radius / 2,
-        -this.params.radius / 2,
-        this.params.radius,
-        this.params.radius,
+        this.getImageOffscreenCanvas(this.image, radius),
+        -Math.ceil(radius / 2),
+        -Math.ceil(radius / 2),
+        radius,
+        radius,
       )
+
+      // ctx.restore()
     } else {
       ctx.beginPath()
-      ctx.arc(0, 0, this.params.radius, 0, 2 * Math.PI)
+      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
       ctx.fillStyle = this.config.color
       ctx.closePath()
       ctx.fill()
     }
-
-    ctx.restore()
   }
 }
 

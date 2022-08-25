@@ -31,6 +31,8 @@ var Snowfall = function Snowfall() {
       speed = _ref$speed === void 0 ? _Snowflake.defaultConfig.speed : _ref$speed,
       _ref$wind = _ref.wind,
       wind = _ref$wind === void 0 ? _Snowflake.defaultConfig.wind : _ref$wind,
+      _ref$rotationSpeed = _ref.rotationSpeed,
+      rotationSpeed = _ref$rotationSpeed === void 0 ? _Snowflake.defaultConfig.rotationSpeed : _ref$rotationSpeed,
       _ref$snowflakeCount = _ref.snowflakeCount,
       snowflakeCount = _ref$snowflakeCount === void 0 ? 150 : _ref$snowflakeCount,
       images = _ref.images,
@@ -47,6 +49,7 @@ var Snowfall = function Snowfall() {
     radius: radius,
     speed: speed,
     wind: wind,
+    rotationSpeed: rotationSpeed,
     images: images
   });
   var snowflakes = (0, _hooks.useSnowflakes)(canvasRef, snowflakeCount, config);
@@ -63,6 +66,7 @@ var Snowfall = function Snowfall() {
       var ctx = canvas.getContext('2d');
 
       if (ctx) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
         snowflakes.forEach(function (snowflake) {
           return snowflake.draw(ctx);

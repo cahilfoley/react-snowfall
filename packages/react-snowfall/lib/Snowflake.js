@@ -40,7 +40,8 @@ var defaultConfig = {
   radius: [0.5, 3.0],
   speed: [1.0, 3.0],
   wind: [-0.5, 2.0],
-  changeFrequency: 200
+  changeFrequency: 200,
+  rotationSpeed: [-1.0, 1.0]
 };
 exports.defaultConfig = defaultConfig;
 
@@ -69,7 +70,7 @@ var Snowflake = /*#__PURE__*/function () {
         radius = _this$config.radius,
         wind = _this$config.wind,
         speed = _this$config.speed,
-        images = _this$config.images;
+        rotationSpeed = _this$config.rotationSpeed;
     this.params = {
       x: (0, _utils.random)(0, canvas.offsetWidth),
       y: (0, _utils.random)(-canvas.offsetHeight, 0),
@@ -77,9 +78,10 @@ var Snowflake = /*#__PURE__*/function () {
       radius: _utils.random.apply(void 0, _toConsumableArray(radius)),
       speed: _utils.random.apply(void 0, _toConsumableArray(speed)),
       wind: _utils.random.apply(void 0, _toConsumableArray(wind)),
+      rotationSpeed: _utils.random.apply(void 0, _toConsumableArray(rotationSpeed)),
       nextSpeed: _utils.random.apply(void 0, _toConsumableArray(wind)),
       nextWind: _utils.random.apply(void 0, _toConsumableArray(speed)),
-      nextRotation: (0, _utils.random)(0, 360)
+      nextRotationSpeed: _utils.random.apply(void 0, _toConsumableArray(rotationSpeed))
     };
     this.framesSinceLastUpdate = 0;
   }
@@ -97,7 +99,8 @@ var Snowflake = /*#__PURE__*/function () {
     key: "updateConfig",
     value: function updateConfig(config) {
       var previousConfig = this.config;
-      this.config = _objectSpread(_objectSpread({}, defaultConfig), config); // Update the radius if the config has changed, it won't gradually update on it's own
+      this.config = _objectSpread(_objectSpread({}, defaultConfig), config);
+      this.config.changeFrequency = (0, _utils.random)(this.config.changeFrequency, this.config.changeFrequency * 1.5); // Update the radius if the config has changed, it won't gradually update on it's own
 
       if (this.params && !(0, _reactFastCompare["default"])(this.config.radius, previousConfig === null || previousConfig === void 0 ? void 0 : previousConfig.radius)) {
         this.params.radius = _utils.random.apply(void 0, _toConsumableArray(this.config.radius));
@@ -112,7 +115,10 @@ var Snowflake = /*#__PURE__*/function () {
     value: function updateTargetParams() {
       this.params.nextSpeed = _utils.random.apply(void 0, _toConsumableArray(this.config.speed));
       this.params.nextWind = _utils.random.apply(void 0, _toConsumableArray(this.config.wind));
-      this.params.nextRotation = (0, _utils.random)(0, 360);
+
+      if (this.image) {
+        this.params.nextRotationSpeed = _utils.random.apply(void 0, _toConsumableArray(this.config.rotationSpeed));
+      }
     }
   }, {
     key: "update",
@@ -122,18 +128,27 @@ var Snowflake = /*#__PURE__*/function () {
           x = _this$params.x,
           y = _this$params.y,
           rotation = _this$params.rotation,
-          nextRotation = _this$params.nextRotation,
+          rotationSpeed = _this$params.rotationSpeed,
+          nextRotationSpeed = _this$params.nextRotationSpeed,
           wind = _this$params.wind,
           speed = _this$params.speed,
           nextWind = _this$params.nextWind,
-          nextSpeed = _this$params.nextSpeed; // Update current location, wrapping around if going off the canvas
+          nextSpeed = _this$params.nextSpeed,
+          radius = _this$params.radius; // Update current location, wrapping around if going off the canvas
 
-      this.params.x = (x + wind * framesPassed) % canvas.offsetWidth;
-      this.params.y = (y + speed * framesPassed) % canvas.offsetHeight; // Update the wind and speed towards the desired values
+      this.params.x = (x + wind * framesPassed) % (canvas.offsetWidth + radius * 2);
+      if (this.params.x > canvas.offsetWidth + radius) this.params.x = -radius;
+      this.params.y = (y + speed * framesPassed) % (canvas.offsetHeight + radius * 2);
+      if (this.params.y > canvas.offsetHeight + radius) this.params.y = -radius; // Apply rotation
+
+      if (this.image) {
+        this.params.rotation = (rotation + rotationSpeed) % 360;
+      } // Update the wind, speed and rotation towards the desired values
+
 
       this.params.speed = (0, _utils.lerp)(speed, nextSpeed, 0.01);
       this.params.wind = (0, _utils.lerp)(wind, nextWind, 0.01);
-      this.params.rotation = (0, _utils.lerp)(rotation, nextRotation, 0.01);
+      this.params.rotationSpeed = (0, _utils.lerp)(rotationSpeed, nextRotationSpeed, 0.01);
 
       if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
         this.updateTargetParams();
@@ -141,28 +156,54 @@ var Snowflake = /*#__PURE__*/function () {
       }
     }
   }, {
+    key: "getImageOffscreenCanvas",
+    value: function getImageOffscreenCanvas(image, size) {
+      var _sizes$size;
+
+      if (image instanceof HTMLImageElement && image.loading) return image;
+      var sizes = Snowflake.offscreenCanvases.get(image);
+
+      if (!sizes) {
+        sizes = {};
+        Snowflake.offscreenCanvases.set(image, sizes);
+      }
+
+      if (!(size in sizes)) {
+        var _canvas$getContext;
+
+        var canvas = document.createElement('canvas');
+        canvas.width = size;
+        canvas.height = size;
+        (_canvas$getContext = canvas.getContext('2d')) === null || _canvas$getContext === void 0 ? void 0 : _canvas$getContext.drawImage(image, 0, 0, size, size);
+        sizes[size] = canvas;
+      }
+
+      return (_sizes$size = sizes[size]) !== null && _sizes$size !== void 0 ? _sizes$size : image;
+    }
+  }, {
     key: "draw",
     value: function draw(ctx) {
-      ctx.save();
-      ctx.translate(this.params.x, this.params.y);
-
       if (this.image) {
+        // ctx.save()
+        // ctx.translate(this.params.x, this.params.y)
+        ctx.setTransform(1, 0, 0, 1, this.params.x, this.params.y);
+        var radius = Math.ceil(this.params.radius);
         ctx.rotate(this.params.rotation * Math.PI / 180);
-        ctx.drawImage(this.image, -this.params.radius / 2, -this.params.radius / 2, this.params.radius, this.params.radius);
+        ctx.drawImage(this.getImageOffscreenCanvas(this.image, radius), -Math.ceil(radius / 2), -Math.ceil(radius / 2), radius, radius); // ctx.restore()
       } else {
         ctx.beginPath();
-        ctx.arc(0, 0, this.params.radius, 0, 2 * Math.PI);
+        ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI);
         ctx.fillStyle = this.config.color;
         ctx.closePath();
         ctx.fill();
       }
-
-      ctx.restore();
     }
   }]);
 
   return Snowflake;
 }();
+
+_defineProperty(Snowflake, "offscreenCanvases", new WeakMap());
 
 var _default = Snowflake;
 exports["default"] = _default;

@@ -7,7 +7,7 @@
   "scripts": {
     "generate-types": "tsc --emitDeclarationOnly --declarationDir ./lib",
     "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\" --ignore \"src/**/*.test.tsx\",\"src/**/*.test.ts\",\"src/__mocks__/**/*\" --source-maps",
-    "watch": "npm run build -- --watch",
+    "start": "npm run build -- --watch",
     "test": "jest",
     "release": "standard-version"
   },
