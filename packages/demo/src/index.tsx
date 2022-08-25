@@ -10,4 +10,8 @@ root.render(
   </StrictMode>
 )
 
-serviceWorkerRegistration.register()
+serviceWorkerRegistration.register({
+  onUpdate(registration) {
+    registration.waiting?.postMessage({ type: 'SKIP_WAITING' })
+  }
+})
