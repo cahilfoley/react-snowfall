@@ -9,7 +9,7 @@
     "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\" --ignore \"src/**/*.test.tsx\",\"src/**/*.test.ts\",\"src/__mocks__/**/*\" --source-maps",
     "start": "npm run build -- --watch",
     "test": "jest",
-    "release": "standard-version"
+    "release": "standard-version --infile ../../CHANGELOG.md"
   },
   "repository": {
     "type": "git",
