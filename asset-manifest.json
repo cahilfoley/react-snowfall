@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/react-snowfall/static/css/main.c3500ad7.css",
-    "main.js": "/react-snowfall/static/js/main.47537167.js",
+    "main.js": "/react-snowfall/static/js/main.dfc9bc29.js",
     "static/media/128.jpg": "/react-snowfall/static/media/128.1ba4ca3e4b86f4a35ee4.jpg",
     "service-worker.js": "/react-snowfall/service-worker.js",
     "static/media/logo.png": "/react-snowfall/static/media/logo.ad915532acc9ed9d2fba.png",
     "index.html": "/react-snowfall/index.html",
     "main.c3500ad7.css.map": "/react-snowfall/static/css/main.c3500ad7.css.map",
-    "main.47537167.js.map": "/react-snowfall/static/js/main.47537167.js.map"
+    "main.dfc9bc29.js.map": "/react-snowfall/static/js/main.dfc9bc29.js.map"
   },
   "entrypoints": [
     "static/css/main.c3500ad7.css",
-    "static/js/main.47537167.js"
+    "static/js/main.dfc9bc29.js"
   ]
 }
