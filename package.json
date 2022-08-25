@@ -1,70 +1,10 @@
 {
-  "name": "react-snowfall",
-  "version": "1.1.2",
-  "description": "A react component that creates a snowfall effect",
-  "main": "./lib/Snowfall.js",
-  "sideEffects": false,
-  "scripts": {
-    "generate-types": "tsc --emitDeclarationOnly --declarationDir ./lib",
-    "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\" --ignore \"src/**/*.test.tsx\",\"src/**/*.test.ts\",\"src/__mocks__/**/*\" --source-maps",
-    "watch": "npm run build -- --watch",
-    "test": "jest",
-    "release": "standard-version"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cahilfoley/react-snowfall.git"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "keywords": [
-    "react",
-    "component",
-    "snowfall",
-    "winter",
-    "christmas"
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
   ],
-  "author": "Cahil Foley",
-  "license": "MIT",
-  "homepage": "https://github.com/cahilfoley/react-snowfall#readme",
-  "bugs": {
-    "url": "https://github.com/cahilfoley/react-snowfall/issues"
-  },
-  "peerDependencies": {
-    "react": "^16.8 || 17.x",
-    "react-dom": "^16.8 || 17.x"
-  },
   "devDependencies": {
-    "@babel/cli": "^7.13.0",
-    "@babel/core": "^7.13.1",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.13.0",
-    "@babel/preset-env": "^7.13.5",
-    "@babel/preset-react": "^7.12.13",
-    "@babel/preset-typescript": "^7.13.0",
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
-    "@types/testing-library__jest-dom": "^5.14.2",
-    "@typescript-eslint/eslint-plugin": "^4.15.2",
-    "@typescript-eslint/parser": "^4.15.2",
-    "eslint": "^7.20.0",
-    "eslint-config-prettier": "^8.0.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "jest": "^27.4.7",
-    "jest-canvas-mock": "^2.3.1",
-    "prettier": "^2.2.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "standard-version": "^9.1.1",
-    "typescript": "^4.5.4"
-  },
-  "dependencies": {
-    "react-fast-compare": "^3.2.0"
+    "lerna": "^5.4.3"
   }
 }

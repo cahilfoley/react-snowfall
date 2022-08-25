@@ -1,0 +1,11 @@
+node_modules
+.vscode
+assets
+demo
+src/__mocks__
+src/**/*.test.tsx
+.babelrc
+.eslintrc.js
+.prettierrc.js
+.eslintignore
+jest.config.js

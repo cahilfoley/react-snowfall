@@ -1,0 +1,70 @@
+{
+  "name": "react-snowfall",
+  "version": "1.1.2",
+  "description": "A react component that creates a snowfall effect",
+  "main": "./lib/Snowfall.js",
+  "sideEffects": false,
+  "scripts": {
+    "generate-types": "tsc --emitDeclarationOnly --declarationDir ./lib",
+    "build": "npm run generate-types && babel ./src --out-dir lib --extensions \".ts,.tsx\" --ignore \"src/**/*.test.tsx\",\"src/**/*.test.ts\",\"src/__mocks__/**/*\" --source-maps",
+    "watch": "npm run build -- --watch",
+    "test": "jest",
+    "release": "standard-version"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cahilfoley/react-snowfall.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "react",
+    "component",
+    "snowfall",
+    "winter",
+    "christmas"
+  ],
+  "author": "Cahil Foley",
+  "license": "MIT",
+  "homepage": "https://github.com/cahilfoley/react-snowfall#readme",
+  "bugs": {
+    "url": "https://github.com/cahilfoley/react-snowfall/issues"
+  },
+  "peerDependencies": {
+    "react": "^16.8 || 17.x || 18.x",
+    "react-dom": "^16.8 || 17.x || 18.x"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.18.13",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.18.9",
+    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@types/jest": "^28.1.8",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/parser": "^5.34.0",
+    "eslint": "^8.22.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^28.1.3",
+    "jest-canvas-mock": "^2.4.0",
+    "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "standard-version": "^9.5.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "react-fast-compare": "^3.2.0"
+  }
+}
