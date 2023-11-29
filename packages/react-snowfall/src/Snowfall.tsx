@@ -23,6 +23,7 @@ const Snowfall = ({
   speed = defaultConfig.speed,
   wind = defaultConfig.wind,
   rotationSpeed = defaultConfig.rotationSpeed,
+  opacity = defaultConfig.opacity,
   snowflakeCount = 150,
   images,
   style,
@@ -34,7 +35,16 @@ const Snowfall = ({
   const animationFrame = useRef(0)
 
   const lastUpdate = useRef(Date.now())
-  const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind, rotationSpeed, images })
+  const config = useDeepMemo<SnowflakeProps>({
+    color,
+    changeFrequency,
+    radius,
+    speed,
+    wind,
+    rotationSpeed,
+    images,
+    opacity,
+  })
   const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
 
   const render = useCallback(

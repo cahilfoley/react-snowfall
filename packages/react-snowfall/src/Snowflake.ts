@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare'
-import { lerp, random, randomElement } from './utils'
+import { hexToRGB, lerp, random, randomElement } from './utils'
 
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
@@ -57,6 +57,8 @@ export interface SnowflakeProps {
    * The default value is `[-1.0, 1.0]`.
    */
   rotationSpeed: [number, number]
+  /** The minimum and maximum opacity of the snowflake */
+  opacity: [number, number]
 }
 
 export type SnowflakeConfig = Partial<SnowflakeProps>
@@ -68,6 +70,7 @@ export const defaultConfig: SnowflakeProps = {
   wind: [-0.5, 2.0],
   changeFrequency: 200,
   rotationSpeed: [-1.0, 1.0],
+  opacity: [1, 1],
 }
 
 interface SnowflakeParams {
@@ -81,6 +84,7 @@ interface SnowflakeParams {
   nextSpeed: number
   nextWind: number
   nextRotationSpeed: number
+  opacity: number
 }
 
 /**
@@ -100,7 +104,7 @@ class Snowflake {
     this.updateConfig(config)
 
     // Setting initial parameters
-    const { radius, wind, speed, rotationSpeed } = this.config
+    const { radius, wind, speed, rotationSpeed, opacity } = this.config
 
     this.params = {
       x: random(0, canvas.offsetWidth),
@@ -113,6 +117,7 @@ class Snowflake {
       nextSpeed: random(...wind),
       nextWind: random(...speed),
       nextRotationSpeed: random(...rotationSpeed),
+      opacity: random(...opacity),
     }
 
     this.framesSinceLastUpdate = 0
@@ -202,6 +207,7 @@ class Snowflake {
 
       const radius = Math.ceil(this.params.radius)
       ctx.rotate((this.params.rotation * Math.PI) / 180)
+      ctx.globalAlpha = this.params.opacity
       ctx.drawImage(
         this.getImageOffscreenCanvas(this.image, radius),
         -Math.ceil(radius / 2),
@@ -214,7 +220,7 @@ class Snowflake {
     } else {
       ctx.beginPath()
       ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
-      ctx.fillStyle = this.config.color
+      ctx.fillStyle = hexToRGB(this.config.color, this.params.opacity)
       ctx.closePath()
       ctx.fill()
     }

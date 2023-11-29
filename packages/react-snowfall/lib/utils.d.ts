@@ -27,3 +27,4 @@ export declare function getSize(element?: HTMLElement | null): {
  * @returns A random item selected from the array
  */
 export declare function randomElement<T>(items: T[]): T;
+export declare function hexToRGB(hex: string, alpha: number): string;

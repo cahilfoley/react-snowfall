@@ -7,11 +7,11 @@ const root = createRoot(document.getElementById('root') as HTMLDivElement)
 root.render(
   <StrictMode>
     <App />
-  </StrictMode>
+  </StrictMode>,
 )
 
 serviceWorkerRegistration.register({
   onUpdate(registration) {
     registration.waiting?.postMessage({ type: 'SKIP_WAITING' })
-  }
+  },
 })
