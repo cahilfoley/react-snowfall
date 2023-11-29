@@ -70,6 +70,7 @@ All available properties are detailed below.
 | `speed`           | The minimum and maximum speed of the snowflake (in pixels per frame).<br/><br/>The speed determines how quickly the snowflake moves along the y axis (vertical speed).<br/><br/>The value for each snowflake will be randomly selected within this range.                                | `[1.0, 3.0]`  |
 | `style`           | Any style properties that will be passed to the canvas element.                                                                                                                                                                                                                          | `undefined`   |
 | `wind`            | The minimum and maximum wind of the snowflake (in pixels per frame).<br/><br/>The wind determines how quickly the snowflake moves along the x axis (horizontal speed).<br/><br/>The value for each snowflake will be randomly selected within this range.                                | `[-0.5, 2.0]` |
+| `opacity`            | The minimum and maximum opacity of the snowflake.<br/><br/>The value for each snowflake will be randomly selected within this range.                                | `[1, 1]` |
 
 ## Using Images
 

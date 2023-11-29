@@ -14,7 +14,7 @@ snowflake.src = logo
 const images = [snowflake]
 
 const App = () => {
-  const { color, snowflakeCount, radius, speed, wind, useImages } = useSettingsStore()
+  const { color, snowflakeCount, radius, speed, wind, useImages, opacity } = useSettingsStore()
 
   return (
     <div className="app">
@@ -25,6 +25,7 @@ const App = () => {
         speed={speed}
         wind={wind}
         images={useImages ? images : undefined}
+        opacity={opacity}
       />
       <a className="title" href={githubURL} style={{ color }}>
         <img src={logo} alt="Snowflake Logo" />

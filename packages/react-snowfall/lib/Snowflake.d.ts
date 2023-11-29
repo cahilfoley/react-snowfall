@@ -54,6 +54,12 @@ export interface SnowflakeProps {
      * The default value is `[-1.0, 1.0]`.
      */
     rotationSpeed: [number, number];
+    /**
+     * The minimum and maximum opacity of the snowflake image.
+     *
+     * This value only applies to snowflakes that are using images.
+     */
+    opacity: [number, number];
 }
 export type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;

@@ -107,21 +107,36 @@ const Settings = () => {
             />
           </div>
           {settings.useImages ? (
-            <div>
-              <Typography gutterBottom>
-                Rotation Speed <ValueChip label={`Min ${settings?.rotationSpeed?.[0]}`} />
-                <ValueChip label={`Max ${settings?.rotationSpeed?.[1]}`} />
-              </Typography>
-              <Slider
-                value={settings.rotationSpeed}
-                min={-5}
-                max={10}
-                step={0.5}
-                onChange={(_, value) =>
-                  settings.update({ rotationSpeed: value as [number, number] })
-                }
-              />
-            </div>
+            <>
+              <div>
+                <Typography gutterBottom>
+                  Opacity <ValueChip label={`Min ${settings?.opacity?.[0]}`} />
+                  <ValueChip label={`Max ${settings?.opacity?.[1]}`} />
+                </Typography>
+                <Slider
+                  value={settings.opacity}
+                  min={0}
+                  max={1}
+                  step={0.1}
+                  onChange={(_, value) => settings.update({ opacity: value as [number, number] })}
+                />
+              </div>
+              <div>
+                <Typography gutterBottom>
+                  Rotation Speed <ValueChip label={`Min ${settings?.rotationSpeed?.[0]}`} />
+                  <ValueChip label={`Max ${settings?.rotationSpeed?.[1]}`} />
+                </Typography>
+                <Slider
+                  value={settings.rotationSpeed}
+                  min={-5}
+                  max={10}
+                  step={0.5}
+                  onChange={(_, value) =>
+                    settings.update({ rotationSpeed: value as [number, number] })
+                  }
+                />
+              </div>
+            </>
           ) : (
             <Box my={2}>
               <Typography gutterBottom>

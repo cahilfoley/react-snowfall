@@ -57,6 +57,16 @@ export interface SnowflakeProps {
    * The default value is `[-1.0, 1.0]`.
    */
   rotationSpeed: [number, number]
+  /**
+   * The minimum and maximum opacity of the snowflake image.
+   *
+   * This value only applies to snowflakes that are using images.
+   *
+   * The values will be randomly selected within this range.
+   *
+   * The default value is `[1, 1]`.
+   */
+  opacity: [number, number]
 }
 
 export type SnowflakeConfig = Partial<SnowflakeProps>
@@ -68,6 +78,7 @@ export const defaultConfig: SnowflakeProps = {
   wind: [-0.5, 2.0],
   changeFrequency: 200,
   rotationSpeed: [-1.0, 1.0],
+  opacity: [1, 1],
 }
 
 interface SnowflakeParams {
@@ -81,6 +92,7 @@ interface SnowflakeParams {
   nextSpeed: number
   nextWind: number
   nextRotationSpeed: number
+  opacity: number
 }
 
 /**
@@ -118,7 +130,7 @@ class Snowflake {
     this.updateConfig(config)
 
     // Setting initial parameters
-    const { radius, wind, speed, rotationSpeed } = this.config
+    const { radius, wind, speed, rotationSpeed, opacity } = this.config
 
     this.params = {
       x: random(0, canvas.offsetWidth),
@@ -131,6 +143,7 @@ class Snowflake {
       nextSpeed: random(...speed),
       nextWind: random(...wind),
       nextRotationSpeed: random(...rotationSpeed),
+      opacity: random(...opacity),
     }
 
     this.framesSinceLastUpdate = 0
@@ -247,6 +260,12 @@ class Snowflake {
     const cos = Math.cos(radian)
     const sin = Math.sin(radian)
 
+    // Save the current state to avoid affecting other drawings if changing the opacity
+    if (this.params.opacity !== 1) {
+      ctx.save()
+      ctx.globalAlpha = this.params.opacity // Set the global alpha to the snowflake's opacity
+    }
+
     // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
     // The arguments for setTransform are: a, b, c, d, e, f
     // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
@@ -255,6 +274,11 @@ class Snowflake {
     // Draw the image with the center of the image at the center of the current location
     const image = this.getImageOffscreenCanvas(this.image!, radius)
     ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius)
+
+    // Reset the transform to avoid affecting other drawings if we were changing the opacity
+    if (this.params.opacity !== 1) {
+      ctx.restore()
+    }
   }
 }
 
