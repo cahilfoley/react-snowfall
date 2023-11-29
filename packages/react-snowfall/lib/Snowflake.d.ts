@@ -54,8 +54,10 @@ export interface SnowflakeProps {
      * The default value is `[-1.0, 1.0]`.
      */
     rotationSpeed: [number, number];
+    /** The minimum and maximum opacity of the snowflake */
+    opacity: [number, number];
 }
-export declare type SnowflakeConfig = Partial<SnowflakeProps>;
+export type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;
 /**
  * An individual snowflake that will update it's location every call to `update`

@@ -34,7 +34,7 @@ const colors = [
   '#ff9800',
   '#ff5722',
   '#795548',
-  '#607d8b'
+  '#607d8b',
 ]
 
 const Settings = () => {
@@ -71,8 +71,7 @@ const Settings = () => {
           </div>
           <div>
             <Typography gutterBottom>
-              Wind <ValueChip label={`Min ${settings?.wind?.[0]}`} />{' '}
-              <ValueChip label={`Max ${settings?.wind?.[1]}`} />
+              Wind <ValueChip label={`Min ${settings?.wind?.[0]}`} /> <ValueChip label={`Max ${settings?.wind?.[1]}`} />
             </Typography>
             <Slider
               value={settings.wind}
@@ -93,6 +92,19 @@ const Settings = () => {
               max={30}
               step={0.5}
               onChange={(_, value) => settings.update({ radius: value as [number, number] })}
+            />
+          </div>
+          <div>
+            <Typography gutterBottom>
+              Opacity <ValueChip label={`Min ${settings?.opacity?.[0]}`} />
+              <ValueChip label={`Max ${settings?.opacity?.[1]}`} />
+            </Typography>
+            <Slider
+              value={settings.opacity}
+              min={0}
+              max={1}
+              step={0.1}
+              onChange={(_, value) => settings.update({ opacity: value as [number, number] })}
             />
           </div>
           <div>
@@ -117,9 +129,7 @@ const Settings = () => {
                 min={-5}
                 max={10}
                 step={0.5}
-                onChange={(_, value) =>
-                  settings.update({ rotationSpeed: value as [number, number] })
-                }
+                onChange={(_, value) => settings.update({ rotationSpeed: value as [number, number] })}
               />
             </div>
           ) : (
