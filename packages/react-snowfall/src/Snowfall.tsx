@@ -17,6 +17,7 @@ export const Snowfall = ({
   speed = defaultConfig.speed,
   wind = defaultConfig.wind,
   rotationSpeed = defaultConfig.rotationSpeed,
+  opacity = defaultConfig.opacity,
   snowflakeCount = 150,
   images,
   style,
@@ -35,6 +36,7 @@ export const Snowfall = ({
     rotationSpeed,
     images,
     snowflakeCount,
+    opacity,
   })
 
   // A reference to the config used for creating the initial instance

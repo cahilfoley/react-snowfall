@@ -14,6 +14,7 @@ export const useSettingsStore = create<SnowfallSettings>((set) => ({
   speed: [0.5, 3.0],
   wind: [-0.5, 2.0],
   rotationSpeed: [-1.0, 1.0],
+  opacity: [0.1, 0.2],
   useImages: false,
   update: (changes) => set(changes),
   setUseImages: (useImages) => {
@@ -22,5 +23,5 @@ export const useSettingsStore = create<SnowfallSettings>((set) => ({
     } else {
       return set({ useImages, radius: [0.5, 3] })
     }
-  }
+  },
 }))

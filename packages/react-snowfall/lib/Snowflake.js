@@ -7,6 +7,7 @@ export const defaultConfig = {
     wind: [-0.5, 2.0],
     changeFrequency: 200,
     rotationSpeed: [-1.0, 1.0],
+    opacity: [1, 1],
 };
 /**
  * An individual snowflake that will update it's location every call to `update`
@@ -32,7 +33,7 @@ class Snowflake {
         // Set custom config
         this.updateConfig(config);
         // Setting initial parameters
-        const { radius, wind, speed, rotationSpeed } = this.config;
+        const { radius, wind, speed, rotationSpeed, opacity } = this.config;
         this.params = {
             x: random(0, canvas.offsetWidth),
             y: random(-canvas.offsetHeight, 0),
@@ -44,6 +45,7 @@ class Snowflake {
             nextSpeed: random(...speed),
             nextWind: random(...wind),
             nextRotationSpeed: random(...rotationSpeed),
+            opacity: random(...opacity),
         };
         this.framesSinceLastUpdate = 0;
     }
@@ -146,6 +148,11 @@ class Snowflake {
         const radian = (rotation * Math.PI) / 180;
         const cos = Math.cos(radian);
         const sin = Math.sin(radian);
+        // Save the current state to avoid affecting other drawings if changing the opacity
+        if (this.params.opacity !== 1) {
+            ctx.save();
+            ctx.globalAlpha = this.params.opacity; // Set the global alpha to the snowflake's opacity
+        }
         // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
         // The arguments for setTransform are: a, b, c, d, e, f
         // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
@@ -153,6 +160,10 @@ class Snowflake {
         // Draw the image with the center of the image at the center of the current location
         const image = this.getImageOffscreenCanvas(this.image, radius);
         ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius);
+        // Reset the transform to avoid affecting other drawings if we were changing the opacity
+        if (this.params.opacity !== 1) {
+            ctx.restore();
+        }
     }
 }
 Snowflake.offscreenCanvases = new WeakMap();

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { SnowfallCanvas } from './SnowfallCanvas.js';
 import { defaultConfig } from './Snowflake.js';
 import { useComponentSize, useDeepMemo, useSnowfallStyle } from './hooks.js';
-export const Snowfall = ({ color = defaultConfig.color, changeFrequency = defaultConfig.changeFrequency, radius = defaultConfig.radius, speed = defaultConfig.speed, wind = defaultConfig.wind, rotationSpeed = defaultConfig.rotationSpeed, snowflakeCount = 150, images, style, } = {}) => {
+export const Snowfall = ({ color = defaultConfig.color, changeFrequency = defaultConfig.changeFrequency, radius = defaultConfig.radius, speed = defaultConfig.speed, wind = defaultConfig.wind, rotationSpeed = defaultConfig.rotationSpeed, opacity = defaultConfig.opacity, snowflakeCount = 150, images, style, } = {}) => {
     const mergedStyle = useSnowfallStyle(style);
     const canvasRef = useRef(null);
     const canvasSize = useComponentSize(canvasRef);
@@ -15,6 +15,7 @@ export const Snowfall = ({ color = defaultConfig.color, changeFrequency = defaul
         rotationSpeed,
         images,
         snowflakeCount,
+        opacity,
     });
     // A reference to the config used for creating the initial instance
     const configRef = useRef(config);
