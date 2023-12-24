@@ -9,7 +9,7 @@
 A react component that creates a snowfall effect
 
 - [Live Example](https://cahilfoley.github.io/react-snowfall)
-- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/react-snowfall/tree/master/demo)
+- [Demo Playground](https://codesandbox.io/s/github/cahilfoley/react-snowfall/tree/v1.1.2/demo)
 
 ## Installation
 
