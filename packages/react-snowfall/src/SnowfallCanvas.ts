@@ -56,7 +56,9 @@ export class SnowfallCanvas {
       this.snowflakes = this.snowflakes.slice(0, this.config.snowflakeCount)
     }
 
-    this.snowflakes.forEach((snowflake) => snowflake.updateConfig(this.config))
+    for (const snowflake of this.snowflakes) {
+      snowflake.updateConfig(this.config)
+    }
   }
 
   /**
@@ -69,14 +71,18 @@ export class SnowfallCanvas {
     const { offsetWidth, offsetHeight } = canvas
 
     // Update the position of each snowflake
-    snowflakes.forEach((snowflake) => snowflake.update(offsetWidth, offsetHeight, framesPassed))
+    for (const snowflake of snowflakes) {
+      snowflake.update(offsetWidth, offsetHeight, framesPassed)
+    }
 
     // Render them if the canvas is available
     if (ctx) {
       ctx.setTransform(1, 0, 0, 1, 0, 0)
       ctx.clearRect(0, 0, offsetWidth, offsetHeight)
 
-      snowflakes.forEach((snowflake) => snowflake.draw(ctx))
+      for (const snowflake of snowflakes) {
+        snowflake.draw(ctx)
+      }
     }
   }
 
