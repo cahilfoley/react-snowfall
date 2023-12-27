@@ -42,15 +42,19 @@ const Snowfall = ({
       const canvas = canvasRef.current
       if (canvas) {
         // Update the positions of the snowflakes
-        snowflakes.forEach((snowflake) => snowflake.update(canvas, framesPassed))
-
+        for (const snowflake of snowflakes) {
+          snowflake.update(canvas, framesPassed)
+        }
+      
         // Render them if the canvas is available
         const ctx = canvas.getContext('2d')
         if (ctx) {
           ctx.setTransform(1, 0, 0, 1, 0, 0)
           ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-
-          snowflakes.forEach((snowflake) => snowflake.draw(ctx))
+          
+          for (const snowflake of snowflakes) {
+            snowflake.draw(ctx)
+          }
         }
       }
     },
