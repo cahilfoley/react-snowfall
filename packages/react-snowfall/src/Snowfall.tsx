@@ -45,13 +45,13 @@ const Snowfall = ({
         for (const snowflake of snowflakes) {
           snowflake.update(canvas, framesPassed)
         }
-      
+        
         // Render them if the canvas is available
         const ctx = canvas.getContext('2d')
         if (ctx) {
           ctx.setTransform(1, 0, 0, 1, 0, 0)
           ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-          
+      
           for (const snowflake of snowflakes) {
             snowflake.draw(ctx)
           }
@@ -60,7 +60,6 @@ const Snowfall = ({
     },
     [snowflakes],
   )
-
   const loop = useCallback(() => {
     // Update based on time passed so that a slow frame rate won't slow down the snowflake
     const now = Date.now()

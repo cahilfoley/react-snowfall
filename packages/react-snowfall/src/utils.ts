@@ -47,3 +47,10 @@ export function randomElement<T>(items: T[]): T {
   const index = Math.floor(Math.random() * items.length)
   return items[index]
 }
+
+/**
+ * Store the value of PI * 2.
+ *
+ * This is so we can avoid calculating this value every time we draw a circle.
+ */
+export const TWO_PI = Math.PI * 2

@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare'
-import { lerp, random, randomElement } from './utils'
+import { TWO_PI, lerp, random, randomElement } from './utils'
 
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
@@ -213,7 +213,7 @@ class Snowflake {
       // ctx.restore()
     } else {
       ctx.beginPath()
-      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
+      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, TWO_PI)
       ctx.fillStyle = this.config.color
       ctx.closePath()
       ctx.fill()
