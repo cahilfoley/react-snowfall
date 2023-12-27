@@ -82,6 +82,7 @@ const Snowfall = ({
     },
     [snowflakes, color, images],
   )
+
   const loop = useCallback(() => {
     // Update based on time passed so that a slow frame rate won't slow down the snowflake
     const now = Date.now()

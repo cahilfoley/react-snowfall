@@ -53,4 +53,4 @@ export function randomElement<T>(items: T[]): T {
  *
  * This is so we can avoid calculating this value every time we draw a circle.
  */
-export const TWO_PI = Math.PI * 2
+export const twoPi = Math.PI * 2
