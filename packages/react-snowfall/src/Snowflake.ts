@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare'
-import { lerp, random, randomElement, TWO_PI } from './utils.js'
+import { lerp, random, randomElement, twoPi } from './utils.js'
 
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
@@ -230,7 +230,7 @@ class Snowflake {
    */
   public drawCircle(ctx: CanvasRenderingContext2D): void {
     ctx.moveTo(this.params.x, this.params.y)
-    ctx.arc(this.params.x, this.params.y, this.params.radius, 0, TWO_PI)
+    ctx.arc(this.params.x, this.params.y, this.params.radius, 0, twoPi)
   }
 
   /**
