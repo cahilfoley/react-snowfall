@@ -80,7 +80,7 @@ const Snowfall = ({
       // We do not need to call ctx.closePath() because ctx.beginPath() empties the list
       // of sub-paths and starts a new path.
     },
-    [snowflakes],
+    [snowflakes, color, images],
   )
   const loop = useCallback(() => {
     // Update based on time passed so that a slow frame rate won't slow down the snowflake

@@ -39,3 +39,9 @@ it('renders the specified number of snowflakes', () => {
 
   expect(useSnowflakes).toHaveBeenCalledWith(expect.any(Object), 100, expect.any(Object))
 })
+
+it('only calls beginPath once per frame', () => {
+  render(<Snowfall />)
+
+  
+})
