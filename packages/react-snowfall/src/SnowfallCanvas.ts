@@ -68,6 +68,8 @@ export class SnowfallCanvas {
   private render(framesPassed = 1) {
     const { ctx, canvas, snowflakes } = this
 
+    if (!ctx || !canvas) return
+
     const { offsetWidth, offsetHeight } = canvas
 
     // Update the position of each snowflake
@@ -75,15 +77,25 @@ export class SnowfallCanvas {
       snowflake.update(offsetWidth, offsetHeight, framesPassed)
     }
 
-    // Render them if the canvas is available
-    if (ctx) {
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.clearRect(0, 0, offsetWidth, offsetHeight)
+    // Render the snowflakes
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.clearRect(0, 0, offsetWidth, offsetHeight)
 
+    // If using images, draw each image individually
+    if (this.config.images && this.config.images.length > 0) {
       for (const snowflake of snowflakes) {
-        snowflake.draw(ctx)
+        snowflake.drawImage(ctx)
       }
+      return
     }
+
+    // Not using images, draw circles in a single path
+    ctx.beginPath()
+    for (const snowflake of snowflakes) {
+      snowflake.drawCircle(ctx)
+    }
+    ctx.fillStyle = this.config.color!
+    ctx.fill()
   }
 
   private animationFrame: number | undefined
