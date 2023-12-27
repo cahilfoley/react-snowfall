@@ -40,21 +40,47 @@ const Snowfall = ({
   const render = useCallback(
     (framesPassed = 1) => {
       const canvas = canvasRef.current
-      if (canvas) {
-        // Update the positions of the snowflakes
-        snowflakes.forEach((snowflake) => snowflake.update(canvas, framesPassed))
 
-        // Render them if the canvas is available
-        const ctx = canvas.getContext('2d')
-        if (ctx) {
-          ctx.setTransform(1, 0, 0, 1, 0, 0)
-          ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-
-          snowflakes.forEach((snowflake) => snowflake.draw(ctx))
-        }
+      if (!canvas) {
+        return
       }
+
+      // Update the positions of the snowflakes
+      for (const snowflake of snowflakes) {
+        snowflake.update(canvas, framesPassed)
+      }
+
+      // Bail out if context is not available
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        return
+      }
+
+      // Render the snowflakes
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
+
+      // If images are provided, use them to draw snowflakes
+      if (images && images.length > 0) {
+        for (const snowflake of snowflakes) {
+          snowflake.drawImage(ctx)
+        }
+        return
+      }
+
+      // Otherwise, draw snowflakes as circles
+
+      // Use single path to draw all snowflakes. This is faster than starting a new path for each snowflake.
+      ctx.beginPath()
+      for (const snowflake of snowflakes) {
+        snowflake.drawCircle(ctx)
+      }
+      ctx.fillStyle = color
+      ctx.fill()
+      // We do not need to call ctx.closePath() because ctx.beginPath() empties the list
+      // of sub-paths and starts a new path.
     },
-    [snowflakes],
+    [snowflakes, color, images],
   )
 
   const loop = useCallback(() => {

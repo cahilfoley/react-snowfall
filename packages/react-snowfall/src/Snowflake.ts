@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare'
-import { lerp, random, randomElement } from './utils'
+import { twoPi, lerp, random, randomElement } from './utils'
 
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
@@ -194,30 +194,46 @@ class Snowflake {
     return sizes[size] ?? image
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
-    if (this.image) {
-      // ctx.save()
-      // ctx.translate(this.params.x, this.params.y)
-      ctx.setTransform(1, 0, 0, 1, this.params.x, this.params.y)
+  /**
+   * Draws an image-based snowflake to the canvas.
+   *
+   * This method should only be called if our config has images.
+   *
+   * @param ctx The canvas context to draw to
+   */
+  public drawImage(ctx: CanvasRenderingContext2D): void {
+    ctx.setTransform(1, 0, 0, 1, this.params.x, this.params.y)
 
-      const radius = Math.ceil(this.params.radius)
-      ctx.rotate((this.params.rotation * Math.PI) / 180)
-      ctx.drawImage(
-        this.getImageOffscreenCanvas(this.image, radius),
-        -Math.ceil(radius / 2),
-        -Math.ceil(radius / 2),
-        radius,
-        radius,
-      )
+    const radius = Math.ceil(this.params.radius)
+    ctx.rotate((this.params.rotation * Math.PI) / 180)
+    ctx.drawImage(
+      this.getImageOffscreenCanvas(this.image!, radius),
+      -Math.ceil(radius / 2),
+      -Math.ceil(radius / 2),
+      radius,
+      radius,
+    )
+  }
 
-      // ctx.restore()
-    } else {
-      ctx.beginPath()
-      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
-      ctx.fillStyle = this.config.color
-      ctx.closePath()
-      ctx.fill()
-    }
+  /**
+   * Draws a circular snowflake to the canvas.
+   *
+   * This method should only be called if our config does not have images.
+   *
+   * This method assumes that a path has already been started on the canvas.
+   * `ctx.beginPath()` should be called before calling this method.
+   *
+   * After calling this method, the fillStyle should be set to the snowflake's
+   * color and `ctx.fill()` should be called to fill the snowflake.
+   *
+   * Calling `ctx.fill()` after multiple snowflakes have had `drawCircle` called
+   * will render all of the snowflakes since the last call to `ctx.beginPath()`.
+   *
+   * @param ctx The canvas context to draw to
+   */
+  public drawCircle(ctx: CanvasRenderingContext2D): void {
+    ctx.moveTo(this.params.x, this.params.y)
+    ctx.arc(this.params.x, this.params.y, this.params.radius, 0, twoPi)
   }
 }
 
