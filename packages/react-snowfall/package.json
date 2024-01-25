@@ -1,6 +1,6 @@
 {
   "name": "react-snowfall",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "A react component that creates a snowfall effect",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
