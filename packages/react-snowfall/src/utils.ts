@@ -25,6 +25,17 @@ export function lerp(start: number, end: number, normal: number) {
 }
 
 /**
+ * Selects a random item from an array of inputs.
+ *
+ * @param items The array of items to choose from
+ * @returns A random item selected from the array
+ */
+export function randomElement<T>(items: T[]): T {
+  const index = Math.floor(Math.random() * items.length)
+  return items[index]
+}
+
+/**
  * Gets the height and width of the provided HTML element
  * @param element The html element to measure
  */
@@ -35,15 +46,4 @@ export function getSize(element?: HTMLElement | null) {
     height: element.offsetHeight,
     width: element.offsetWidth,
   }
-}
-
-/**
- * Selects a random item from an array of inputs.
- *
- * @param items The array of items to choose from
- * @returns A random item selected from the array
- */
-export function randomElement<T>(items: T[]): T {
-  const index = Math.floor(Math.random() * items.length)
-  return items[index]
 }

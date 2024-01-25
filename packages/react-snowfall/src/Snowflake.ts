@@ -88,7 +88,25 @@ interface SnowflakeParams {
  * and draw itself to the canvas every call to `draw`.
  */
 class Snowflake {
-  static offscreenCanvases = new WeakMap<CanvasImageSource, Record<number, HTMLCanvasElement>>()
+  private static offscreenCanvases = new WeakMap<CanvasImageSource, Record<number, HTMLCanvasElement>>()
+
+  /**
+   * A utility function to create a collection of snowflakes
+   * @param canvas The canvas element
+   * @param amount The number of snowflakes
+   * @param config The configuration for each snowflake
+   */
+  static createSnowflakes(canvas: HTMLCanvasElement | null, amount: number, config: SnowflakeConfig): Snowflake[] {
+    if (!canvas) return []
+
+    const snowflakes: Snowflake[] = []
+
+    for (let i = 0; i < amount; i++) {
+      snowflakes.push(new Snowflake(canvas, config))
+    }
+
+    return snowflakes
+  }
 
   private config!: SnowflakeProps
   private params: SnowflakeParams
@@ -149,14 +167,14 @@ class Snowflake {
     }
   }
 
-  public update(canvas: HTMLCanvasElement, framesPassed = 1): void {
+  public update(offsetWidth: number, offsetHeight: number, framesPassed = 1): void {
     const { x, y, rotation, rotationSpeed, nextRotationSpeed, wind, speed, nextWind, nextSpeed, radius } = this.params
 
     // Update current location, wrapping around if going off the canvas
-    this.params.x = (x + wind * framesPassed) % (canvas.offsetWidth + radius * 2)
-    if (this.params.x > canvas.offsetWidth + radius) this.params.x = -radius
-    this.params.y = (y + speed * framesPassed) % (canvas.offsetHeight + radius * 2)
-    if (this.params.y > canvas.offsetHeight + radius) this.params.y = -radius
+    this.params.x = (x + wind * framesPassed) % (offsetWidth + radius * 2)
+    if (this.params.x > offsetWidth + radius) this.params.x = -radius
+    this.params.y = (y + speed * framesPassed) % (offsetHeight + radius * 2)
+    if (this.params.y > offsetHeight + radius) this.params.y = -radius
 
     // Apply rotation
     if (this.image) {
@@ -195,27 +213,26 @@ class Snowflake {
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
+    const { x, y, rotation, radius } = this.params
+
     if (this.image) {
-      // ctx.save()
-      // ctx.translate(this.params.x, this.params.y)
-      ctx.setTransform(1, 0, 0, 1, this.params.x, this.params.y)
+      const radian = (rotation * Math.PI) / 180
+      const cos = Math.cos(radian)
+      const sin = Math.sin(radian)
 
-      const radius = Math.ceil(this.params.radius)
-      ctx.rotate((this.params.rotation * Math.PI) / 180)
-      ctx.drawImage(
-        this.getImageOffscreenCanvas(this.image, radius),
-        -Math.ceil(radius / 2),
-        -Math.ceil(radius / 2),
-        radius,
-        radius,
-      )
+      // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
+      // The arguments for setTransform are: a, b, c, d, e, f
+      // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
+      ctx.setTransform(cos, sin, -sin, cos, x, y)
 
-      // ctx.restore()
+      // Draw the image with the center of the image at the center of the current location
+      const image = this.getImageOffscreenCanvas(this.image, radius)
+      ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius)
     } else {
+      // Not using images so no need to use transforms, just draw an arc in the right location
       ctx.beginPath()
-      ctx.arc(this.params.x, this.params.y, this.params.radius, 0, 2 * Math.PI)
+      ctx.arc(x, y, radius, 0, 2 * Math.PI)
       ctx.fillStyle = this.config.color
-      ctx.closePath()
       ctx.fill()
     }
   }

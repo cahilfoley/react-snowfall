@@ -1,22 +1,16 @@
-import React, { useCallback, useEffect, useRef } from 'react'
-import { targetFrameTime } from './config'
-import { useComponentSize, useSnowfallStyle, useSnowflakes, useDeepMemo } from './hooks'
-import { SnowflakeProps, defaultConfig } from './Snowflake'
+import React, { useEffect, useRef } from 'react'
+import { SnowfallCanvas, SnowfallCanvasConfig } from './SnowfallCanvas'
+import { defaultConfig } from './Snowflake'
+import { useComponentSize, useDeepMemo, useSnowfallStyle } from './hooks'
 
-export interface SnowfallProps extends Partial<SnowflakeProps> {
-  /**
-   * The number of snowflakes to be rendered.
-   *
-   * The default value is 150.
-   */
-  snowflakeCount?: number
+export interface SnowfallProps extends Partial<SnowfallCanvasConfig> {
   /**
    * Any style properties that will be passed to the canvas element.
    */
   style?: React.CSSProperties
 }
 
-const Snowfall = ({
+export const Snowfall = ({
   color = defaultConfig.color,
   changeFrequency = defaultConfig.changeFrequency,
   radius = defaultConfig.radius,
@@ -31,50 +25,39 @@ const Snowfall = ({
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const canvasSize = useComponentSize(canvasRef)
-  const animationFrame = useRef(0)
 
-  const lastUpdate = useRef(Date.now())
-  const config = useDeepMemo<SnowflakeProps>({ color, changeFrequency, radius, speed, wind, rotationSpeed, images })
-  const snowflakes = useSnowflakes(canvasRef, snowflakeCount, config)
+  const config = useDeepMemo<SnowfallCanvasConfig>({
+    color,
+    changeFrequency,
+    radius,
+    speed,
+    wind,
+    rotationSpeed,
+    images,
+    snowflakeCount,
+  })
 
-  const render = useCallback(
-    (framesPassed = 1) => {
-      const canvas = canvasRef.current
-      if (canvas) {
-        // Update the positions of the snowflakes
-        snowflakes.forEach((snowflake) => snowflake.update(canvas, framesPassed))
+  // A reference to the config used for creating the initial instance
+  const configRef = useRef(config)
 
-        // Render them if the canvas is available
-        const ctx = canvas.getContext('2d')
-        if (ctx) {
-          ctx.setTransform(1, 0, 0, 1, 0, 0)
-          ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight)
-
-          snowflakes.forEach((snowflake) => snowflake.draw(ctx))
-        }
-      }
-    },
-    [snowflakes],
-  )
-
-  const loop = useCallback(() => {
-    // Update based on time passed so that a slow frame rate won't slow down the snowflake
-    const now = Date.now()
-    const msPassed = Date.now() - lastUpdate.current
-    lastUpdate.current = now
-
-    // Frames that would have passed if running at 60 fps
-    const framesPassed = msPassed / targetFrameTime
-
-    render(framesPassed)
-
-    animationFrame.current = requestAnimationFrame(loop)
-  }, [render])
+  const snowfallCanvasRef = useRef<SnowfallCanvas>()
 
   useEffect(() => {
-    loop()
-    return () => cancelAnimationFrame(animationFrame.current)
-  }, [loop])
+    if (!snowfallCanvasRef.current && canvasRef.current) {
+      snowfallCanvasRef.current = new SnowfallCanvas(canvasRef.current, configRef.current)
+    }
+
+    return () => {
+      snowfallCanvasRef.current?.pause()
+      snowfallCanvasRef.current = undefined
+    }
+  }, [])
+
+  useEffect(() => {
+    if (snowfallCanvasRef.current) {
+      snowfallCanvasRef.current.updateConfig(config)
+    }
+  }, [config])
 
   return (
     <canvas

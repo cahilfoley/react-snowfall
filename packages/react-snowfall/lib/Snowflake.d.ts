@@ -55,14 +55,21 @@ export interface SnowflakeProps {
      */
     rotationSpeed: [number, number];
 }
-export declare type SnowflakeConfig = Partial<SnowflakeProps>;
+export type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;
 /**
  * An individual snowflake that will update it's location every call to `update`
  * and draw itself to the canvas every call to `draw`.
  */
 declare class Snowflake {
-    static offscreenCanvases: WeakMap<CanvasImageSource, Record<number, HTMLCanvasElement>>;
+    private static offscreenCanvases;
+    /**
+     * A utility function to create a collection of snowflakes
+     * @param canvas The canvas element
+     * @param amount The number of snowflakes
+     * @param config The configuration for each snowflake
+     */
+    static createSnowflakes(canvas: HTMLCanvasElement | null, amount: number, config: SnowflakeConfig): Snowflake[];
     private config;
     private params;
     private framesSinceLastUpdate;
@@ -71,7 +78,7 @@ declare class Snowflake {
     private selectImage;
     updateConfig(config: SnowflakeConfig): void;
     private updateTargetParams;
-    update(canvas: HTMLCanvasElement, framesPassed?: number): void;
+    update(offsetWidth: number, offsetHeight: number, framesPassed?: number): void;
     private getImageOffscreenCanvas;
     draw(ctx: CanvasRenderingContext2D): void;
 }
