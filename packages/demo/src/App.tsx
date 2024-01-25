@@ -1,12 +1,12 @@
-import Snowfall from 'react-snowfall'
+import Snowfall from 'react-snowfall/src'
 import GithubLink from './components/GithubLink/GithubLink'
 import Settings from './components/Settings'
 import { useSettingsStore } from './settings'
 import logo from './logo.png'
 import './App.css'
 
-const githubURL = process.env.REACT_APP_GITHUB_URL as string
-const packageName = process.env.REACT_APP_PACKAGE_NAME as string
+const githubURL = import.meta.env.VITE_GITHUB_URL
+const packageName = import.meta.env.VITE_PACKAGE_NAME
 
 const snowflake = document.createElement('img')
 snowflake.src = logo
