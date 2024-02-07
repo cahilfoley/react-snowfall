@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
 import { snowfallBaseStyle } from './config';
 import { getSize } from './utils';
@@ -14,7 +14,7 @@ export const useComponentSize = (ref) => {
             setSize(getSize(ref.current));
         }
     }, [ref]);
-    useLayoutEffect(() => {
+    useEffect(() => {
         const { ResizeObserver } = window;
         if (!ref.current)
             return;

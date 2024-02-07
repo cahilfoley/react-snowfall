@@ -17,7 +17,7 @@ export const useComponentSize = (ref: React.RefObject<HTMLElement>) => {
     }
   }, [ref])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { ResizeObserver } = window
 
     if (!ref.current) return
