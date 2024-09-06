@@ -1,7 +1,7 @@
-import { useCallback, useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react'
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
-import { snowfallBaseStyle } from './config'
-import { getSize } from './utils'
+import { snowfallBaseStyle } from './config.js'
+import { getSize } from './utils.js'
 
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the

@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare'
-import { lerp, random, randomElement } from './utils'
+import { lerp, random, randomElement } from './utils.js'
 
 export interface SnowflakeProps {
   /** The color of the snowflake, can be any valid CSS color. */
