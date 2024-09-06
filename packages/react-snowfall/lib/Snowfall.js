@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { SnowfallCanvas } from './SnowfallCanvas';
-import { defaultConfig } from './Snowflake';
-import { useComponentSize, useDeepMemo, useSnowfallStyle } from './hooks';
+import { SnowfallCanvas } from './SnowfallCanvas.js';
+import { defaultConfig } from './Snowflake.js';
+import { useComponentSize, useDeepMemo, useSnowfallStyle } from './hooks.js';
 export const Snowfall = ({ color = defaultConfig.color, changeFrequency = defaultConfig.changeFrequency, radius = defaultConfig.radius, speed = defaultConfig.speed, wind = defaultConfig.wind, rotationSpeed = defaultConfig.rotationSpeed, snowflakeCount = 150, images, style, } = {}) => {
     const mergedStyle = useSnowfallStyle(style);
     const canvasRef = useRef(null);

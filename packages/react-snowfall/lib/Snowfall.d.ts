@@ -1,5 +1,5 @@
 import React from 'react';
-import { SnowfallCanvasConfig } from './SnowfallCanvas';
+import { SnowfallCanvasConfig } from './SnowfallCanvas.js';
 export interface SnowfallProps extends Partial<SnowfallCanvasConfig> {
     /**
      * Any style properties that will be passed to the canvas element.

@@ -80,6 +80,30 @@ declare class Snowflake {
     private updateTargetParams;
     update(offsetWidth: number, offsetHeight: number, framesPassed?: number): void;
     private getImageOffscreenCanvas;
-    draw(ctx: CanvasRenderingContext2D): void;
+    /**
+     * Draws a circular snowflake to the canvas.
+     *
+     * This method should only be called if our config does not have images.
+     *
+     * This method assumes that a path has already been started on the canvas.
+     * `ctx.beginPath()` should be called before calling this method.
+     *
+     * After calling this method, the fillStyle should be set to the snowflake's
+     * color and `ctx.fill()` should be called to fill the snowflake.
+     *
+     * Calling `ctx.fill()` after multiple snowflakes have had `drawCircle` called
+     * will render all of the snowflakes since the last call to `ctx.beginPath()`.
+     *
+     * @param ctx The canvas context to draw to
+     */
+    drawCircle(ctx: CanvasRenderingContext2D): void;
+    /**
+     * Draws an image-based snowflake to the canvas.
+     *
+     * This method should only be called if our config has images.
+     *
+     * @param ctx The canvas context to draw to
+     */
+    drawImage(ctx: CanvasRenderingContext2D): void;
 }
 export default Snowflake;

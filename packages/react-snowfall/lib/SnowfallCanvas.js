@@ -10,8 +10,8 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
 var _SnowfallCanvas_ctx, _SnowfallCanvas_canvas;
-import Snowflake, { defaultConfig } from './Snowflake';
-import { targetFrameTime } from './config';
+import Snowflake, { defaultConfig } from './Snowflake.js';
+import { targetFrameTime } from './config.js';
 export class SnowfallCanvas {
     get ctx() {
         return __classPrivateFieldGet(this, _SnowfallCanvas_ctx, "f");
@@ -30,7 +30,7 @@ export class SnowfallCanvas {
         _SnowfallCanvas_canvas.set(this, void 0);
         __classPrivateFieldSet(this, _SnowfallCanvas_canvas, canvas, "f");
         __classPrivateFieldSet(this, _SnowfallCanvas_ctx, canvas.getContext('2d'), "f");
-        this.config = Object.assign(Object.assign({ snowflakeCount: 150 }, defaultConfig), config);
+        this.config = { snowflakeCount: 150, ...defaultConfig, ...config };
         this.snowflakes = [];
         this.snowflakes = Snowflake.createSnowflakes(canvas, config.snowflakeCount || 150, config);
         this.play();
@@ -41,7 +41,7 @@ export class SnowfallCanvas {
      * to retain the position of as many existing snowflakes as possible.
      */
     updateConfig(config) {
-        this.config = Object.assign(Object.assign({}, this.config), config);
+        this.config = { ...this.config, ...config };
         const sizeDifference = this.config.snowflakeCount - this.snowflakes.length;
         if (sizeDifference > 0) {
             this.snowflakes = [...this.snowflakes, ...Snowflake.createSnowflakes(this.canvas, sizeDifference, config)];
@@ -49,7 +49,9 @@ export class SnowfallCanvas {
         if (sizeDifference < 0) {
             this.snowflakes = this.snowflakes.slice(0, this.config.snowflakeCount);
         }
-        this.snowflakes.forEach((snowflake) => snowflake.updateConfig(this.config));
+        for (const snowflake of this.snowflakes) {
+            snowflake.updateConfig(this.config);
+        }
     }
     /**
      * Updates the location of each snowflake based on the number of frames passed then
@@ -57,15 +59,30 @@ export class SnowfallCanvas {
      */
     render(framesPassed = 1) {
         const { ctx, canvas, snowflakes } = this;
+        if (!ctx || !canvas)
+            return;
         const { offsetWidth, offsetHeight } = canvas;
         // Update the position of each snowflake
-        snowflakes.forEach((snowflake) => snowflake.update(offsetWidth, offsetHeight, framesPassed));
-        // Render them if the canvas is available
-        if (ctx) {
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.clearRect(0, 0, offsetWidth, offsetHeight);
-            snowflakes.forEach((snowflake) => snowflake.draw(ctx));
+        for (const snowflake of snowflakes) {
+            snowflake.update(offsetWidth, offsetHeight, framesPassed);
         }
+        // Render the snowflakes
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, offsetWidth, offsetHeight);
+        // If using images, draw each image individually
+        if (this.config.images && this.config.images.length > 0) {
+            for (const snowflake of snowflakes) {
+                snowflake.drawImage(ctx);
+            }
+            return;
+        }
+        // Not using images, draw circles in a single path
+        ctx.beginPath();
+        for (const snowflake of snowflakes) {
+            snowflake.drawCircle(ctx);
+        }
+        ctx.fillStyle = this.config.color;
+        ctx.fill();
     }
     /**
      * The animation loop, will calculate the time since the last render and update

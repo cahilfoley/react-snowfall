@@ -1,4 +1,4 @@
-import { SnowflakeConfig } from './Snowflake';
+import { SnowflakeConfig } from './Snowflake.js';
 export interface SnowfallCanvasConfig extends SnowflakeConfig {
     /**
      * The number of snowflakes to be rendered.

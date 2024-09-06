@@ -1,4 +1,3 @@
-/// <reference types="react" />
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
  * size. Falls back to listening for resize events on the window.

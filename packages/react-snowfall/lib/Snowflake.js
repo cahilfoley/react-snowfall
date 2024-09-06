@@ -1,5 +1,5 @@
 import isEqual from 'react-fast-compare';
-import { lerp, random, randomElement } from './utils';
+import { lerp, random, randomElement, twoPi } from './utils.js';
 export const defaultConfig = {
     color: '#dee4fd',
     radius: [0.5, 3.0],
@@ -57,7 +57,7 @@ class Snowflake {
     }
     updateConfig(config) {
         const previousConfig = this.config;
-        this.config = Object.assign(Object.assign({}, defaultConfig), config);
+        this.config = { ...defaultConfig, ...config };
         this.config.changeFrequency = random(this.config.changeFrequency, this.config.changeFrequency * 1.5);
         // Update the radius if the config has changed, it won't gradually update on it's own
         if (this.params && !isEqual(this.config.radius, previousConfig === null || previousConfig === void 0 ? void 0 : previousConfig.radius)) {
@@ -114,27 +114,45 @@ class Snowflake {
         }
         return (_b = sizes[size]) !== null && _b !== void 0 ? _b : image;
     }
-    draw(ctx) {
+    /**
+     * Draws a circular snowflake to the canvas.
+     *
+     * This method should only be called if our config does not have images.
+     *
+     * This method assumes that a path has already been started on the canvas.
+     * `ctx.beginPath()` should be called before calling this method.
+     *
+     * After calling this method, the fillStyle should be set to the snowflake's
+     * color and `ctx.fill()` should be called to fill the snowflake.
+     *
+     * Calling `ctx.fill()` after multiple snowflakes have had `drawCircle` called
+     * will render all of the snowflakes since the last call to `ctx.beginPath()`.
+     *
+     * @param ctx The canvas context to draw to
+     */
+    drawCircle(ctx) {
+        ctx.moveTo(this.params.x, this.params.y);
+        ctx.arc(this.params.x, this.params.y, this.params.radius, 0, twoPi);
+    }
+    /**
+     * Draws an image-based snowflake to the canvas.
+     *
+     * This method should only be called if our config has images.
+     *
+     * @param ctx The canvas context to draw to
+     */
+    drawImage(ctx) {
         const { x, y, rotation, radius } = this.params;
-        if (this.image) {
-            const radian = (rotation * Math.PI) / 180;
-            const cos = Math.cos(radian);
-            const sin = Math.sin(radian);
-            // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
-            // The arguments for setTransform are: a, b, c, d, e, f
-            // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
-            ctx.setTransform(cos, sin, -sin, cos, x, y);
-            // Draw the image with the center of the image at the center of the current location
-            const image = this.getImageOffscreenCanvas(this.image, radius);
-            ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius);
-        }
-        else {
-            // Not using images so no need to use transforms, just draw an arc in the right location
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI);
-            ctx.fillStyle = this.config.color;
-            ctx.fill();
-        }
+        const radian = (rotation * Math.PI) / 180;
+        const cos = Math.cos(radian);
+        const sin = Math.sin(radian);
+        // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
+        // The arguments for setTransform are: a, b, c, d, e, f
+        // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
+        ctx.setTransform(cos, sin, -sin, cos, x, y);
+        // Draw the image with the center of the image at the center of the current location
+        const image = this.getImageOffscreenCanvas(this.image, radius);
+        ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius);
     }
 }
 Snowflake.offscreenCanvases = new WeakMap();

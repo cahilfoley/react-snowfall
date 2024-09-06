@@ -27,3 +27,9 @@ export declare function getSize(element?: HTMLElement | null): {
     height: number;
     width: number;
 };
+/**
+ * Store the value of PI * 2.
+ *
+ * This is so we can avoid calculating this value every time we draw a circle.
+ */
+export declare const twoPi: number;

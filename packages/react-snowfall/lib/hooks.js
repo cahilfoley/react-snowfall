@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState, useMemo } from 'react';
 import isEqual from 'react-fast-compare';
-import { snowfallBaseStyle } from './config';
-import { getSize } from './utils';
+import { snowfallBaseStyle } from './config.js';
+import { getSize } from './utils.js';
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
  * size. Falls back to listening for resize events on the window.
@@ -36,7 +36,10 @@ export const useComponentSize = (ref) => {
  * @param overrides The style prop passed into the component
  */
 export const useSnowfallStyle = (overrides) => {
-    const styles = useMemo(() => (Object.assign(Object.assign({}, snowfallBaseStyle), (overrides || {}))), [overrides]);
+    const styles = useMemo(() => ({
+        ...snowfallBaseStyle,
+        ...(overrides || {}),
+    }), [overrides]);
     return styles;
 };
 /**
