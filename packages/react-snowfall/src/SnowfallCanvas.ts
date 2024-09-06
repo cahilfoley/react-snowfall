@@ -1,5 +1,5 @@
-import Snowflake, { SnowflakeConfig, defaultConfig } from './Snowflake'
-import { targetFrameTime } from './config'
+import Snowflake, { SnowflakeConfig, defaultConfig } from './Snowflake.js'
+import { targetFrameTime } from './config.js'
 
 export interface SnowfallCanvasConfig extends SnowflakeConfig {
   /**
