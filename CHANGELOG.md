@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/cahilfoley/react-snowfall/compare/v2.1.0...v2.1.1) (2024-09-06)
+
+
+### Bug Fixes
+
+* **ESM:** Update the published library to include file extensions for proper ESM compatibility ([a5d6a8f](https://github.com/cahilfoley/react-snowfall/commit/a5d6a8f9b4b36f892d47184115d4c45d18aa0dd3)), closes [#76](https://github.com/cahilfoley/react-snowfall/issues/76) [#73](https://github.com/cahilfoley/react-snowfall/issues/73)
+
 ## [2.1.0](https://github.com/cahilfoley/react-snowfall/compare/v2.0.0...v2.1.0) (2024-02-07)
 
 
