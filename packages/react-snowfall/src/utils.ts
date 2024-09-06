@@ -47,3 +47,10 @@ export function getSize(element?: HTMLElement | null) {
     width: element.offsetWidth,
   }
 }
+
+/**
+ * Store the value of PI * 2.
+ *
+ * This is so we can avoid calculating this value every time we draw a circle.
+ */
+export const twoPi = Math.PI * 2
