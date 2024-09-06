@@ -1,12 +1,4 @@
 /// <reference types="react" />
-import Snowflake, { SnowflakeConfig } from './Snowflake';
-/**
- * A utility hook to manage creating and updating a collection of snowflakes
- * @param canvasRef A ref to the canvas element
- * @param amount The number of snowflakes
- * @param config The configuration for each snowflake
- */
-export declare const useSnowflakes: (canvasRef: React.RefObject<HTMLCanvasElement>, amount: number, config: SnowflakeConfig) => Snowflake[];
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
  * size. Falls back to listening for resize events on the window.

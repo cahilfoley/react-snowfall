@@ -25,6 +25,17 @@ export function lerp(start: number, end: number, normal: number) {
 }
 
 /**
+ * Selects a random item from an array of inputs.
+ *
+ * @param items The array of items to choose from
+ * @returns A random item selected from the array
+ */
+export function randomElement<T>(items: T[]): T {
+  const index = Math.floor(Math.random() * items.length)
+  return items[index]
+}
+
+/**
  * Gets the height and width of the provided HTML element
  * @param element The html element to measure
  */
@@ -38,12 +49,8 @@ export function getSize(element?: HTMLElement | null) {
 }
 
 /**
- * Selects a random item from an array of inputs.
+ * Store the value of PI * 2.
  *
- * @param items The array of items to choose from
- * @returns A random item selected from the array
+ * This is so we can avoid calculating this value every time we draw a circle.
  */
-export function randomElement<T>(items: T[]): T {
-  const index = Math.floor(Math.random() * items.length)
-  return items[index]
-}
+export const twoPi = Math.PI * 2

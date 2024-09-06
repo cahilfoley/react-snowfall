@@ -1,73 +1,7 @@
-import { useCallback, useLayoutEffect, useEffect, useRef, useState, useMemo } from 'react'
+import { useCallback, useEffect, useRef, useState, useMemo } from 'react'
 import isEqual from 'react-fast-compare'
-import Snowflake, { SnowflakeConfig } from './Snowflake'
-import { snowfallBaseStyle } from './config'
-import { getSize } from './utils'
-
-/**
- * A utility function to create a collection of snowflakes
- * @param canvasRef A ref to the canvas element
- * @param amount The number of snowflakes
- * @param config The configuration for each snowflake
- */
-const createSnowflakes = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-  amount: number,
-  config: SnowflakeConfig,
-): Snowflake[] => {
-  if (!canvasRef.current) return []
-
-  const snowflakes: Snowflake[] = []
-
-  for (let i = 0; i < amount; i++) {
-    snowflakes.push(new Snowflake(canvasRef.current, config))
-  }
-
-  return snowflakes
-}
-
-/**
- * A utility hook to manage creating and updating a collection of snowflakes
- * @param canvasRef A ref to the canvas element
- * @param amount The number of snowflakes
- * @param config The configuration for each snowflake
- */
-export const useSnowflakes = (
-  canvasRef: React.RefObject<HTMLCanvasElement>,
-  amount: number,
-  config: SnowflakeConfig,
-) => {
-  const [snowflakes, setSnowflakes] = useState<Snowflake[]>([])
-
-  // Handle change of amount
-  useEffect(() => {
-    setSnowflakes((snowflakes) => {
-      const sizeDifference = amount - snowflakes.length
-
-      if (sizeDifference > 0) {
-        return [...snowflakes, ...createSnowflakes(canvasRef, sizeDifference, config)]
-      }
-
-      if (sizeDifference < 0) {
-        return snowflakes.slice(0, amount)
-      }
-
-      return snowflakes
-    })
-  }, [amount, canvasRef, config])
-
-  // Handle change of config
-  useEffect(() => {
-    setSnowflakes((snowflakes) =>
-      snowflakes.map((snowflake) => {
-        snowflake.updateConfig(config)
-        return snowflake
-      }),
-    )
-  }, [config])
-
-  return snowflakes
-}
+import { snowfallBaseStyle } from './config.js'
+import { getSize } from './utils.js'
 
 /**
  * Returns the height and width of a HTML element, uses the `ResizeObserver` api if available to detect changes to the
@@ -83,7 +17,7 @@ export const useComponentSize = (ref: React.RefObject<HTMLElement>) => {
     }
   }, [ref])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { ResizeObserver } = window
 
     if (!ref.current) return

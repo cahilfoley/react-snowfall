@@ -7,7 +7,7 @@ export interface SnowfallSettings extends SnowfallProps {
   setUseImages: (useImages: boolean) => void
 }
 
-export const useSettingsStore = create<SnowfallSettings>((set, get) => ({
+export const useSettingsStore = create<SnowfallSettings>((set) => ({
   color: '#dee4fd',
   snowflakeCount: 200,
   radius: [0.5, 3.0],

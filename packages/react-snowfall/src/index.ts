@@ -1,5 +1,3 @@
-export * from './hooks'
-export * from './utils'
-export * from './Snowflake'
-export * from './Snowfall'
-export { default } from './Snowfall'
+export * from './SnowfallCanvas.js'
+export * from './Snowfall.js'
+export { default } from './Snowfall.js'

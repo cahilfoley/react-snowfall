@@ -123,3 +123,36 @@ If you want the component to cover the entire screen then you can change the pos
   }}
 />
 ```
+
+## Use Without React
+
+Don't let the package name fool you (I haven't had time to rename everything yet). You can actually use this snowfall animation with any framework or even vanilla JS with the new `SnowfallCanvas` class, here's an example.
+
+```html
+<style>
+  html,
+  body {
+    background: #dedede;
+    min-height: 100vh;
+    min-width: 100vw;
+    padding: 0;
+    margin: 0;
+  }
+
+  #snowfall {
+    pointer-events: none;
+    background-color: transparent;
+    position: absolute;
+    inset: 0;
+  }
+</style>
+
+<canvas id="snowfall" />
+```
+
+```ts
+import { SnowfallCanvas } from 'react-snowfall/lib/SnowfallCanvas'
+
+const canvas = document.querySelector('#snowfall')
+const snowfall = new SnowfallCanvas(canvas)
+```

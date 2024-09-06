@@ -13,6 +13,13 @@ export declare function random(min: number, max: number): number;
  */
 export declare function lerp(start: number, end: number, normal: number): number;
 /**
+ * Selects a random item from an array of inputs.
+ *
+ * @param items The array of items to choose from
+ * @returns A random item selected from the array
+ */
+export declare function randomElement<T>(items: T[]): T;
+/**
  * Gets the height and width of the provided HTML element
  * @param element The html element to measure
  */
@@ -20,10 +27,3 @@ export declare function getSize(element?: HTMLElement | null): {
     height: number;
     width: number;
 };
-/**
- * Selects a random item from an array of inputs.
- *
- * @param items The array of items to choose from
- * @returns A random item selected from the array
- */
-export declare function randomElement<T>(items: T[]): T;

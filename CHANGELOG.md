@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/cahilfoley/react-snowfall/compare/v2.0.0...v2.1.0) (2024-02-07)
+
+
+### Bug Fixes
+
+* Add module type to package.json to properly indicate the ESM bundle ([ce6b83d](https://github.com/cahilfoley/react-snowfall/commit/ce6b83d9ca76a074d2e714d30de742752580b9b9))
+* Switch from useLayoutEffect to useEffect for better SSR compatibility ([400c0e6](https://github.com/cahilfoley/react-snowfall/commit/400c0e66605bf0e622854ae2475b7022756e4575))
+
+## [2.0.0](https://github.com/cahilfoley/react-snowfall/compare/v1.2.1...v2.0.0) (2024-01-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Snowfall:** Lots of internals have moved around - if you are only using the `<Snowfall />` component then you shouldn't have to make any changes. If you were importing any of the library internals such as the custom hooks or some utilities then these have been reorganized and are now not exported from the root of the package - you will need to import them from the specific files.
+
+### Features
+
+* **Snowfall:** Abstract the snowflake rendering logic into the SnowfallCanvas class that is independent of React. ([7cccc63](https://github.com/cahilfoley/react-snowfall/commit/7cccc6358ea409a36485fcd73621ac16204311d7))
+
 ### [1.2.1](https://github.com/cahilfoley/react-snowfall/compare/v1.2.0...v1.2.1) (2022-08-25)
 
 ## [1.2.0](https://github.com/cahilfoley/react-snowfall/compare/v1.1.2...v1.2.0) (2022-08-25)
