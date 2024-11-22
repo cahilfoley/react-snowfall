@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/cahilfoley/react-snowfall/compare/v2.1.2...v2.2.0) (2024-11-22)
+
+
+### Features
+
+* **Snowflakes:** Add support using opacity for image snowflakes ([dbb6d51](https://github.com/cahilfoley/react-snowfall/commit/dbb6d51e4f44a73874f747cfb636d1bc5f2f65c7))
+
 ### [2.1.2](https://github.com/cahilfoley/react-snowfall/compare/v2.1.1...v2.1.2) (2024-11-22)
 
 
