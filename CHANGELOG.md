@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2](https://github.com/cahilfoley/react-snowfall/compare/v2.1.1...v2.1.2) (2024-11-22)
+
+
+### Bug Fixes
+
+* **Snowflake:** Update the snowflake initialization to use the correct speed and wind values for the target speed and wind values ([8db1a66](https://github.com/cahilfoley/react-snowfall/commit/8db1a662e9bd7416b9bc67f4d8f610f6f680db22))
+
 ### [2.1.1](https://github.com/cahilfoley/react-snowfall/compare/v2.1.0...v2.1.1) (2024-09-06)
 
 
