@@ -41,8 +41,8 @@ class Snowflake {
             speed: random(...speed),
             wind: random(...wind),
             rotationSpeed: random(...rotationSpeed),
-            nextSpeed: random(...wind),
-            nextWind: random(...speed),
+            nextSpeed: random(...speed),
+            nextWind: random(...wind),
             nextRotationSpeed: random(...rotationSpeed),
         };
         this.framesSinceLastUpdate = 0;
