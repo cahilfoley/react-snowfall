@@ -58,6 +58,10 @@ export interface SnowflakeProps {
      * The minimum and maximum opacity of the snowflake image.
      *
      * This value only applies to snowflakes that are using images.
+     *
+     * The values will be randomly selected within this range.
+     *
+     * The default value is `[1, 1]`.
      */
     opacity: [number, number];
 }
