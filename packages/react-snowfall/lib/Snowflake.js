@@ -68,6 +68,9 @@ class Snowflake {
         if (!isEqual(this.config.images, previousConfig === null || previousConfig === void 0 ? void 0 : previousConfig.images)) {
             this.selectImage();
         }
+        if ((previousConfig === null || previousConfig === void 0 ? void 0 : previousConfig.opacity) && !isEqual(this.config.opacity, previousConfig === null || previousConfig === void 0 ? void 0 : previousConfig.opacity)) {
+            this.params.opacity = random(...this.config.opacity);
+        }
     }
     updateTargetParams() {
         this.params.nextSpeed = random(...this.config.speed);

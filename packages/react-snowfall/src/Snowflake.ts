@@ -170,6 +170,10 @@ class Snowflake {
     if (!isEqual(this.config.images, previousConfig?.images)) {
       this.selectImage()
     }
+
+    if (previousConfig?.opacity && !isEqual(this.config.opacity, previousConfig?.opacity)) {
+      this.params.opacity = random(...this.config.opacity)
+    }
   }
 
   private updateTargetParams(): void {
