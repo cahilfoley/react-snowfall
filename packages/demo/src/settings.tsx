@@ -1,5 +1,5 @@
 import { SnowfallProps } from 'react-snowfall'
-import create from 'zustand'
+import { create } from 'zustand'
 
 export interface SnowfallSettings extends SnowfallProps {
   update: (settings: Partial<SnowfallProps>) => void
