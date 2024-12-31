@@ -93,6 +93,7 @@ interface SnowflakeParams {
   nextWind: number
   nextRotationSpeed: number
   opacity: number
+  hasNextOpacity: boolean
 }
 
 /**
@@ -144,6 +145,7 @@ class Snowflake {
       nextWind: random(...wind),
       nextRotationSpeed: random(...rotationSpeed),
       opacity: random(...opacity),
+      hasNextOpacity: false,
     }
 
     this.framesSinceLastUpdate = 0
@@ -172,7 +174,7 @@ class Snowflake {
     }
 
     if (previousConfig?.opacity && !isEqual(this.config.opacity, previousConfig?.opacity)) {
-      this.params.opacity = random(...this.config.opacity)
+      this.params.hasNextOpacity = true
     }
   }
 
@@ -191,7 +193,13 @@ class Snowflake {
     this.params.x = (x + wind * framesPassed) % (offsetWidth + radius * 2)
     if (this.params.x > offsetWidth + radius) this.params.x = -radius
     this.params.y = (y + speed * framesPassed) % (offsetHeight + radius * 2)
-    if (this.params.y > offsetHeight + radius) this.params.y = -radius
+    if (this.params.y > offsetHeight + radius) {
+      if (this.params.hasNextOpacity) {
+        this.params.opacity = random(...this.config.opacity)
+        this.params.hasNextOpacity = false
+      }
+      this.params.y = -radius
+    }
 
     // Apply rotation
     if (this.image) {
