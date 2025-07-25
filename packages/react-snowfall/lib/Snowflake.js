@@ -88,7 +88,10 @@ class Snowflake {
             this.params.x = -radius;
         this.params.y = (y + speed * framesPassed) % (offsetHeight + radius * 2);
         if (this.params.y > offsetHeight + radius) {
-            this.params.opacity = random(...this.config.opacity);
+            if (this.params.hasNextOpacity) {
+                this.params.opacity = random(...this.config.opacity);
+                this.params.hasNextOpacity = false;
+            }
             this.params.y = -radius;
         }
         // Apply rotation

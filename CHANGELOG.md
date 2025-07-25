@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](https://github.com/cahilfoley/react-snowfall/compare/v2.2.1...v2.3.0) (2025-07-25)
+
+
+### Features
+
+* **Snowflake:** Update opacity when snowflake is reset to top of canvas ([9cc6669](https://github.com/cahilfoley/react-snowfall/commit/9cc6669d63b19f2dc9dbd7254803f9bfd82dd6a4))
+
+
+### Bug Fixes
+
+* **deprecated:** Zustand changed create to named export ([87f082e](https://github.com/cahilfoley/react-snowfall/commit/87f082ee3e66924afd60f5b119e56685c6144b04))
+* **Snowflake:** Fix decimal random number generation ([e107861](https://github.com/cahilfoley/react-snowfall/commit/e10786168565bb458fecb3dff38a8a946e2b0262))
+* **Snowflake:** Update opacities to reflect new range when changed ([d488dd2](https://github.com/cahilfoley/react-snowfall/commit/d488dd2945287aac60fad8afb8af143f039c3486))
+
 ### [2.2.1](https://github.com/cahilfoley/react-snowfall/compare/v2.2.0...v2.2.1) (2025-07-25)
 
 
