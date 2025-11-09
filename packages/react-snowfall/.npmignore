@@ -3,7 +3,10 @@ node_modules
 assets
 demo
 src/__mocks__
+src/test
+src/**/*.test.ts
 src/**/*.test.tsx
+vitest.config.ts
 .babelrc
 .eslintrc.js
 .prettierrc.js
