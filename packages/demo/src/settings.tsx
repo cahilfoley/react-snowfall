@@ -16,6 +16,7 @@ export const useSettingsStore = create<SnowfallSettings>((set) => ({
   rotationSpeed: [-1.0, 1.0],
   opacity: [0.1, 0.2],
   useImages: false,
+  enable3DRotation: false,
   update: (changes) => set(changes),
   setUseImages: (useImages) => {
     if (useImages) {

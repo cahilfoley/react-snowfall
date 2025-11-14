@@ -64,6 +64,15 @@ export interface SnowflakeProps {
      * The default value is `[1, 1]`.
      */
     opacity: [number, number];
+    /**
+     * Enable 3D rotation effect (like falling leaves).
+     *
+     * When enabled, snowflakes will rotate on X and Y axes in addition to Z axis,
+     * creating a more realistic 3D tumbling effect.
+     *
+     * The default value is `false`.
+     */
+    enable3DRotation?: boolean;
 }
 export type SnowflakeConfig = Partial<SnowflakeProps>;
 export declare const defaultConfig: SnowflakeProps;
@@ -91,6 +100,15 @@ declare class Snowflake {
     update(offsetWidth: number, offsetHeight: number, framesPassed?: number): void;
     private getImageOffscreenCanvas;
     /**
+     * Applies 3D rotation transform to the canvas context.
+     * This method calculates and applies the transformation matrix for 3D rotation effects.
+     *
+     * @param ctx The canvas context to apply the transform to
+     * @param x The x position to translate to
+     * @param y The y position to translate to
+     */
+    private apply3DTransform;
+    /**
      * Draws a circular snowflake to the canvas.
      *
      * This method should only be called if our config does not have images.
@@ -107,6 +125,15 @@ declare class Snowflake {
      * @param ctx The canvas context to draw to
      */
     drawCircle(ctx: CanvasRenderingContext2D): void;
+    /**
+     * Draws a circular snowflake with 3D rotation effect to the canvas.
+     *
+     * This method is used when 3D rotation is enabled and images are not being used.
+     *
+     * @param ctx The canvas context to draw to
+     * @param color The color to fill the circle with
+     */
+    drawCircle3D(ctx: CanvasRenderingContext2D, color: string): void;
     /**
      * Draws an image-based snowflake to the canvas.
      *

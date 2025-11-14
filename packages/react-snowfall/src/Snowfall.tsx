@@ -20,6 +20,7 @@ export const Snowfall = ({
   opacity = defaultConfig.opacity,
   snowflakeCount = 150,
   images,
+  enable3DRotation = defaultConfig.enable3DRotation,
   style,
 }: SnowfallProps = {}): JSX.Element => {
   const mergedStyle = useSnowfallStyle(style)
@@ -37,6 +38,7 @@ export const Snowfall = ({
     images,
     snowflakeCount,
     opacity,
+    enable3DRotation,
   })
 
   // A reference to the config used for creating the initial instance
