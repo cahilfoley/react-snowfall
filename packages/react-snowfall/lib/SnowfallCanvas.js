@@ -76,13 +76,22 @@ export class SnowfallCanvas {
             }
             return;
         }
-        // Not using images, draw circles in a single path
-        ctx.beginPath();
-        for (const snowflake of snowflakes) {
-            snowflake.drawCircle(ctx);
+        // Not using images
+        // If 3D rotation is enabled, draw each circle individually with transform
+        if (this.config.enable3DRotation) {
+            for (const snowflake of snowflakes) {
+                snowflake.drawCircle3D(ctx, this.config.color);
+            }
         }
-        ctx.fillStyle = this.config.color;
-        ctx.fill();
+        else {
+            // Draw circles in a single path for better performance
+            ctx.beginPath();
+            for (const snowflake of snowflakes) {
+                snowflake.drawCircle(ctx);
+            }
+            ctx.fillStyle = this.config.color;
+            ctx.fill();
+        }
     }
     /**
      * The animation loop, will calculate the time since the last render and update

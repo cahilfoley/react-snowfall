@@ -106,6 +106,17 @@ const Settings = () => {
               label="Use Images"
             />
           </div>
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={settings.enable3DRotation || false}
+                  onChange={(event) => settings.update({ enable3DRotation: event.target.checked })}
+                />
+              }
+              label="Enable 3D Rotation"
+            />
+          </div>
           {settings.useImages ? (
             <>
               <div>

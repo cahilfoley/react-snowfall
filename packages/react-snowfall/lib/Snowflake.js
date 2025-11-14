@@ -8,6 +8,7 @@ export const defaultConfig = {
     changeFrequency: 200,
     rotationSpeed: [-1.0, 1.0],
     opacity: [1, 1],
+    enable3DRotation: false,
 };
 /**
  * An individual snowflake that will update it's location every call to `update`
@@ -33,7 +34,7 @@ class Snowflake {
         // Set custom config
         this.updateConfig(config);
         // Setting initial parameters
-        const { radius, wind, speed, rotationSpeed, opacity } = this.config;
+        const { radius, wind, speed, rotationSpeed, opacity, enable3DRotation } = this.config;
         this.params = {
             x: random(0, canvas.offsetWidth),
             y: random(-canvas.offsetHeight, 0),
@@ -47,6 +48,13 @@ class Snowflake {
             nextRotationSpeed: random(...rotationSpeed),
             opacity: random(...opacity),
             hasNextOpacity: false,
+            // Initialize 3D rotation parameters
+            rotationX: enable3DRotation ? random(0, 360) : 0,
+            rotationY: enable3DRotation ? random(0, 360) : 0,
+            rotationSpeedX: enable3DRotation ? random(-2.0, 2.0) : 0,
+            rotationSpeedY: enable3DRotation ? random(-2.0, 2.0) : 0,
+            nextRotationSpeedX: enable3DRotation ? random(-2.0, 2.0) : 0,
+            nextRotationSpeedY: enable3DRotation ? random(-2.0, 2.0) : 0,
         };
         this.framesSinceLastUpdate = 0;
     }
@@ -79,6 +87,10 @@ class Snowflake {
         if (this.image) {
             this.params.nextRotationSpeed = random(...this.config.rotationSpeed);
         }
+        if (this.config.enable3DRotation) {
+            this.params.nextRotationSpeedX = random(-2.0, 2.0);
+            this.params.nextRotationSpeedY = random(-2.0, 2.0);
+        }
     }
     update(offsetWidth, offsetHeight, framesPassed = 1) {
         const { x, y, rotation, rotationSpeed, nextRotationSpeed, wind, speed, nextWind, nextSpeed, radius } = this.params;
@@ -95,13 +107,22 @@ class Snowflake {
             this.params.y = -radius;
         }
         // Apply rotation
-        if (this.image) {
+        if (this.image || this.config.enable3DRotation) {
             this.params.rotation = (rotation + rotationSpeed) % 360;
+        }
+        // Apply 3D rotation if enabled
+        if (this.config.enable3DRotation) {
+            this.params.rotationX = (this.params.rotationX + this.params.rotationSpeedX * framesPassed) % 360;
+            this.params.rotationY = (this.params.rotationY + this.params.rotationSpeedY * framesPassed) % 360;
         }
         // Update the wind, speed and rotation towards the desired values
         this.params.speed = lerp(speed, nextSpeed, 0.01);
         this.params.wind = lerp(wind, nextWind, 0.01);
         this.params.rotationSpeed = lerp(rotationSpeed, nextRotationSpeed, 0.01);
+        if (this.config.enable3DRotation) {
+            this.params.rotationSpeedX = lerp(this.params.rotationSpeedX, this.params.nextRotationSpeedX, 0.01);
+            this.params.rotationSpeedY = lerp(this.params.rotationSpeedY, this.params.nextRotationSpeedY, 0.01);
+        }
         if (this.framesSinceLastUpdate++ > this.config.changeFrequency) {
             this.updateTargetParams();
             this.framesSinceLastUpdate = 0;
@@ -126,6 +147,55 @@ class Snowflake {
         return (_b = sizes[size]) !== null && _b !== void 0 ? _b : image;
     }
     /**
+     * Applies 3D rotation transform to the canvas context.
+     * This method calculates and applies the transformation matrix for 3D rotation effects.
+     *
+     * @param ctx The canvas context to apply the transform to
+     * @param x The x position to translate to
+     * @param y The y position to translate to
+     */
+    apply3DTransform(ctx, x, y) {
+        if (this.config.enable3DRotation) {
+            const { rotationX, rotationY } = this.params;
+            const rotation = this.params.rotation || 0;
+            // Convert degrees to radians
+            const radX = (rotationX * Math.PI) / 180;
+            const radY = (rotationY * Math.PI) / 180;
+            const radZ = (rotation * Math.PI) / 180;
+            // Calculate 3D rotation matrices
+            const cosX = Math.cos(radX);
+            const sinX = Math.sin(radX);
+            const cosY = Math.cos(radY);
+            const sinY = Math.sin(radY);
+            const cosZ = Math.cos(radZ);
+            const sinZ = Math.sin(radZ);
+            // Combined rotation matrix (Z * Y * X)
+            // This creates a 3D tumbling effect
+            const a = cosZ * cosY;
+            const b = cosZ * sinY * sinX - sinZ * cosX;
+            const c = cosZ * sinY * cosX + sinZ * sinX;
+            const d = sinZ * cosY;
+            // Apply perspective scaling based on rotation (simulates depth)
+            const perspectiveScale = 0.5 + 0.5 * cosX * cosY;
+            const scaleX = perspectiveScale;
+            const scaleY = perspectiveScale;
+            // Apply the transform
+            // The arguments for setTransform are: a, b, c, d, e, f
+            // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
+            ctx.setTransform(a * scaleX, b * scaleX, c * scaleY, d * scaleY, x, y);
+        }
+        else {
+            // Original 2D rotation (only for images)
+            const rotation = this.params.rotation || 0;
+            const radian = (rotation * Math.PI) / 180;
+            const cos = Math.cos(radian);
+            const sin = Math.sin(radian);
+            // The arguments for setTransform are: a, b, c, d, e, f
+            // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
+            ctx.setTransform(cos, sin, -sin, cos, x, y);
+        }
+    }
+    /**
      * Draws a circular snowflake to the canvas.
      *
      * This method should only be called if our config does not have images.
@@ -142,8 +212,36 @@ class Snowflake {
      * @param ctx The canvas context to draw to
      */
     drawCircle(ctx) {
+        // If 3D rotation is enabled, we need to draw individually with transform
+        // This method is called when 3D rotation is disabled (for performance)
         ctx.moveTo(this.params.x, this.params.y);
         ctx.arc(this.params.x, this.params.y, this.params.radius, 0, twoPi);
+    }
+    /**
+     * Draws a circular snowflake with 3D rotation effect to the canvas.
+     *
+     * This method is used when 3D rotation is enabled and images are not being used.
+     *
+     * @param ctx The canvas context to draw to
+     * @param color The color to fill the circle with
+     */
+    drawCircle3D(ctx, color) {
+        const { x, y, radius } = this.params;
+        ctx.save();
+        // Apply 3D rotation transform
+        if (this.config.enable3DRotation) {
+            this.apply3DTransform(ctx, x, y);
+        }
+        else {
+            // No transform needed for circles without 3D rotation
+            ctx.translate(x, y);
+        }
+        // Draw the circle
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, twoPi);
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.restore();
     }
     /**
      * Draws an image-based snowflake to the canvas.
@@ -153,26 +251,20 @@ class Snowflake {
      * @param ctx The canvas context to draw to
      */
     drawImage(ctx) {
-        const { x, y, rotation, radius } = this.params;
-        const radian = (rotation * Math.PI) / 180;
-        const cos = Math.cos(radian);
-        const sin = Math.sin(radian);
-        // Save the current state to avoid affecting other drawings if changing the opacity
+        const { x, y, radius } = this.params;
+        // Save the current state to avoid affecting other drawings
+        ctx.save();
+        // Set opacity if needed
         if (this.params.opacity !== 1) {
-            ctx.save();
-            ctx.globalAlpha = this.params.opacity; // Set the global alpha to the snowflake's opacity
+            ctx.globalAlpha = this.params.opacity;
         }
-        // Translate to the location that we will be drawing the snowflake, including any rotation that needs to be applied
-        // The arguments for setTransform are: a, b, c, d, e, f
-        // a (scaleX), b (skewY), c (skewX), d (scaleY), e (translateX), f (translateY)
-        ctx.setTransform(cos, sin, -sin, cos, x, y);
+        // Apply 3D or 2D rotation transform
+        this.apply3DTransform(ctx, x, y);
         // Draw the image with the center of the image at the center of the current location
         const image = this.getImageOffscreenCanvas(this.image, radius);
         ctx.drawImage(image, -(radius / 2), -(radius / 2), radius, radius);
-        // Reset the transform to avoid affecting other drawings if we were changing the opacity
-        if (this.params.opacity !== 1) {
-            ctx.restore();
-        }
+        // Restore the transform
+        ctx.restore();
     }
 }
 Snowflake.offscreenCanvases = new WeakMap();

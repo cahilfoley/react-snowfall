@@ -6,5 +6,5 @@ export interface SnowfallProps extends Partial<SnowfallCanvasConfig> {
      */
     style?: React.CSSProperties;
 }
-export declare const Snowfall: ({ color, changeFrequency, radius, speed, wind, rotationSpeed, opacity, snowflakeCount, images, style, }?: SnowfallProps) => JSX.Element;
+export declare const Snowfall: ({ color, changeFrequency, radius, speed, wind, rotationSpeed, opacity, snowflakeCount, images, enable3DRotation, style, }?: SnowfallProps) => JSX.Element;
 export default Snowfall;
