@@ -76,6 +76,14 @@ export interface SnowflakeProps {
    * The default value is `false`.
    */
   enable3DRotation?: boolean
+  /**
+   * The minimum and maximum initial rotation of the snowflake (in degrees).
+   *
+   * The values will be randomly selected within this range.
+   *
+   * The default value is `[0, 360]`.
+   */
+  rotation: [number, number]
 }
 
 export type SnowflakeConfig = Partial<SnowflakeProps>
@@ -89,6 +97,7 @@ export const defaultConfig: SnowflakeProps = {
   rotationSpeed: [-1.0, 1.0],
   opacity: [1, 1],
   enable3DRotation: false,
+  rotation: [0, 360],
 }
 
 interface SnowflakeParams {
@@ -148,12 +157,12 @@ class Snowflake {
     this.updateConfig(config)
 
     // Setting initial parameters
-    const { radius, wind, speed, rotationSpeed, opacity, enable3DRotation } = this.config
+    const { radius, wind, rotation, speed, rotationSpeed, opacity, enable3DRotation } = this.config
 
     this.params = {
       x: random(0, canvas.offsetWidth),
       y: random(-canvas.offsetHeight, 0),
-      rotation: random(0, 360),
+      rotation: random(...rotation),
       radius: random(...radius),
       speed: random(...speed),
       wind: random(...wind),
@@ -193,6 +202,10 @@ class Snowflake {
       this.params.radius = random(...this.config.radius)
     }
 
+    if (this.params && !isEqual(this.config.rotation, previousConfig?.rotation)) {
+      this.params.rotation = random(...this.config.rotation)
+    }
+
     if (!isEqual(this.config.images, previousConfig?.images)) {
       this.selectImage()
     }
@@ -215,7 +228,7 @@ class Snowflake {
   }
 
   public update(offsetWidth: number, offsetHeight: number, framesPassed = 1): void {
-    const { x, y, rotation, rotationSpeed, nextRotationSpeed, wind, speed, nextWind, nextSpeed, radius } = this.params
+    const { x, y, rotationSpeed, nextRotationSpeed, wind, speed, nextWind, nextSpeed, radius } = this.params
 
     // Update current location, wrapping around if going off the canvas
     this.params.x = (x + wind * framesPassed) % (offsetWidth + radius * 2)
@@ -226,12 +239,14 @@ class Snowflake {
         this.params.opacity = random(...this.config.opacity)
         this.params.hasNextOpacity = false
       }
+      this.params.rotation = random(...this.config.rotation)
+
       this.params.y = -radius
     }
 
     // Apply rotation
     if (this.image || this.config.enable3DRotation) {
-      this.params.rotation = (rotation + rotationSpeed) % 360
+      this.params.rotation = (this.params.rotation + this.params.rotationSpeed * framesPassed) % 360
     }
 
     // Apply 3D rotation if enabled
