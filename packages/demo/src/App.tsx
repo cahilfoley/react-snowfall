@@ -14,13 +14,24 @@ snowflake.src = logo
 const images = [snowflake]
 
 const App = () => {
-  const { color, snowflakeCount, radius, speed, wind, useImages, opacity, enable3DRotation } = useSettingsStore()
+  const {
+    color,
+    rotationSpeed,
+    snowflakeCount,
+    radius,
+    speed,
+    wind,
+    useImages,
+    opacity,
+    enable3DRotation
+  } = useSettingsStore()
 
   return (
     <div className="app">
       <Snowfall
         color={color}
         snowflakeCount={snowflakeCount}
+        rotationSpeed={rotationSpeed}
         radius={radius}
         speed={speed}
         wind={wind}
